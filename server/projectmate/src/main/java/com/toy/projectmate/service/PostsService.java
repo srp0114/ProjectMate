@@ -48,4 +48,8 @@ public class PostsService {
     }
 
 
+    @Transactional
+    public int updateViewCount(Long id){
+        return postsRepository.updateViewCount(id);
+    }
 }

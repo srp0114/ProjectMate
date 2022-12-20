@@ -36,6 +36,7 @@ public class PostsApiController {
     @ApiOperation(value="게시물 조회")
     @GetMapping("/{id}")
     public ResponseEntity read(@PathVariable Long id){
+        postsService.updateViewCount(id); // view count ++
         return ResponseEntity.ok(postsService.findById(id));
     }
 

@@ -21,6 +21,7 @@ public class PostsDto {
         private int proceed_way;
         private int is_progress;
 
+
         public Posts toEntity(){ // dto -> entity
             Posts posts = Posts.builder()
                     .title(title)
@@ -48,6 +49,7 @@ public class PostsDto {
         private int is_progress;
         private String createdDate;
         private String modifiedDate;
+        private int view_count;
 
 
 
@@ -63,6 +65,7 @@ public class PostsDto {
             this.is_progress=entity.getIs_progress();
             this.createdDate = entity.getCreatedDate();
             this.modifiedDate = entity.getModifiedDate();
+            this.view_count = entity.getView_count();
         }
     }
 

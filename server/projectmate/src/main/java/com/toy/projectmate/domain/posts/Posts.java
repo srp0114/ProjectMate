@@ -46,7 +46,7 @@ public class Posts extends BaseTimeEntity {
     private int mark_count;
 
     @Builder
-    public Posts(String writer, String title, String content, String subject, String division, int people_num, int proceed_way, int is_progress) {
+    public Posts(String writer, String title, String content, String subject, String division, int people_num, int proceed_way, int is_progress, int view_count) {
         this.writer = writer;
         this.title = title;
         this.content = content;
@@ -55,6 +55,7 @@ public class Posts extends BaseTimeEntity {
         this.people_num = people_num;
         this.proceed_way = proceed_way;
         this.is_progress = is_progress;
+        this.view_count = view_count;
     }
 
     public void update(String title, String content, String subject, String division, int people_num, int proceed_way, int is_progress){

@@ -22,6 +22,7 @@ public class PostListDto {
     private int is_progress;
     private String createdDate;
     private String modifiedDate;
+    private int view_count;
 
     public PostListDto(Posts posts){
         this.id = posts.getId();
@@ -34,6 +35,7 @@ public class PostListDto {
         this.proceed_way = posts.getProceed_way();
         this.createdDate = posts.getCreatedDate();
         this.modifiedDate = posts.getModifiedDate();
+        this.view_count = posts.getView_count(); 
     }
 
 }
