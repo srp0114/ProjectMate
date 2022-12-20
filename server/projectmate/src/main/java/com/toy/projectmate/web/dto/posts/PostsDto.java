@@ -1,4 +1,4 @@
-package com.toy.projectmate.web.dto;
+package com.toy.projectmate.web.dto.posts;
 
 import com.toy.projectmate.domain.posts.Posts;
 import lombok.*;

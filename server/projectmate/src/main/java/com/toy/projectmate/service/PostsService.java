@@ -1,9 +1,11 @@
-package com.toy.projectmate.service.posts;
+package com.toy.projectmate.service;
 
 import com.toy.projectmate.domain.posts.Posts;
 import com.toy.projectmate.domain.posts.PostsRepository;
-import com.toy.projectmate.web.dto.PostsDto;
+import com.toy.projectmate.web.dto.posts.PostsDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,11 @@ public class PostsService {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         postsRepository.delete(posts);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Posts> pageList(Pageable pageable){
+        return postsRepository.findAll(pageable);
     }
 
 

@@ -2,7 +2,7 @@ package com.toy.projectmate.web;
 
 import com.toy.projectmate.domain.posts.Posts;
 import com.toy.projectmate.domain.posts.PostsRepository;
-import com.toy.projectmate.web.dto.PostsDto;
+import com.toy.projectmate.web.dto.posts.PostsDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
