@@ -35,7 +35,7 @@ public class PostListDto {
         this.proceed_way = posts.getProceed_way();
         this.createdDate = posts.getCreatedDate();
         this.modifiedDate = posts.getModifiedDate();
-        this.view_count = posts.getView_count(); 
+        this.view_count = posts.getView_count();
     }
 
 }

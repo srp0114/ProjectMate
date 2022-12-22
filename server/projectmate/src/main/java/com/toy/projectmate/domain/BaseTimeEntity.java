@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
-@MappedSuperclass
+@MappedSuperclass // 여러 엔티티가 상속 받음
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseTimeEntity {
 

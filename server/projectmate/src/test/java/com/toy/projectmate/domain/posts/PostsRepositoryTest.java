@@ -26,7 +26,7 @@ public class PostsRepositoryTest {
     }
 
     @Test
-    public void paging(){
+    public void 게시글_페이징_조회(){
         // given
         for(int i=0; i<10; i++){
             postsRepository.save(Posts.builder()

@@ -1,4 +1,4 @@
-package com.toy.projectmate.config;
+package com.toy.projectmate.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
