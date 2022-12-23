@@ -47,10 +47,11 @@
     padding-top: 10px;
     padding-left :20px;
     padding-bottom: 10px;
-    margin-left : 150px;
+    margin-left : 80px;
     margin-right : 600px;
     margin-bottom: 200px;
  }
+ 
   .sub-btn{
     width: 150px;
     height: 50px;
@@ -93,6 +94,14 @@
   .post{
     width: 300px;
     height: 450px;
+    border : 2px solid rgb(7, 135, 255);
+    border-radius: 30px;
+    margin-left: 30px;
+  }
+
+  .post:hover{
+    width: 310px;
+    height: 460px;
     border : 2px solid rgb(7, 135, 255);
     border-radius: 30px;
     margin-left: 30px;
