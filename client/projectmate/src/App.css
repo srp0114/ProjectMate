@@ -1,22 +1,5 @@
 .App {
-  margin-top: 5%;
-  margin-left:20%;
-  margin-right:20%;
-}
-
-.postingDay {
-  text-align: right;
-  color: gray;
-}
-
-.postingTitle {
-  text-align: left;
-}
-
-.postingInfo {
-  margin-bottom:5%;
-  margin-right:5%;
-  margin-left: 5%;
+  text-align: center;
 }
 
 .App-logo {
