@@ -1,0 +1,238 @@
+.header{
+    height: 100px;
+    display : flex;
+    padding-left: 120px;
+    padding-right: 120px;
+    padding-top: 30px;
+    justify-content: space-between;
+    margin-left : 150px;
+    margin-right : 150px;
+}
+
+.login-btn {
+    background: #4ca5fd;
+    height: 70px;
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    border-color: aliceblue;
+  }
+
+.btn-text{
+    color: white;
+    font-size: 38px;    
+}
+
+.menu {
+  width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  display: block;
+  color: white;
+  background-color:#07427e;
+  border-radius: 18px;
+}
+
+.list-component{
+  font-size: 20px;
+  padding: 5px;
+  font-family: Arial, sans-serif;
+}
+
+.list-component:hover{
+  background-color:white;
+  color: black;
+  border-radius: 8px;
+}
+
+.profile-btn{
+  background-color: white;
+  border:none;
+  font-size: 30px;
+}
+
+.home{
+}
+
+.btn-container{
+    text-align: left;
+    padding-left :20px;
+    padding-bottom: 10px;
+    margin-left : 150px;
+    margin-right : 150px;
+    border-bottom: 2px solid rgb(165, 204, 229);
+}
+
+.main-btn {
+    margin-left: 30px;
+    font-size: 35px;
+    color:#4ca5fd;
+    border: none;
+    background-color: white;
+}
+
+.main-btn:hover{
+  border-bottom:3px solid #4ca5fd;
+  
+}
+
+.sub-btn-container{   
+  text-align: left;
+  padding-left :20px;
+  padding-bottom: 10px;
+  margin-left : 80px;
+  margin-right : 600px;
+  margin-bottom: 200px;
+}
+ 
+.sub-btn{
+  width: 150px;
+  height: 50px;
+  color: rgb(62, 59, 243);
+  border-radius: 100px;
+  font-weight: 500;
+  background-color: aliceblue;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(60, 167, 255, 0.1),
+    4px 4px 5px 0px rgba(60, 167, 255, 0.1);
+  outline: none;
+  margin-left: 10px;
+  margin-top : 20px;
+  font-size: 20px;
+}
+
+.post-container{
+  padding-left :20px;
+  padding-bottom: 10px;
+  margin-left : 150px;
+  margin-right : 150px;
+  text-align: center;
+  display: flex;
+}
+
+.post-header{
+  margin-left : 150px;
+  margin-right : 150px;
+  text-align: left;
+  font-size: 30px;
+  color:#4ca5fd;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(165, 204, 229);
+  margin-bottom: 40px;
+}
+
+.post{
+  width: 300px;
+  height: 450px;
+  border : 2px solid rgb(7, 135, 255);
+  border-radius: 30px;
+  margin-left: 30px;
+}
+
+.post:hover{
+  width: 310px;
+  height: 460px;
+  border : 2px solid rgb(7, 135, 255);
+  border-radius: 30px;
+  margin-left: 30px;
+}
+
+.post-title{
+  margin-top: 10px;
+  padding : 5px;
+  font-size: 50px;
+  border-bottom: 1px solid black;
+  border-width: 100%;
+}
+
+.post-content{
+  padding-top:80px;
+  padding-bottom: 100px;
+}
+
+.post-footer{
+  border-top:1px solid black;
+  text-align: left;
+  padding :20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-photo{
+  width: 40px;
+  height: 40px;
+}
+
+.banner-container{
+  z-index: 1;
+  width: 100%;
+  height: 500px;
+  margin-bottom: 50px;
+  background-color: #4ca5fd;
+  text-align: center;
+  font-size: 50px;
+}
+
+.owner{
+  white-space: nowrap;
+}
+
+.owner-name{
+  text-align: center;
+  margin-left: auto; margin-right: auto;
+}
+
+.toggleSwitch {
+  width: 100px;
+  height: 50px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+  cursor: pointer;
+}
+
+ /* 토글 버튼 */
+.toggleSwitch .toggleButton {
+  /* 버튼은 토글보다 작아야함  */
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #005de9;
+}
+
+#toggle:checked ~ .toggleSwitch {
+  background:  #005de9;
+}
+
+#toggle:checked ~ .toggleSwitch .toggleButton {
+  left: calc(100% - 44px);
+  background: #fff;
+}
+
+.toggleSwitch, .toggleButton {
+  transition: all 0.2s ease-in;
+}
+
+.toggle-btn{
+  display: flex;
+  justify-content: right;
+  padding : 1% 10% 0% 10%;
+}
