@@ -3,11 +3,12 @@ import './style.css'
 import Header from './components/Header'
 import Home from './components/Home'
 import Banner from './components/Banner'
+import LoginHeader from './components/LoginHeader'
 function App() {
   return (
    <>
     <div className='header'>
-      <Header/>
+      <LoginHeader/>
     </div>
       <Banner/>
     <div className='home'>

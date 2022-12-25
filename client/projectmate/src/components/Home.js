@@ -8,6 +8,8 @@ import Grade4Button from './pages/Grade4Button';
 const Home=()=>{
     const [button, setButton] = useState('');
 
+    const [activeButton, setActive] = useState(false);
+
     const handleClickButton = e => {
         const name = e.target.value;
         setButton(name);
@@ -20,7 +22,6 @@ const Home=()=>{
         'grade3': <Grade3Button/>,
         'grade4': <Grade4Button/>
     };
-
     return(
         <>
             <div className='btn-container'>
@@ -30,8 +31,14 @@ const Home=()=>{
                 <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
+            <div className='toggle-btn'>
+                <h3 className='toggle-btn-name'>모집중</h3>
+                <input type="checkbox" id="toggle" hidden/> 
+                <label for="toggle" class="toggleSwitch">
+                <span class="toggleButton"></span>   
+                </label>
+            </div>
             {button &&<div className='sub-btn-container'>{selectComponent[button]}</div>}
-            <div className='post-header'></div>
         </>
     )
 }
