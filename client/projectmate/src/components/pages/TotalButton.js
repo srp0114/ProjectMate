@@ -1,5 +1,6 @@
 import React from 'react'
 import Post from '../Post'
+import testjson from '../jsonfolder/test.json'
 
 const totalButton =()=>{
     return(
@@ -9,7 +10,7 @@ const totalButton =()=>{
                     <button className='sub-btn'>웹프레임워크2</button>
             </div>
             <div className='post-container'>
-                <Post/>
+                <Post />
             </div>
         </>
     )

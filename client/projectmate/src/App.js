@@ -8,9 +8,8 @@ function App() {
   return (
    <>
     <div className='header'>
-      <LoginHeader/>
+      <Header/>
     </div>
-      <Banner/>
     <div className='home'>
       <Home/>
     </div>

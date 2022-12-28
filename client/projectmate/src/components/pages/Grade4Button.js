@@ -9,8 +9,6 @@ const Grade4Button =()=>{
                     <button className='sub-btn'>웹프레임워크2</button>
             </div>
             <div className='post-container'>
-                <Post/>
-                <Post/>
             </div>
         </>
     )
