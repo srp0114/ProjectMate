@@ -10,6 +10,7 @@ function App() {
     <div className='header'>
       <Header/>
     </div>
+    <Banner/>
     <div className='home'>
       <Home/>
     </div>

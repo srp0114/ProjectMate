@@ -8,9 +8,6 @@ const Grade2Button =()=>{
                     <button className='sub-btn'>객체지향언어1</button>
                     <button className='sub-btn'>객체지향언어2</button>
             </div>
-            <div className='post-container'>
-                <Post/>
-            </div>
         </>
     )
 }

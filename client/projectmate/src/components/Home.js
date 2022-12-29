@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import TotalButton from './pages/TotalButton';
 import Grade1Button from './pages/Grade1Button';
 import Grade2Button from './pages/Grade2Button';
 import Grade3Button from './pages/Grade3Button';
@@ -10,55 +9,98 @@ import Post from './Post';
 
 const Home=()=>{
     const [button, setButton] = useState('');
-    const [activeButton, setActive] = useState(false);
+
     const [posts, setPosts] = useState([]);
 
-    const [page, setPage]= useState(0);
+    const [page, setPage]= useState();
     const [loading, setLoading] = useState(false);
-    
     const [ref, inView] = useInView();
 
+    const [subject, setSubject] = useState('');
+    const [s_btn, setS_btn] = useState(false);
+    const [division, setDivision] = useState('');
+    const [is_progress, setProgress] = useState(1);
+
+    const div =['A','B','N','1'];
+
+    const Button = (props) =>{          //props.name,  props.func
+        return(
+            <>
+                <button className='sub-btn' onClick={props.func} value={props.name}>{props.name}</button>
+            </>
+        )
+    }
+    //학년버튼
     const handleClickButton = e => {
         const name = e.target.value;
         setButton(name);
+        setS_btn(false);
     };
+    //전체버튼
+    const handleClickTotalButton = e =>{
+        setS_btn(false);
+    }
+    //서브젝트 버튼
+    const handleClickSubjectButton = e =>{
+        setSubject(e.value);
+        setS_btn(true);
+    }
+
+    //분반 버튼
+    const handleClickDivisionButton = e =>{
+        setDivision(e.value);
+    }
+
+    //모집중 버튼 : 토글버튼 이용
+    const handleClickProgressButton = e =>{
+        if(e.target.checked){
+            setProgress(1);
+        }
+        else{
+            setProgress(0);
+        }
+    }
 
     const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
-        'total' : <TotalButton/>,
-        'grade1': <Grade1Button/>,
-        'grade2': <Grade2Button/>,  
-        'grade3': <Grade3Button/>,
-        'grade4': <Grade4Button/>
+        'grade1': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
+        'grade2': ['컴퓨터구조', '자료구조', '객체지향언어1'],
+        'grade3': ['웹프웤1', '가상현실'],
+        'grade4': ['웹프웤2', '캡스톤디자인']
     };
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
         setLoading(true);
-        axios.get(`http://localhost:8080/post/postList/filtering?subject=웹&division=B&is_progress=1&page=${page}&size=1`)
-        .then((response)=>{setPosts(prevState=>[...prevState, response.data.content])})
-        .catch((error)=>console.log(error.response.data))
+        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}&page=${page}&size=4`)
+        .then((response)=>{
+            setPosts(prevState=>[...prevState, ...response.data.content])
+        })
+        .catch((error)=>console.log(error.response.data));
         setLoading(false);
-    },[page])
+    },[subject,division,is_progress,page])
 
     useEffect(()=>{
-        getPost()
+        getPost();
     },[getPost])
 
     useEffect(()=>{
         if(inView&&!loading){
-            setPage(prevState => prevState+1)
+            setPage((prevState)=>prevState+1);
         }
     },[inView, loading])
 
     return(
         <>
             <div className='btn-container'>
-                <button className='main-btn' onClick={handleClickButton} value={'total'}>전체</button>
+                <button className='main-btn' onClick={handleClickTotalButton}>전체</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade1'}>1학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade2'}>2학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
+            <div className='sub-btn-container'>
+                {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
+                
             <div className='toggle-btn'>
                 <h3 className='toggle-btn-name'>모집중</h3>
                 <input type="checkbox" id="toggle" hidden/> 
@@ -66,9 +108,15 @@ const Home=()=>{
                 <span class="toggleButton"></span>   
                 </label>
             </div>
-            {button &&<div className='sub-btn-container'>{selectComponent[button]}</div>}
-            <div className='post-container'>{posts.length}{posts.map((inform)=>(<Post title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
-            <div className='observer' ref={ref}>옵저버</div>
+            <div className='division-btn'>
+                {s_btn&&
+                <div className='division-btn'>
+                    {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
+                </div>}
+            </div>
+            </div>
+            <div className='post-container'>{posts.map((post,i)=>{if(post){return posts.length-1==i?((<Post title={post.title} {...post} ref={ref}/>)):(<Post title={post.title} {...post}/>)}})}</div>
+            <div ref={ref}></div>
             </>
     )
 }

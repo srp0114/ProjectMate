@@ -28,9 +28,6 @@ const Grade1Button =()=>{
             <div className='division-container'>
                 <Division name={'hi'}/>
             </div>
-            <div className='post-container'>
-                <Post/>
-            </div>
         </>
     )
 }

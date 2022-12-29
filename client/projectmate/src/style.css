@@ -63,30 +63,31 @@
 }
 
 .btn-container{
-    text-align: left;
-    padding-left :20px;
-    padding-bottom: 10px;
-    margin-left : 150px;
-    margin-right : 150px;
-    border-bottom: 2px solid rgb(165, 204, 229);
+  text-align: left;
+  padding-left :20px;
+  padding-bottom: 10px;
+  margin-left : 150px;
+  margin-right : 150px;
+  border-bottom: 2px solid rgb(165, 204, 229);
 }
 
 .main-btn {
-    margin-left: 30px;
-    font-size: 35px;
-    color:#4ca5fd;
-    border: none;
-    background-color: white;
+  margin-bottom: 3px;
+  display: inline-block;
+  margin-left: 30px;
+  font-size: 35px;
+  color:#4ca5fd;
+  border: none;
+  background-color: white;
 }
 
 .main-btn:hover{
   border-bottom:3px solid #4ca5fd;
-  
 }
 
 .sub-btn-container{   
   text-align: left;
-  padding-left :20px;
+  padding-left :5%;
   padding-bottom: 10px;
   margin-left : 80px;
   margin-right : 600px;
@@ -116,7 +117,10 @@
     width: 90%;
     justify-items: center;
     text-align: center;
-    margin-left: 90px
+    margin-left: 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: start;
 }
 
 .post-header{

@@ -3,7 +3,7 @@ import React from 'react'
 const Division = (props)=>{
     return(
         <div>
-            <button className='sub-b<div>'>{props.name}</button>
+            <button>{props.name}</button>
         </div>
 )
 }
