@@ -1,4 +1,5 @@
-import './components/css/Details.css';
+//import '../css/Details.css';
+import './components/css/Details.css'
 import {React, useState} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input } from 'antd';
@@ -20,7 +21,7 @@ function App() {
   const [date, setDate] = useState([]);
   var config = {
     method: 'get',
-    url: 'http://localhost:8080/post/4',
+    url: 'http://localhost:8080/post/1',
     headers: { }
   };
 
@@ -55,7 +56,7 @@ function App() {
       </Space>
       <Divider/>
       <div className="postingInfo">
-        <Space align="center" size={235}>
+        <Space align="center" size={300}>
           <Space align="center" size={100}>
             <Title level={4}>과목명</Title>
             <Title level={4}>{subject}</Title>
@@ -65,7 +66,7 @@ function App() {
             <Title level={4}>{division}</Title>
           </Space>
         </Space>
-        <Space align="center" size={315}>
+        <Space align="center" size={357}>
           <Space align="center" size={85}>
             <Title level={4}>모집인원</Title>
             <Title level={4}>{peopleNum}</Title>
@@ -79,10 +80,14 @@ function App() {
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />
       <br/>
       <br/>
-      <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} style={{resize: 'none', border:'none', fontSize:'18px'}}
-      value={content}/>
+      <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
+                style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/>
+       <p>{posting}</p>
+       
+      <br/>
+      <Divider/>
+      <Title level={2} className="postingTitle">댓글</Title>
     </div>
-    <p>{posting}</p>
     </>
   );
 }
