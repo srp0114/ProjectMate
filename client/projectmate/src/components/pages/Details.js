@@ -1,6 +1,6 @@
 //import '../css/Details.css';
 import './components/css/Details.css'
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input } from 'antd';
 import axios from 'axios';
@@ -19,30 +19,27 @@ function App() {
   const [proceedWay, setProceedWay] = useState([]);
   const [isProgress, setIsProgress] = useState([]);
   const [date, setDate] = useState([]);
-  var config = {
-    method: 'get',
-    url: 'http://localhost:8080/post/1',
-    headers: { }
-  };
 
-  axios(config)
-  .then(function (response) {
-    setPosting(JSON.stringify(response.data));
-    setTitle(JSON.stringify(response.data.title));
-    setContent(JSON.stringify(response.data.content));
-    setWriter(JSON.stringify(response.data.writer));
-    setSubject(JSON.stringify(response.data.subject));
-    setDivision(JSON.stringify(response.data.division));
-    setPeopleNum(JSON.stringify(response.data.people_num));
-    setProceedWay(JSON.stringify(response.data.proceed_way));
-    setIsProgress(JSON.stringify(response.data.is_progress));
-    setDate(JSON.stringify(response.data.modifiedDate));
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  }); 
-
+  useEffect (() => {
+    axios
+    .get('http://localhost:8080/post/1')
+	  .then(function(response) {
+	    setPosting(JSON.stringify(response.data));
+	    setTitle(response.data.title);
+	    setContent(response.data.content);
+	    setWriter(response.data.writer);
+	    setSubject(response.data.subject);
+	    setDivision(response.data.division);
+	    setPeopleNum(response.data.people_num);
+	    setProceedWay(response.data.proceed_way);
+	    setIsProgress(response.data.is_progress);
+	    setDate(response.data.modifiedDate);
+	    console.log(JSON.stringify(response.data));
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  }); 
+  }, [])
 
   return (
     <>
