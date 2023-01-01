@@ -2,7 +2,7 @@
 import './components/css/Details.css'
 import {React, useState, useEffect} from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Divider, Space, Typography, Input } from 'antd';
+import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
 
 const { Title, Text } = Typography;
@@ -22,7 +22,7 @@ function App() {
 
   useEffect (() => {
     axios
-    .get('http://localhost:8080/post/1')
+    .get('http://localhost:8080/post/2')
 	  .then(function(response) {
 	    setPosting(JSON.stringify(response.data));
 	    setTitle(response.data.title);
@@ -40,6 +40,14 @@ function App() {
 	    console.log(error);
 	  }); 
   }, [])
+
+  const DeletePosting = () => {
+    axios.delete("http://localhost:8080/post/1")
+        .then(response => console.log('게시글 삭제 성공'))
+        .catch(error => {
+            console.error(error);
+    });
+  }
 
   return (
     <>
@@ -84,6 +92,7 @@ function App() {
       <br/>
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
+      <Button onClick={DeletePosting}>삭제하기</Button>
     </div>
     </>
   );
