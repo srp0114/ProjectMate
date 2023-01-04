@@ -1,14 +1,14 @@
-//import '../css/Details.css';
-import './components/css/Details.css'
+import '../css/Details.css'
 import {React, useState, useEffect} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
+import Comments from './Comments';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-function App() {
+const Details=()=> {
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
@@ -92,10 +92,13 @@ function App() {
       <br/>
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
+      <div>
+        <Comments/>
+      </div>
       <Button onClick={DeletePosting}>삭제하기</Button>
     </div>
     </>
   );
 }
 
-export default App;
+export default Details;

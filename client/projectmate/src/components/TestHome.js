@@ -2,14 +2,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Post from './Post';
+import TestPost from './TestPost'
 
-const Home=()=>{
+const TestHome=()=>{
     const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
 
-    const [page, setPage]= useState();
+    const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
+    
     const [ref, inView] = useInView();
 
     const [subject, setSubject] = useState('');
@@ -67,21 +69,21 @@ const Home=()=>{
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
         setLoading(true);
-        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}&page=${page}&size=4`)
+        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`)
         .then((response)=>{
-            setPosts(prevState=>[...prevState, ...response.data.content])
+            setPosts(prevState=>[...prevState, response.data.content])
         })
         .catch((error)=>console.log(error.response.data));
         setLoading(false);
-    },[subject,division,is_progress,page])
+    },[page])
 
     useEffect(()=>{
-        getPost();
+        getPost()   
     },[getPost])
 
     useEffect(()=>{
         if(inView&&!loading){
-            setPage((prevState)=>prevState+1);
+            setPage(prevState => prevState+1)
         }
     },[inView, loading])
 
@@ -94,15 +96,18 @@ const Home=()=>{
                 <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
+
             <div className='sub-btn-container'>
-                {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
-                
-            <div className='toggle-btn'>
-                <h3 className='toggle-btn-name'>모집중</h3>
-                <input type="checkbox" id="toggle" hidden/> 
-                <label for="toggle" class="toggleSwitch">
-                <span class="toggleButton"></span>   
-                </label>
+                <div>
+                    {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
+                </div>
+                <div className='toggle-btn'>
+                    <h3 className='toggle-btn-name'>모집중</h3>
+                    <input type="checkbox" id="toggle" hidden/> 
+                    <label for="toggle" class="toggleSwitch">
+                    <span class="toggleButton"></span>   
+                    </label>
+                </div>
             </div>
             <div className='division-btn'>
                 {s_btn&&
@@ -110,11 +115,9 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            </div>
-            <div className='post-container'>{posts.map((post,i)=>{if(post){return posts.length-1==i?((<Post title={post.title} {...post} ref={ref}/>)):(<Post title={post.title} {...post}/>)}})}</div>
-            <div ref={ref}></div>
+            <div className='post-container'><TestPost/><TestPost/><TestPost/><TestPost/>{posts.map((inform)=>(<TestPost title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
+
             </>
     )
 }
-
-export default Home;
+export default TestHome;
