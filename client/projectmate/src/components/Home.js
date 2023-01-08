@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { AiOutlinePlus } from 'react-icons/ai'
 import axios from 'axios';
 import Post from './Post';
 
@@ -8,14 +9,18 @@ const Home=()=>{
 
     const [posts, setPosts] = useState([]);
 
-    const [page, setPage]= useState();
+    const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
+    
     const [ref, inView] = useInView();
 
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
-    const [is_progress, setProgress] = useState(1);
+    const [is_progress, setProgress] = useState(0);
+
+    const [ScrollY, setScrollY] = useState(0);
+    const [BtnStatus, setBtnStatus] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -32,19 +37,20 @@ const Home=()=>{
         setButton(name);
         setS_btn(false);
     };
+    
     //전체버튼
     const handleClickTotalButton = e =>{
         setS_btn(false);
     }
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
-        setSubject(e.value);
+        setSubject(e.target.value);
         setS_btn(true);
     }
 
     //분반 버튼
     const handleClickDivisionButton = e =>{
-        setDivision(e.value);
+        setDivision(e.target.value);
     }
 
     //모집중 버튼 : 토글버튼 이용
@@ -67,23 +73,55 @@ const Home=()=>{
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
         setLoading(true);
-        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}&page=${page}&size=4`)
+        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`)
         .then((response)=>{
-            setPosts(prevState=>[...prevState, ...response.data.content])
+            setPosts(response.data.content)
+            console.log(posts)
         })
         .catch((error)=>console.log(error.response.data));
         setLoading(false);
     },[subject,division,is_progress,page])
 
     useEffect(()=>{
-        getPost();
+        getPost()   
     },[getPost])
 
-    useEffect(()=>{
-        if(inView&&!loading){
-            setPage((prevState)=>prevState+1);
+    //top버튼
+    const handleFollow = () => {
+        setScrollY(window.pageYOffset);
+        if (ScrollY > 100) {
+          // 100 이상이면 버튼이 보이게
+          setBtnStatus(true);
+        } else {
+          // 100 이하면 버튼이 사라지게
+          setBtnStatus(false);
         }
-    },[inView, loading])
+      };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+    
+      const handleTop = () => {
+        // 클릭하면 스크롤이 위로 올라가는 함수
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setScrollY(0); // ScrollY 의 값을 초기화
+        setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
+      };
+    
+      useEffect(() => {
+        const watch = () => {
+          window.addEventListener("scroll", handleFollow);
+        };
+        watch();
+        return () => {
+          window.removeEventListener("scroll", handleFollow);
+        };
+      });
+    
 
     return(
         <>
@@ -94,15 +132,18 @@ const Home=()=>{
                 <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
+
             <div className='sub-btn-container'>
-                {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
-                
-            <div className='toggle-btn'>
-                <h3 className='toggle-btn-name'>모집중</h3>
-                <input type="checkbox" id="toggle" hidden/> 
-                <label for="toggle" class="toggleSwitch">
-                <span class="toggleButton"></span>   
-                </label>
+                <div>
+                    {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
+                </div>
+                <div className='toggle-btn'>
+                    <h3 className='toggle-btn-name'>모집중</h3>
+                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden/> 
+                    <label for="toggle" class="toggleSwitch">
+                    <span class="toggleButton"/>   
+                    </label>
+                </div>
             </div>
             <div className='division-btn'>
                 {s_btn&&
@@ -110,10 +151,12 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            </div>
-            <div className='post-container'>{posts.map((post,i)=>{if(post){return posts.length-1==i?((<Post title={post.title} {...post} ref={ref}/>)):(<Post title={post.title} {...post}/>)}})}</div>
-            <div ref={ref}></div>
+            <div className='post-container'>{posts.map((inform)=>(<Post title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
+            <div className='footer-url'>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
+            <div><button className='adder-btn'><AiOutlinePlus size='47' color='#4ca5fd'/></button>
+            <button className='top-btn'><span className='top-text'>TOP</span></button></div>
             </>
+            
     )
 }
 
