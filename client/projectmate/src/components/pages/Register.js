@@ -1,112 +1,189 @@
-import React from 'react';
-import { Typography, Button, Checkbox, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Divider, Typography, Select, Space, Input, Button } from 'antd';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from 'axios';
 import "./components/css/Details.css"
+//import "../css/Deatils.css"
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
+
+const subjectData = ['웹프레임워크1', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
+const divisionData = {
+  웹프레임워크1: ['A', 'B', 'N'],
+  캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
+  고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
+  데이터베이스설계: ['A', 'B', 'N'],
+};
+
+const peopleNumData = [];
+for (let i = 1; i < 11; i++) {
+  peopleNumData.push({
+    value: i,
+    label: i + "명",
+  });
+}
 
 function App() {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+
+  const [post, setPost] = useState({
+    "title":'',
+    "content":'',
+    "writer":'writer',
+    "subject":'',
+    "division":'',
+    "people_num":0,
+    "proceed_way":'',
+    "is_progress":1
+  })
+
+  var config = {
+    method: 'post',
+    url: 'http://localhost:8080/post',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : post
   };
 
+  const submit = () => {
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
+
+  const getValue = e => {
+    const { name, value } = e.target;
+    setPost({
+      ...post,
+      [name]: value
+    })
+  };
+
+  const [subject, setSubject] = useState(divisionData[subjectData[0]]);
+  const [division, setDivision] = useState(divisionData[subjectData[0]][0]);
+
+  const subjectChange = (value) => {
+    setSubject(divisionData[value]);
+    setDivision(divisionData[value][0]);
+    setPost({
+      ...post,
+      ["subject"]: value
+    })  
+  };
+
+  const divisionChange = (value) => {
+    setDivision(value);
+    setPost({
+      ...post,
+      ["division"]: value
+    }) 
+  };
+  
   return (
-    <>   
     <div className="posting">
-    <Title level={2}>회원가입</Title>
-    <Form
-      name="large"
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 8,
-      }}
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="학번"
-        name="ID"
-        rules={[
-          {
-            required: true,
-            message: '학번을 입력해주세요.',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="비밀번호"
-        name="Password"
-        rules={[
-          {
-            required: true,
-            message: '비밀번호를 입력해주세요.',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="한성대학교 이메일"
-        name="Email"
-        rules={[
-          {
-            required: true,
-            message: '한성대학교 이메일을 입력해주세요.',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="닉네임"
-        name="Nickname"
-        rules={[
-          {
-            required: true,
-            message: '닉네임을 입력해주세요.',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>로그인 상태 유지</Checkbox>
-      </Form.Item>
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          가입하기
-        </Button>
-      </Form.Item>
-    </Form>
+      <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
+        <Title level={5}>과목명</Title>
+        <Select
+          key="subject"
+          size='large'
+          defaultValue="과목명"
+          style={{
+            width: 350,
+          }}
+          onChange={subjectChange}
+          options={subjectData.map((subject) => ({
+            label: subject,
+            value: subject,
+          }))}
+        />
+        <Title level={5}>분반</Title>
+        <Select
+          size='large'
+          defaultValue='분반'
+          style={{
+            width: 350,
+          }}
+          onChange={divisionChange}
+          options={subject.map((division) => ({
+            label: division,
+            value: division,
+          }))}
+        />
+        <Title level={5}>모집인원</Title>
+        <Select
+          size='large'
+          defaultValue='인원'
+          style={{
+            width: 350,
+          }}
+          onChange={(value) => setPost({
+            ...post,
+            ["people_num"]: value
+          })}
+          options={peopleNumData}
+        />
+        <Title level={5}>진행방식</Title>
+        <Select
+          size='large'
+          defaultValue='진행방식'
+          style={{
+            width: 350,
+          }}
+          onChange={(value) => setPost({
+            ...post,
+            ["proceed_way"]: value
+          })}
+          options={[
+            {
+              value: '오프라인',
+              label: '오프라인',
+            },
+            {
+              value: '온라인',
+              label: '온라인',
+            },
+          ]}
+        />
+      <Divider/>
+      <Title level={2}>프로젝트를 소개해주세요</Title>
+      <Title level={5}>제목</Title>
+      <Input size="large" name="title" onChange={getValue} placeholder="제목을 입력해주세요." /> 
+      <br/>
+      <br/>
+      <CKEditor
+          editor={ ClassicEditor }
+          defaultValue="내용을 입력해주세요."
+          onReady={ editor => {
+              // You can store the "editor" and use when it is needed.
+              console.log( 'Editor is ready to use!', editor );
+          } }
+          onChange={ ( event, editor ) => {
+              const data = editor.getData();
+              console.log( { event, editor, data } );
+              setPost({
+                ...post,
+                content: data
+              })
+          } }
+          onBlur={ ( event, editor ) => {
+              console.log( 'Blur.', editor );
+          } }
+          onFocus={ ( event, editor ) => {
+              console.log( 'Focus.', editor );
+          } }
+      />
+      <br/>
+      <Button onClick={submit}>작성하기</Button>
+      <br/>
+      <br/>
+      <br/>
     </div>
-    </>
   );
-};
+}
+
 export default App;

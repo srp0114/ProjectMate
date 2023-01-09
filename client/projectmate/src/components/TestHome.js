@@ -5,7 +5,7 @@ import Header from './Header'
 import TestPost from './TestPost'
 import Banner from './Banner'
 
-const Home=()=>{
+const TestHome=()=>{
     const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
@@ -132,4 +132,4 @@ const Home=()=>{
             
     )
 }
-export default Home;
+export default TestHome;
