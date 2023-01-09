@@ -7,9 +7,6 @@ import LoginHeader from './components/LoginHeader'
 function App() {
   return (
    <>
-    <div className='header'>
-      <Header/>
-    </div>
     <div className='home'>
       <Home/>
     </div>
