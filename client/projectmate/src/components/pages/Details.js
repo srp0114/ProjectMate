@@ -22,7 +22,7 @@ const Details=()=> {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   
-  const auth = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk4Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzE4ODQxOSwiZXhwIjoxNjczMTkyMDE5fQ.LVST7S_2vDELk8i_ckg4Zo6cBdgWS3VNkJy1qBW4AJY';
+  const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzM1MzQ2OSwiZXhwIjoxNjczMzU3MDY5fQ.sLUK11lByaPftQG1hrKfkz_I56NizY3VJDPbGmHqGpA';
   const method = 'get';
   
   var config = {
@@ -50,7 +50,7 @@ const Details=()=> {
 	    setDate(response.data.modifiedDate);
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
-	    console.log(JSON.stringify(response.data.content));
+	    console.log(commentList);
 	  })
 	  .catch(function (error) {
 	    console.log(error);
@@ -108,7 +108,7 @@ const Details=()=> {
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
       <div>
-        <Comments list={commentList} postId={postId}/>
+        <Comments commentList={commentList}/>
       </div>
       <Button onClick={DeletePosting}>삭제하기</Button>
     </div>

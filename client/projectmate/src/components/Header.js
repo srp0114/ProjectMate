@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import '../style.css';
 import Modal from 'react-modal'
 import axios from 'axios';
-import Home from './Home';
 
 const Header=(props)=>{
 
     const [modalOpen, setModalOpen] = useState(false);
     const [id, setId]= useState('');
     const [pw, setPw]= useState('');
-
-    function sendAuth(token){
-        props.setAuth(token);
-    }
 
     const idHandler = e =>{
         setId(e.target.value);
@@ -29,10 +24,15 @@ const Header=(props)=>{
         var url = `http://localhost:8080/member/sign-in?id=${id}&password=${pw}`
         await axios.post(url).then(
             (response)=>{
-                sendAuth(JSON.stringify(response.data.token));
+                //sendAuth(JSON.stringify(response.data.token));
+                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('nickname',response.data.nickname)
+                window.location.reload();
             }
-        ).catch(console.log("토큰 획득 실패..~"))
-        setModalOpen(false);
+        ).catch(response => {
+            console.log("토큰 획득 실패..~")
+            //alert 띄우기
+        })
     }
 
     const showModal = () =>{

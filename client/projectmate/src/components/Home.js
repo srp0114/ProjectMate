@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Header from './Header'
-import TestPost from './TestPost'
+import LoginHeader from './LoginHeader'
+import Post from './Post'
 import Banner from './Banner'
 
 const Home=()=>{
@@ -11,7 +12,7 @@ const Home=()=>{
     const [posts, setPosts] = useState([]);
 
     const [auth, setAuth]=useState('');
-
+    const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
     
@@ -63,6 +64,11 @@ const Home=()=>{
         }
     }
 
+    const setLogin = () => {
+        if(localStorage.length>=2)
+            setIsLogin(true)
+    }
+
     const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
         'grade1': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         'grade2': ['컴퓨터구조', '자료구조', '객체지향언어1'],
@@ -86,15 +92,16 @@ const Home=()=>{
         getPost()   
     },[getPost])
 
-
     useEffect(()=>{
-        console.log(auth)
-      },[auth])
+        if(localStorage.length>=2){
+            setIsLogin(true);
+        }
+    })
 
     return(
         <>
             <div className='header'>
-                <Header setAuth={setAuth}/>
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')} /> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
@@ -125,7 +132,7 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            <div className='post-container'>{posts.map((inform)=>(<TestPost title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
+            <div className='post-container'>{posts.map((inform)=>(<Post title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
             <div>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
             <div>{auth}</div>
             </>

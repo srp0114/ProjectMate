@@ -4,41 +4,45 @@ import axios from 'axios';
 
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
-    const [commentList, setCommentList] = useState(props.list);
 
-    const auth = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk4Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzE4ODQxOSwiZXhwIjoxNjczMTkyMDE5fQ.LVST7S_2vDELk8i_ckg4Zo6cBdgWS3VNkJy1qBW4AJY';
-    const method = 'get';
+    const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzM1MzQ2OSwiZXhwIjoxNjczMzU3MDY5fQ.sLUK11lByaPftQG1hrKfkz_I56NizY3VJDPbGmHqGpA';
 
-    const postComment =()=>{
-        const json ={
-            "comment" : `${comment}`,
-            "parentId" : 1,
+    const postComment =async()=>{
+        var config = {
+            method: `post`,
+            url: `/comment/1`,
+            headers: { 
+              'Authorization': `${auth}`,
+              'Content-Type': 'application/json'
+            },
+            data : {
+            "content" : `${comment}`,
+            "parentId" : null,
             "secret" : 0
-        }   
-        axios.post(`http://localhost:8080/comment/${props.postId}`,json).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
-        setComment('');
-        console.log(json);
-    }
-    
-    var config = {
-        method: `${method}`,
-        url: '/post/1',
-        headers: { 
-          'Authorization': `${auth}`,
-          'Content-Type': 'application/json'
-        },
-      };
+            }
+          };
 
+        await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
+        setComment('');
+        console.log(' !!?!');
+    }
 
     //수정
-    
 
     useEffect(()=>{
+        var config = {
+            method: `get`,
+            url: '/comment/1',
+            headers: { 
+              'Authorization': `${auth}`,
+              'Content-Type': 'application/json'
+            },
+          };
+
         axios.get(config.url).then((response)=>{
-            setCommentList([response.data])
             console.log(response.data) 
         });
-    },[])
+    },[comment])
 
     const commentHandler = (e) =>{
         setComment(e.target.value);
@@ -52,8 +56,8 @@ const Comments = (props) =>{
                 <button className='comment-btn' onClick={postComment}>댓글 등록</button>
             </div>
             <div className='comments-container'>
-                {commentList.map((comment, key)=>(
-                    <Comment name={comment.name} comment={comment.comment} key={comment}/>          //key값은??
+                {props.commentList.map((comment)=>(
+                    <Comment {...comment}/>          //key값은??
                 ))}
             </div>
         </>
