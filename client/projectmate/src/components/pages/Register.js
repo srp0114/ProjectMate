@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 import { Typography, Button, Checkbox, Form, Input } from 'antd';
-import "./components/css/Details.css"
+import "../css/Details.css"
 import axios from 'axios';
 
 const { Title, Text } = Typography;
