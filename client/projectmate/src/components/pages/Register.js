@@ -3,10 +3,25 @@ import { Typography, Button, Checkbox, Form, Input } from 'antd';
 import "./components/css/Details.css"
 import axios from 'axios';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
+
+const subjectData = ['웹프레임워크1', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
+const divisionData = {
+  웹프레임워크1: ['A', 'B', 'N'],
+  캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
+  고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
+  데이터베이스설계: ['A', 'B', 'N'],
+};
+
+const peopleNumData = [];
+for (let i = 1; i < 11; i++) {
+  peopleNumData.push({
+    value: i,
+    label: i + "명",
+  });
+}
 
 function App() {
-
   const [studentID, setStudentID] = useState("");
   const [Password, setPassword] = useState("");
   const [CheckedPassword, setCheckedPassword] = useState("");
@@ -161,7 +176,7 @@ function App() {
       </Form.Item>
     </Form>
     </div>
-    </>
   );
-};
+}
+
 export default App;

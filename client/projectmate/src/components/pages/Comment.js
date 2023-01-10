@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import axios from 'axios';
+import React, {useEffect, useState} from 'react'
+import SubComment from './SubComment';
 
 const Comment =(props) =>{
     const [isHover, setIsHover] = useState(false);
@@ -14,19 +16,36 @@ const Comment =(props) =>{
         setSubComment('');
         setInput(false);
     }
+
+    const DeleteComment = e =>{
+        axios.delete(`http://localhost:8080/post/${e.target.key}`)
+        .then(response => console.log('게시글 삭제 성공'))
+        .catch(error => {
+            console.error(error);
+    });
+    }
+
     return(
         <>
             <div className='comment' onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
-                <p className='writer-content'><span className='writer'>{props.name}</span>
+                <p className='writer-content'><span className='writer'>{props.writer_nickname}</span>
                 {isHover && <div className='comment-sub-btn-container'>
                     <button onClick={clickHandler} className='comment-btns'>답글</button>
-                    <button className='comment-btns'>수정</button>
-                    <button className='comment-btns'>삭제</button>
+                    {props.isWriter && <>
+                        <button className='comment-btns'>수정</button>
+                        <button className='comment-btns' key={props.key} onClick={DeleteComment} >삭제</button>
+                    </>
+                    }
                     </div>}</p>
-                <p className='comment-content'><span>{props.comment}</span></p>
+                <p className='comment-content'><span>{props.content}</span></p>
                 {input && <div className='sub-comment-input-container'>
-                    <input className='sub-comment-input' type="text" placeholder='답글을 다세요~' value={subComment} onChange={(e)=>setSubComment(e.target.value)}/><button className='sub-comment-btn' onClick={postSubComment}>답글달기</button>
+                    <input className='sub-comment-input' type="text" placeholder='답글을 쓰세요~' value={subComment} onChange={(e)=>setSubComment(e.target.value)}/><button className='sub-comment-btn' onClick={postSubComment}>답글달기</button>
                     </div>}
+                <div>
+                    {props.commentList.map((subcomment)=>(
+                        <SubComment {...subcomment}/>
+                    ))}
+                </div>
             </div>
         </>
     )
