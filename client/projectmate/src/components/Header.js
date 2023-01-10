@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'
 import '../style.css';
 import Modal from 'react-modal'
 import axios from 'axios';
@@ -54,7 +55,7 @@ const Header=(props)=>{
                             <p className='login-input-components'><span className='login-input-text'>비밀번호</span><input type='password' className='login-input' onChange={pwHandler}/></p>
                         </div>
                         <p><button className='login-modal-btn' onClick={submit}><span className='login-btn-text'>로그인</span></button></p>
-                        <p>아이디가 없으신가요? <a href='../components/'>회원가입</a></p>
+                        <p>아이디가 없으신가요? <Link to="/register">회원가입</Link></p>
                         <p><button className='login-etc-btn'>ID 찾기</button><a className='etc-outline'/><button className='login-etc-btn'>비밀번호 찾기</button></p>
                     </div>
                 </Modal>

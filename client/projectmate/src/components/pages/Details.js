@@ -1,5 +1,6 @@
 import '../css/Details.css'
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
@@ -8,7 +9,7 @@ import Comments from './Comments';
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-const Details=()=> {
+const Details = () => {
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
@@ -22,16 +23,14 @@ const Details=()=> {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   
-  const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzM1MzQ2OSwiZXhwIjoxNjczMzU3MDY5fQ.sLUK11lByaPftQG1hrKfkz_I56NizY3VJDPbGmHqGpA';
-  const method = 'get';
-  
+  const {id} = useParams();
+
   var config = {
-    method: `${method}`,
-    url: '/post/1',
+    method: 'get',
+    url: `http://localhost:8080/post/${id}`,
     headers: { 
-      'Authorization': `${auth}`,
-      'Content-Type': 'application/json'
-    },
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
   };
 
   useEffect (() => {
@@ -56,15 +55,6 @@ const Details=()=> {
 	    console.log(error);
 	  }); 
   }, [])
-
-  const DeletePosting = () => {
-    method=`delete`;
-    axios(config)
-        .then(response => console.log('게시글 삭제 성공'))
-        .catch(error => {
-            console.error(error);
-    });
-  }
 
   return (
     <>
@@ -110,7 +100,7 @@ const Details=()=> {
       <div>
         <Comments commentList={commentList}/>
       </div>
-      <Button onClick={DeletePosting}>삭제하기</Button>
+      <Button>삭제하기</Button>
     </div>
     </>
   );
