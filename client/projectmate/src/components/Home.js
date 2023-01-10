@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { AiOutlinePlus } from 'react-icons/ai'
 import axios from 'axios';
-import Post from './Post';
+import Header from './Header'
+import LoginHeader from './LoginHeader'
+import Post from './Post'
+import Banner from './Banner'
 
 const Home=()=>{
     const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
 
+    const [auth, setAuth]=useState('');
+    const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
     
@@ -18,9 +22,6 @@ const Home=()=>{
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
     const [is_progress, setProgress] = useState(0);
-
-    const [ScrollY, setScrollY] = useState(0);
-    const [BtnStatus, setBtnStatus] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -63,6 +64,11 @@ const Home=()=>{
         }
     }
 
+    const setLogin = () => {
+        if(localStorage.length>=2)
+            setIsLogin(true)
+    }
+
     const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
         'grade1': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         'grade2': ['컴퓨터구조', '자료구조', '객체지향언어1'],
@@ -86,45 +92,20 @@ const Home=()=>{
         getPost()   
     },[getPost])
 
-    //top버튼
-    const handleFollow = () => {
-        setScrollY(window.pageYOffset);
-        if (ScrollY > 100) {
-          // 100 이상이면 버튼이 보이게
-          setBtnStatus(true);
-        } else {
-          // 100 이하면 버튼이 사라지게
-          setBtnStatus(false);
+    useEffect(()=>{
+        if(localStorage.length>=2){
+            setIsLogin(true);
         }
-      };
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-      }, []);
-    
-      const handleTop = () => {
-        // 클릭하면 스크롤이 위로 올라가는 함수
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        setScrollY(0); // ScrollY 의 값을 초기화
-        setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
-      };
-    
-      useEffect(() => {
-        const watch = () => {
-          window.addEventListener("scroll", handleFollow);
-        };
-        watch();
-        return () => {
-          window.removeEventListener("scroll", handleFollow);
-        };
-      });
-    
+    })
 
     return(
         <>
+            <div className='header'>
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')} /> : <Header/>}
+            </div>
+            <div className='banner'>
+                <Banner/>
+            </div>
             <div className='btn-container'>
                 <button className='main-btn' onClick={handleClickTotalButton}>전체</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade1'}>1학년</button>
@@ -152,12 +133,10 @@ const Home=()=>{
                 </div>}
             </div>
             <div className='post-container'>{posts.map((inform)=>(<Post title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
-            <div className='footer-url'>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
-            <div><button className='adder-btn'><AiOutlinePlus size='47' color='#4ca5fd'/></button>
-            <button className='top-btn'><span className='top-text'>TOP</span></button></div>
+            <div>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
+            <div>{auth}</div>
             </>
             
     )
 }
-
 export default Home;
