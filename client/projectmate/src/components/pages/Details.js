@@ -1,9 +1,9 @@
-//import '../css/Details.css'
-import './components/css/Details.css'
+import '../css/Details.css'
 import {React, useState, useEffect} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
+import Comments from './Comments';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -19,22 +19,25 @@ const Details=()=> {
   const [proceedWay, setProceedWay] = useState([]);
   const [isProgress, setIsProgress] = useState([]);
   const [date, setDate] = useState([]);
-
+  const [postId, setPostId]= useState();
+  const [commentList, setCommentList] = useState([]);
+  
+  const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzM1MzQ2OSwiZXhwIjoxNjczMzU3MDY5fQ.sLUK11lByaPftQG1hrKfkz_I56NizY3VJDPbGmHqGpA';
+  const method = 'get';
+  
   var config = {
-    method: 'get',
-    url: 'http://localhost:8080/post/1',
+    method: `${method}`,
+    url: '/post/1',
     headers: { 
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMjAyMDIiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjczMTk1NzczLCJleHAiOjE2NzMxOTkzNzN9.lF6MsD-mD-ApmpFObwqhqTMwXBvDCgA2JbJk032wyh0'
-    }
-  }  
+      'Authorization': `${auth}`,
+      'Content-Type': 'application/json'
+    },
+  };
 
   useEffect (() => {
-    getPost()
-  }, []) 
-
-  const getPost = () => {
     axios(config)
 	  .then(function(response) {
+      console.log('가져오기성공')
 	    setPosting(JSON.stringify(response.data));
 	    setTitle(response.data.title);
 	    setContent(response.data.content);
@@ -45,15 +48,18 @@ const Details=()=> {
 	    setProceedWay(response.data.proceed_way);
 	    setIsProgress(response.data.is_progress);
 	    setDate(response.data.modifiedDate);
-	    console.log(JSON.stringify(response.data));
+      setCommentList(response.data.commentList);
+      setPostId(response.data.id);
+	    console.log(commentList);
 	  })
 	  .catch(function (error) {
 	    console.log(error);
 	  }); 
-  }
+  }, [])
 
   const DeletePosting = () => {
-    axios.delete("http://localhost:8080/post/1")
+    method=`delete`;
+    axios(config)
         .then(response => console.log('게시글 삭제 성공'))
         .catch(error => {
             console.error(error);
@@ -98,11 +104,12 @@ const Details=()=> {
       <br/>
       <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
                 style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/>
-       <p>{posting}</p>
-       
       <br/>
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
+      <div>
+        <Comments commentList={commentList}/>
+      </div>
       <Button onClick={DeletePosting}>삭제하기</Button>
     </div>
     </>

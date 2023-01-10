@@ -9,8 +9,8 @@ SwiperCore.use([Navigation, Pagination,Autoplay]);
 
 const Banner=()=> {
     return (
+      <div className='banner-container'>
       <Swiper
-        className='banner-container'
         spaceBetween={50}
         slidesPerView={1}
         scrollbar={{ draggable: true }}
@@ -24,6 +24,7 @@ const Banner=()=> {
         <SwiperSlide className='banner-content'>슬라이드2</SwiperSlide>
         <SwiperSlide className='banner-content'>슬라이드3</SwiperSlide>
       </Swiper>
+      </div>
     );
   }
   
