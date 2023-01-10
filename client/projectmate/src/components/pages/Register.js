@@ -1,17 +1,70 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { Typography, Button, Checkbox, Form, Input } from 'antd';
 import "./components/css/Details.css"
+import axios from 'axios';
 
 const { Title } = Typography;
 
 function App() {
+
+  const [studentID, setStudentID] = useState("");
+  const [Password, setPassword] = useState("");
+  const [CheckedPassword, setCheckedPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Nickname, setNickname] = useState("");
+ 
+  var data = JSON.stringify({
+      studentId: studentID,
+      email: Email, 
+      nickname: Nickname,
+      password: Password,
+      checkedPassword : CheckedPassword,
+      role: "user", 
+    });
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:8080/member/sign-up',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+  const submit = () => {
+    axios(config)
+    .then(function (response) {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log('Success:', values); 
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
+  const onStudentIDHandler = (event) => {
+    setStudentID(event.currentTarget.value);
+  }
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value)
+  }
+  const onCheckedPasswordHandler = (event) => {
+    setCheckedPassword(event.currentTarget.value);
+  }  
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  }
+  const onNicknameHandler = (event) => {
+    setNickname(event.currentTarget.value);
+  }
+  
   return (
     <>   
     <div className="posting">
@@ -33,7 +86,7 @@ function App() {
     >
       <Form.Item
         label="학번"
-        name="ID"
+        name="studentID"
         rules={[
           {
             required: true,
@@ -41,7 +94,7 @@ function App() {
           },
         ]}
       >
-        <Input />
+        <Input onChange={onStudentIDHandler}/>
       </Form.Item>
 
       <Form.Item
@@ -54,7 +107,20 @@ function App() {
           },
         ]}
       >
-        <Input />
+        <Input onChange={onPasswordHandler}/>
+      </Form.Item>
+
+      <Form.Item
+        label="비밀번호 확인"
+        name="CheckedPassword"
+        rules={[
+          {
+            required: true,
+            message: '비밀번호를 다시 입력해주세요.',
+          },
+        ]}
+      >
+        <Input onChange={onCheckedPasswordHandler}/>
       </Form.Item>
 
       <Form.Item
@@ -67,7 +133,7 @@ function App() {
           },
         ]}
       >
-        <Input />
+        <Input onChange={onEmailHandler}/>
       </Form.Item>
 
       <Form.Item
@@ -80,18 +146,7 @@ function App() {
           },
         ]}
       >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>로그인 상태 유지</Checkbox>
+        <Input onChange={onNicknameHandler}/>
       </Form.Item>
 
       <Form.Item
@@ -100,7 +155,7 @@ function App() {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={submit}>
           가입하기
         </Button>
       </Form.Item>
