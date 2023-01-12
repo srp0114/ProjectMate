@@ -92,6 +92,7 @@ const Details = () => {
     <Button onClick={DeletePost}>삭제하기</Button>
   ) : (null);
 
+
   return (
     <>
     <div className="posting">
@@ -130,8 +131,9 @@ const Details = () => {
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />
       <br/>
       <br/>
-      <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
-                style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/>
+      {/* <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
+                style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/> */}
+      <div dangerouslySetInnerHTML = { {  __html : content } }></div>
       <br/>
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
