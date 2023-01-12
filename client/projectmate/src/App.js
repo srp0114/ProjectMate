@@ -6,6 +6,7 @@ import Banner from './components/Banner'
 import LoginHeader from './components/LoginHeader'
 import Details from "./components/pages/Details"
 import Register from "./components/pages/Register"
+import Edit from "./components/pages/Edit"
 import Upload from "./components/pages/Upload"
 import './App.css';
 import './style.css'
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/post/:id" element={<Details/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/edit/:id" element={<Edit/>}/>
         <Route path="/upload" element={<Upload/>}/>
       </Routes>
     </Router>
