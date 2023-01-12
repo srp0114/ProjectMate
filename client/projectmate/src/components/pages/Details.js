@@ -1,15 +1,15 @@
 import '../css/Details.css'
-import { React, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {React, useState, useEffect} from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
+import { useLinkClickHandler } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-const Details = () => {
+const Details=()=> {
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
@@ -23,14 +23,16 @@ const Details = () => {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   
-  const {id} = useParams();
-
+  const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzUyMTQwNCwiZXhwIjoxNjczNTI1MDA0fQ.N8uneqB2tSyNplyGtuGoarI2GZAjvY-uU9liyW-PXu4';
+  const method = 'get';
+  
   var config = {
-    method: 'get',
-    url: `http://localhost:8080/post/${id}`,
+    method: `${method}`,
+    url: '/post/1',
     headers: { 
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+      'Authorization': `${auth}`,
+      'Content-Type': 'application/json'
+    },
   };
 
   useEffect (() => {
@@ -49,12 +51,20 @@ const Details = () => {
 	    setDate(response.data.modifiedDate);
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
-	    console.log(commentList);
 	  })
 	  .catch(function (error) {
 	    console.log(error);
 	  }); 
   }, [])
+
+  const DeletePosting = () => {
+    method=`delete`;
+    axios(config)
+        .then(response => console.log('게시글 삭제 성공'))
+        .catch(error => {
+            console.error(error);
+    });
+  }
 
   return (
     <>
@@ -98,9 +108,9 @@ const Details = () => {
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
       <div>
-        <Comments commentList={commentList}/>
+        <Comments commentList={commentList} auth = {auth}/>
       </div>
-      <Button>삭제하기</Button>
+      <Button onClick={DeletePosting}>삭제하기</Button>
     </div>
     </>
   );
