@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { Divider, Typography, Select, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -23,12 +24,11 @@ for (let i = 1; i < 11; i++) {
   });
 }
 
-function App() {
-
+function Upload() {
   const [post, setPost] = useState({
     "title":'',
     "content":'',
-    "writer":'writer',
+    "writer_nickname":localStorage.getItem("nickname"),
     "subject":'',
     "division":'',
     "people_num":0,
@@ -36,11 +36,15 @@ function App() {
     "is_progress":1
   })
 
+  const auth = localStorage.getItem("token")
+  const goToHome = useNavigate();
+
   var config = {
     method: 'post',
-    url: 'http://localhost:8080/post',
+    url: `/post`,
     headers: { 
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth}`
     },
     data : post
   };
@@ -49,6 +53,7 @@ function App() {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
+      goToHome('/')
     })
     .catch(function (error) {
       console.log(error);
@@ -185,4 +190,4 @@ function App() {
   );
 }
 
-export default App;
+export default Upload;
