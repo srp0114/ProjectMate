@@ -10,6 +10,8 @@ const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const Details = () => {
+  const [visible, setVisible] = useState(false);
+
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
@@ -22,18 +24,25 @@ const Details = () => {
   const [date, setDate] = useState([]);
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
+  const [isWriter, setIsWriter] = useState([]);
   
   const {id} = useParams();
 
+  const edit = () => {
+    setVisible(!isWriter)
+    console.log(isWriter)
+  }
+
   var config = {
     method: 'get',
-    url: `http://localhost:8080/post/${id}`,
+    url: `/post/${id}`,
     headers: { 
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     }
   };
 
   useEffect (() => {
+    console.log(localStorage.getItem("token"))
     axios(config)
 	  .then(function(response) {
       console.log('가져오기성공')
@@ -49,6 +58,7 @@ const Details = () => {
 	    setDate(response.data.modifiedDate);
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
+      setIsWriter(response.data.isWriter);
 	    console.log(commentList);
 	  })
 	  .catch(function (error) {
@@ -98,9 +108,9 @@ const Details = () => {
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
       <div>
-        <Comments commentList={commentList}/>
       </div>
       <Button>삭제하기</Button>
+      <Button>{visible && <Button/>}</Button>
     </div>
     </>
   );
