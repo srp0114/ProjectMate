@@ -1,10 +1,10 @@
 import '../css/Details.css'
-import {React, useState, useEffect} from 'react';
+import { React, useState, useEffect } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
-import { useLinkClickHandler } from 'react-router-dom';
+import { useLinkClickHandler, useParams } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -24,12 +24,13 @@ const Details=()=> {
   const [commentList, setCommentList] = useState([]);
   
   const {id} = useParams();
+  const auth = localStorage.getItem("token")
 
   var config = {
     method: 'get',
     url: `/post/${id}`,
     headers: { 
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
+      'Authorization': `Bearer ${auth}`
     }
   };
 
