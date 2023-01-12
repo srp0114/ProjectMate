@@ -106,26 +106,26 @@ const Details = () => {
       </Space>
       <Divider/>
       <div className="postingInfo">
-        <Space align="center" size={300}>
-          <Space align="center" size={100}>
-            <Title level={4}>과목명</Title>
-            <Title level={4}>{subject}</Title>
-          </Space>
-          <Space align="center" size={135}>
-            <Title level={4}>분반</Title>
-            <Title level={4}>{division}</Title>
-          </Space>
+      <Space align="center" size={300}>
+        <Space align="center" size={100}>
+          <Title level={4}>과목명</Title>
+          <Title level={4}>{subject}</Title>
         </Space>
-        <Space align="center" size={357}>
-          <Space align="center" size={85}>
-            <Title level={4}>모집인원</Title>
-            <Title level={4}>{peopleNum}</Title>
-          </Space>
-          <Space align="center" size={100}>
-            <Title level={4}>진행방식</Title>
-            <Title level={4}>{proceedWay}</Title>
-          </Space>
+        <Space align="center" size={135}>
+          <Title level={4}>분반</Title>
+          <Title level={4}>{division}</Title>
         </Space>
+      </Space>
+      <Space align="center" size={357}>
+        <Space align="center" size={85}>
+          <Title level={4}>모집인원</Title>
+          <Title level={4}>{peopleNum}</Title>
+        </Space>
+        <Space align="center" size={100}>
+          <Title level={4}>진행방식</Title>
+          <Title level={4}>{proceedWay}</Title>
+        </Space>
+      </Space>
       </div>
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />
       <br/>
@@ -136,8 +136,8 @@ const Details = () => {
       <Divider/>
       <Title level={2} className="postingTitle">댓글</Title>
       <div>
+      <Comments commentList={commentList} auth = {auth}/>
       </div>
-      <Button>삭제하기</Button>
     </div>
     </>
   );
