@@ -3,8 +3,7 @@ import { Divider, Typography, Select, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
-import "./components/css/Details.css"
-//import "../css/Deatils.css"
+import "../css/Details.css"
 
 const { Title, Text } = Typography;
 

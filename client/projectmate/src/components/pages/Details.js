@@ -23,19 +23,18 @@ const Details=()=> {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   
-  const auth = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxODkxMTk5Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY3MzUyMTQwNCwiZXhwIjoxNjczNTI1MDA0fQ.N8uneqB2tSyNplyGtuGoarI2GZAjvY-uU9liyW-PXu4';
-  const method = 'get';
-  
+  const {id} = useParams();
+
   var config = {
-    method: `${method}`,
-    url: '/post/1',
+    method: 'get',
+    url: `/post/${id}`,
     headers: { 
-      'Authorization': `${auth}`,
-      'Content-Type': 'application/json'
-    },
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
   };
 
   useEffect (() => {
+    console.log(localStorage.getItem("token"))
     axios(config)
 	  .then(function(response) {
       console.log('가져오기성공')
@@ -56,15 +55,6 @@ const Details=()=> {
 	    console.log(error);
 	  }); 
   }, [])
-
-  const DeletePosting = () => {
-    method=`delete`;
-    axios(config)
-        .then(response => console.log('게시글 삭제 성공'))
-        .catch(error => {
-            console.error(error);
-    });
-  }
 
   return (
     <>
@@ -110,7 +100,7 @@ const Details=()=> {
       <div>
         <Comments commentList={commentList} auth = {auth}/>
       </div>
-      <Button onClick={DeletePosting}>삭제하기</Button>
+      <Button>삭제하기</Button>
     </div>
     </>
   );
