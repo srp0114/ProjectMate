@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Divider, Typography, Select, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
-import "./components/css/Details.css"
-//import "../css/Deatils.css"
+import "../css/Details.css"
 
 const { Title, Text } = Typography;
 
@@ -23,7 +23,6 @@ for (let i = 1; i < 11; i++) {
     label: i + "명",
   });
 }
-
 
 function App() {
 
@@ -46,11 +45,26 @@ function App() {
   const [proceedWay, setProceedWay] = useState("");
   const [isProgress, setIsProgress] = useState(1);
 
+  const {id} = useParams();
+  const auth = localStorage.getItem("token");
+
+  const goToPost = useNavigate();
+
+  var getConfig = {
+    method: 'get',
+    url: `/post/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${auth}`
+    }
+  };
+
   useEffect(() => {
       const getInfo = async () => {
-          const {data} = await axios.get(`http://localhost:8080/post/1`);
-          return data;
+        console.log(id)
+        const {data} = await axios(getConfig);
+        return data;
       }
+      
       getInfo().then((response) => {
           setPost(response);
           setTitle(response.title);
@@ -65,8 +79,9 @@ function App() {
 
   var config = {
     method: 'put',
-    url: 'http://localhost:8080/post/1',
+    url: `/post/${id}`,
     headers: { 
+      'Authorization': `Bearer ${auth}`,
       'Content-Type': 'application/json'
     },
     data : post
@@ -76,6 +91,7 @@ function App() {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
+      goToPost(`/post/${id}`)
     })
     .catch(function (error) {
       console.log(error);

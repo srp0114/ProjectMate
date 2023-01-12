@@ -50,6 +50,7 @@ function App() {
     axios(config)
     .then(function (response) {
       console.log(response.data)
+      window.location.replace("/")
     })
     .catch(function (error) {
       console.log(error);
