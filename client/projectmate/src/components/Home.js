@@ -17,7 +17,6 @@ const Home=()=>{
     const [loading, setLoading] = useState(false);
     
     const [ref, inView] = useInView();
-
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
@@ -42,6 +41,7 @@ const Home=()=>{
     //전체버튼
     const handleClickTotalButton = e =>{
         setS_btn(false);
+        getTotalPost();
     }
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
@@ -88,9 +88,33 @@ const Home=()=>{
         setLoading(false);
     },[subject,division,is_progress,page])
 
+    const getTotalPost = useCallback(async ()=>{
+        setLoading(true);
+        await axios.get(`http://localhost:8080/post/postList?page=${page}&size=4&is_progress=${is_progress}`)
+        .then((response)=>{
+            setPosts(response.data.content)
+            console.log(posts)
+        })
+        .catch((error)=>console.log(error.response.data));
+        setLoading(false);
+    },[page])
+
     useEffect(()=>{
-        getPost()   
+        getPost()
     },[getPost])
+
+    useEffect(()=>{
+        getTotalPost()
+    },[getTotalPost])
+
+    useEffect(()=>{
+        setLoading(true);
+            if(inView && !loading){
+                setPage(prevState => prevState+1)
+            }
+        setLoading(false);
+    },[inView])
+
 
     useEffect(()=>{
         if(localStorage.length>=2){
@@ -101,7 +125,7 @@ const Home=()=>{
     return(
         <>
             <div className='header'>
-                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')} /> : <Header/>}
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  setIsLogin={setIsLogin}/> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
@@ -132,9 +156,10 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            <div className='post-container'>{posts.map((inform)=>(<PostThumbnail {...inform}/>))}</div>
-            <div>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
-            <div>{auth}</div>
+            <div className='post-container'>
+            {posts.map((post,i)=><PostThumbnail {...post}/>)}
+            </div>
+            <div ref={ref}>옵저버</div>
             </>
     )
 }
