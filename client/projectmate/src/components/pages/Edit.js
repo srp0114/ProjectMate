@@ -29,7 +29,7 @@ function App() {
   const [post, setPost] = useState({
     "title":'',
     "content":'',
-    "writer":'writer',
+    "writer_name":localStorage.getItem("token"),
     "subject":'',
     "division":'',
     "people_num":0,
