@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { AiOutlineEye } from 'react-icons/ai';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
 import {IoPerson} from 'react-icons/io5'
-import axios from 'axios'
 
 const PostThumbnail = (props) =>{
     return(

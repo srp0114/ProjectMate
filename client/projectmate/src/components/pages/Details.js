@@ -3,7 +3,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
-import Edit from "./Edit.js"
+import Edit from "./Upload.js"
 import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
 import '../css/Details.css'
 const { Title, Text } = Typography;

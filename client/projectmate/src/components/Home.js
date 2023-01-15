@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
-import Post from './Post'
+import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 
 const Home=()=>{
@@ -132,11 +132,10 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            <div className='post-container'>{posts.map((inform)=>(<Post id={inform.id} title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
+            <div className='post-container'>{posts.map((inform)=>(<PostThumbnail {...inform}/>))}</div>
             <div>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
             <div>{auth}</div>
             </>
-            
     )
 }
 export default Home;

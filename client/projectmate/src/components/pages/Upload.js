@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Divider, Typography, Select, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -24,11 +24,12 @@ for (let i = 1; i < 11; i++) {
   });
 }
 
-function Upload() {
+function App() {
+
   const [post, setPost] = useState({
     "title":'',
     "content":'',
-    "writer_nickname":localStorage.getItem("nickname"),
+    "writer":'writer',
     "subject":'',
     "division":'',
     "people_num":0,
@@ -36,15 +37,52 @@ function Upload() {
     "is_progress":1
   })
 
-  const auth = localStorage.getItem("token")
-  const goToHome = useNavigate();
+  const [title, setTitle] = useState("");
+  const [content ,setContent] = useState("");
+  const [sub, setSub] = useState("");
+  const [div, setDiv] = useState("");
+  const [peopleNum, setPeopleNum] = useState(0);
+  const [proceedWay, setProceedWay] = useState("");
+  const [isProgress, setIsProgress] = useState(1);
+
+  const {id} = useParams();
+  const auth = localStorage.getItem("token");
+
+  const goToPost = useNavigate();
+
+  var getConfig = {
+    method: 'get',
+    url: `/post/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${auth}`
+    }
+  };
+
+  useEffect(() => {
+      const getInfo = async () => {
+        console.log(id)
+        const {data} = await axios(getConfig);
+        return data;
+      }
+      
+      getInfo().then((response) => {
+          setPost(response);
+          setTitle(response.title);
+          setContent(response.content);
+          setSub(response.subject);
+          setDiv(response.division);
+          setPeopleNum(response.people_num);
+          setProceedWay(response.proceed_way);
+          setIsProgress(response.is_progress);
+      });
+  }, [])
 
   var config = {
-    method: 'post',
-    url: `/post`,
+    method: 'put',
+    url: `/post/${id}`,
     headers: { 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${auth}`
+      'Authorization': `Bearer ${auth}`,
+      'Content-Type': 'application/json'
     },
     data : post
   };
@@ -53,7 +91,7 @@ function Upload() {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      goToHome('/')
+      goToPost(`/post/${id}`)
     })
     .catch(function (error) {
       console.log(error);
@@ -66,6 +104,7 @@ function Upload() {
       ...post,
       [name]: value
     })
+    setTitle(value);
   };
 
   const [subject, setSubject] = useState(divisionData[subjectData[0]]);
@@ -78,6 +117,7 @@ function Upload() {
       ...post,
       ["subject"]: value
     })  
+    setSub(value)
   };
 
   const divisionChange = (value) => {
@@ -85,7 +125,8 @@ function Upload() {
     setPost({
       ...post,
       ["division"]: value
-    }) 
+    })
+    setDiv(value); 
   };
   
   return (
@@ -95,7 +136,7 @@ function Upload() {
         <Select
           key="subject"
           size='large'
-          defaultValue="과목명"
+          value={sub}
           style={{
             width: 350,
           }}
@@ -108,7 +149,7 @@ function Upload() {
         <Title level={5}>분반</Title>
         <Select
           size='large'
-          defaultValue='분반'
+          value={div}
           style={{
             width: 350,
           }}
@@ -121,27 +162,33 @@ function Upload() {
         <Title level={5}>모집인원</Title>
         <Select
           size='large'
-          defaultValue='인원'
+          value={peopleNum}
           style={{
             width: 350,
           }}
-          onChange={(value) => setPost({
-            ...post,
-            ["people_num"]: value
-          })}
+          onChange={(value) => {
+            setPost({
+              ...post,
+             ["people_num"]: value
+            })
+            setPeopleNum(value);
+          }}
           options={peopleNumData}
         />
         <Title level={5}>진행방식</Title>
         <Select
           size='large'
-          defaultValue='진행방식'
+          value={proceedWay}
           style={{
             width: 350,
           }}
-          onChange={(value) => setPost({
+          onChange={(value) => {setPost({
             ...post,
             ["proceed_way"]: value
-          })}
+          })
+          setProceedWay(value)
+        }
+        }
           options={[
             {
               value: '오프라인',
@@ -153,17 +200,41 @@ function Upload() {
             },
           ]}
         />
+        <Title level={5}>모집여부</Title>
+        <Select
+          size='large'
+          value={isProgress}
+          style={{
+            width: 350,
+          }}
+          onChange={(value) => {setPost({
+            ...post,
+            ["is_progress"]: value
+          })
+          setIsProgress(value)
+        }
+        }
+          options={[
+            {
+              value: 1,
+              label: '모집중',
+            },
+            {
+              value: 0,
+              label: '모집마감',
+            },
+          ]}
+        />
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
       <Title level={5}>제목</Title>
-      <Input size="large" name="title" onChange={getValue} placeholder="제목을 입력해주세요." /> 
+      <Input size="large" name="title" value={title} onChange={getValue}/> 
       <br/>
       <br/>
       <CKEditor
           editor={ ClassicEditor }
-          defaultValue="내용을 입력해주세요."
+          data={content}
           onReady={ editor => {
-              // You can store the "editor" and use when it is needed.
               console.log( 'Editor is ready to use!', editor );
           } }
           onChange={ ( event, editor ) => {
@@ -182,7 +253,7 @@ function Upload() {
           } }
       />
       <br/>
-      <Button onClick={submit}>작성하기</Button>
+      <Button onClick={submit}>수정하기</Button>
       <br/>
       <br/>
       <br/>
@@ -190,4 +261,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default App;
