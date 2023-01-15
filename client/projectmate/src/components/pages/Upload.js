@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Divider, Typography, Select, Space, Input, Button } from 'antd';
+import { Divider, Typography, Select, Modal, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
@@ -36,6 +36,7 @@ function Upload() {
     "is_progress":1
   })
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const auth = localStorage.getItem("token")
   const goToHome = useNavigate();
 
@@ -49,11 +50,22 @@ function Upload() {
     data : post
   };
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    goToHome('/');
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const submit = () => {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      goToHome('/')
+      showModal()
     })
     .catch(function (error) {
       console.log(error);
@@ -87,7 +99,7 @@ function Upload() {
       ["division"]: value
     }) 
   };
-  
+
   return (
     <div className="posting">
       <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
@@ -183,6 +195,9 @@ function Upload() {
       />
       <br/>
       <Button onClick={submit}>작성하기</Button>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <p>게시글 작성이 완료되었습니다.</p>
+      </Modal>
       <br/>
       <br/>
       <br/>
