@@ -167,12 +167,12 @@ function App() {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit" onClick={submit}>
-          가입하기
-        </Button>
-        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>가입이 완료되었습니다.</p>
-        <p>{Nickname}님 환영합니다!</p>
+      <Button type="primary" htmlType="submit" onClick={submit}>
+        가입하기
+      </Button>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <p>가입이 완료되었습니다.</p>
+      <p>{Nickname}님 환영합니다!</p>
       </Modal>
       </Form.Item>
     </Form>
