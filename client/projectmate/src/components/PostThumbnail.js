@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom'
 import { AiOutlineEye } from 'react-icons/ai';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
 import {IoPerson} from 'react-icons/io5'
-import axios from 'axios'
 
-const Post = (props) =>{
+const PostThumbnail = (props) =>{
     return(
         <>
         <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
         <div className='post'>
             <p className='post-title'>{props.title}</p>
-            <p className='post-content'>{props.content}</p>
+            <p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p>
             <div className='post-footer'>
                 <div className='owner'>
                     <IoPerson size="30"/><span className='owner-name'>{props.writer}</span>
@@ -27,4 +26,4 @@ const Post = (props) =>{
     );
 }
 
-export default Post;
+export default PostThumbnail;

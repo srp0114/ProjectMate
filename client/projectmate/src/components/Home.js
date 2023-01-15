@@ -3,25 +3,25 @@ import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
-import Post from './Post'
+import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 
 const Home=()=>{
     const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
-
-    const [auth, setAuth]=useState('');
     const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
     
     const [ref, inView] = useInView();
-
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
     const [is_progress, setProgress] = useState(0);
+
+    const [ScrollY, setScrollY] = useState(0);
+    const [BtnStatus, setBtnStatus] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -42,6 +42,7 @@ const Home=()=>{
     //전체버튼
     const handleClickTotalButton = e =>{
         setS_btn(false);
+        getTotalPost();
     }
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
@@ -63,6 +64,42 @@ const Home=()=>{
             setProgress(0);
         }
     }
+
+    //top 버튼
+    const handleFollow = () => {
+        setScrollY(window.pageYOffset);
+        if (ScrollY > 100) {
+          // 100 이상이면 버튼이 보이게
+          setBtnStatus(true);
+        } else {
+          // 100 이하면 버튼이 사라지게
+          setBtnStatus(false);
+        }
+      };
+    
+      useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+    
+      const handleTop = () => {
+        // 클릭하면 스크롤이 위로 올라가는 함수
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setScrollY(0); // ScrollY 의 값을 초기화
+        setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
+      };
+    
+      useEffect(() => {
+        const watch = () => {
+          window.addEventListener("scroll", handleFollow);
+        };
+        watch();
+        return () => {
+          window.removeEventListener("scroll", handleFollow);
+        };
+      });
 
     const setLogin = () => {
         if(localStorage.length>=2)
@@ -88,9 +125,33 @@ const Home=()=>{
         setLoading(false);
     },[subject,division,is_progress,page])
 
+    const getTotalPost = useCallback(async ()=>{
+        setLoading(true);
+        await axios.get(`http://localhost:8080/post/postList?page=${page}&size=4&is_progress=${is_progress}`)
+        .then((response)=>{
+            setPosts(response.data.content)
+            console.log(posts)
+        })
+        .catch((error)=>console.log(error.response.data));
+        setLoading(false);
+    },[page])
+
     useEffect(()=>{
-        getPost()   
+        getPost()
     },[getPost])
+
+    useEffect(()=>{
+        getTotalPost()
+    },[getTotalPost])
+
+    useEffect(()=>{
+        setLoading(true);
+            if(inView && !loading){
+                setPage(prevState => prevState+1)
+            }
+        setLoading(false);
+    },[inView])
+
 
     useEffect(()=>{
         if(localStorage.length>=2){
@@ -101,7 +162,7 @@ const Home=()=>{
     return(
         <>
             <div className='header'>
-                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')} /> : <Header/>}
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  setIsLogin={setIsLogin}/> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
@@ -132,11 +193,12 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
-            <div className='post-container'>{posts.map((inform)=>(<Post id={inform.id} title={inform.title} content={inform.content} writer={inform.writer} view_count={inform.view_count} comment_count={inform.comment_count}/>))}</div>
-            <div>{`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`}</div>
-            <div>{auth}</div>
+            <div className='post-container'>
+            {posts.map((post,i)=><PostThumbnail {...post}/>)}
+            </div>
+            <div><button className='adder-btn'>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
+            <div ref={ref}>옵저버</div>
             </>
-            
     )
 }
 export default Home;
