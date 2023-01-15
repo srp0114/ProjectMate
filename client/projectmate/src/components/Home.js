@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Header from './Header'
@@ -90,7 +91,15 @@ const Home=()=>{
         setScrollY(0); // ScrollY 의 값을 초기화
         setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
       };
-    
+
+      const goToUpload = useNavigate();
+
+      const upload = () => {
+        goToUpload('/upload')
+      }
+
+
+
       useEffect(() => {
         const watch = () => {
           window.addEventListener("scroll", handleFollow);
@@ -196,7 +205,7 @@ const Home=()=>{
             <div className='post-container'>
             {posts.map((post,i)=><PostThumbnail {...post}/>)}
             </div>
-            <div><button className='adder-btn'>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
+            <div><button className='adder-btn' onClick={upload}>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
             <div ref={ref}>옵저버</div>
             </>
     )

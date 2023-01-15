@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Divider, Typography, Select, Space, Input, Button } from 'antd';
+import { Divider, Typography, Select, Space, Modal, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
@@ -76,7 +76,18 @@ function App() {
           setIsProgress(response.is_progress);
       });
   }, [])
-
+   
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    goToPost(`/post/${id}`)
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   var config = {
     method: 'put',
     url: `/post/${id}`,
@@ -91,7 +102,7 @@ function App() {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
-      goToPost(`/post/${id}`)
+      showModal()
     })
     .catch(function (error) {
       console.log(error);
@@ -254,6 +265,9 @@ function App() {
       />
       <br/>
       <Button onClick={submit}>수정하기</Button>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <p>게시글 수정이 완료되었습니다.</p>
+      </Modal>
       <br/>
       <br/>
       <br/>

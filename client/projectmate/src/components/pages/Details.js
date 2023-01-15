@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
+import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
 import Edit from "./Upload.js"
@@ -25,7 +25,8 @@ const Details = () => {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   const [isWriter, setIsWriter] = useState([]);
-  const [isBookmark, setIsBookmark] = useState([]);
+  const [isBookmark, setIsBookmark] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {id} = useParams();
   const auth = localStorage.getItem("token")
@@ -65,7 +66,6 @@ const Details = () => {
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
       setIsWriter(response.data.isWriter);
-      setIsBookmark(response.data.isBookmarked)
 	  })
 	  .catch(function (error) {
 	    console.log(error);
@@ -73,7 +73,18 @@ const Details = () => {
   }, [])
 
   var userID = localStorage.getItem("id")
-  var studentID = userID.slice(2);
+  var studentID = userID.slice(0,2);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    goToHome('/')
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const EditPost = () => {
     goToUpload(`/edit/${postId}`)
@@ -86,8 +97,8 @@ const Details = () => {
   const DeletePost = () => {
     axios(deleteConfig)
         .then(response => {
-          console.log('게시글 삭제 성공')
-          goToHome('/')
+          console.log('게시글 삭제 성공');
+          showModal()
         })
         .catch(error => {
             console.error(error);
@@ -95,7 +106,12 @@ const Details = () => {
   }
 
   const DeleteButton = isWriter ? (
+    <>
     <Button onClick={DeletePost}>삭제하기</Button>
+    <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <p>게시글이 삭제되었습니다</p>
+    </Modal>
+    </>
   ) : (null);
 
   const getInfo = async () => {
