@@ -1,25 +1,9 @@
 import {React, useState} from 'react';
-import { Typography, Button, Checkbox, Form, Input } from 'antd';
-import "../css/Details.css"
+import { Typography, Button, Modal, Checkbox, Form, Input } from 'antd';
 import axios from 'axios';
+import "../css/Details.css"
 
 const { Title, Text } = Typography;
-
-const subjectData = ['웹프레임워크1', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
-const divisionData = {
-  웹프레임워크1: ['A', 'B', 'N'],
-  캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
-  고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
-  데이터베이스설계: ['A', 'B', 'N'],
-};
-
-const peopleNumData = [];
-for (let i = 1; i < 11; i++) {
-  peopleNumData.push({
-    value: i,
-    label: i + "명",
-  });
-}
 
 function App() {
   const [studentID, setStudentID] = useState("");
@@ -27,7 +11,19 @@ function App() {
   const [CheckedPassword, setCheckedPassword] = useState("");
   const [Email, setEmail] = useState("");
   const [Nickname, setNickname] = useState("");
- 
+    
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    window.location.replace("/")
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   var data = JSON.stringify({
       studentId: studentID,
       email: Email, 
@@ -50,7 +46,7 @@ function App() {
     axios(config)
     .then(function (response) {
       console.log(response.data)
-      window.location.replace("/")
+      showModal()
     })
     .catch(function (error) {
       console.log(error);
@@ -80,7 +76,7 @@ function App() {
   const onNicknameHandler = (event) => {
     setNickname(event.currentTarget.value);
   }
-  
+
   return (
     <>   
     <div className="posting">
@@ -171,9 +167,13 @@ function App() {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit" onClick={submit}>
-          가입하기
-        </Button>
+      <Button type="primary" htmlType="submit" onClick={submit}>
+        가입하기
+      </Button>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <p>가입이 완료되었습니다.</p>
+      <p>{Nickname}님 환영합니다!</p>
+      </Modal>
       </Form.Item>
     </Form>
     </div>
