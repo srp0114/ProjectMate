@@ -10,7 +10,7 @@ const PostThumbnail = (props) =>{
         <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
         <div className='post'>
             <p className='post-title'>{props.title}</p>
-            <p className='post-content'>{props.content}</p>
+            <p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p>
             <div className='post-footer'>
                 <div className='owner'>
                     <IoPerson size="30"/><span className='owner-name'>{props.writer}</span>
