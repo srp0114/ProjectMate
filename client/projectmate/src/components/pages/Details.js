@@ -3,13 +3,11 @@ import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
-import Upload from "./Upload.js"
+import Edit from "./Upload.js"
 import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
 import '../css/Details.css'
-
 const { Title, Text } = Typography;
 const { TextArea } = Input;
-
 const Details = () => {
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
@@ -24,13 +22,12 @@ const Details = () => {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   const [isWriter, setIsWriter] = useState([]);
-
   const {id} = useParams();
   const auth = localStorage.getItem("token")
   const goToHome = useNavigate();
   const goToUpload = useNavigate();
 
-  var config = {
+  var getConfig = {
     method: 'get',
     url: `/post/${id}`,
     headers: { 
@@ -45,9 +42,8 @@ const Details = () => {
       'Authorization': `Bearer ${auth}`
     }
   }
-
   useEffect (() => {
-    axios(config)
+    axios(getConfig)
 	  .then(function(response) {
       console.log('가져오기 성공')
 	    setPosting(JSON.stringify(response.data));
@@ -68,11 +64,9 @@ const Details = () => {
 	    console.log(error);
 	  }); 
   }, [])
-
   const EditPost = () => {
     goToUpload(`/edit/${postId}`)
   }
-
   const EditButton = isWriter ? (
     <Button onClick={EditPost}>수정하기</Button>
   ) : (null);
@@ -87,12 +81,9 @@ const Details = () => {
             console.error(error);
         });
   }
-
   const DeleteButton = isWriter ? (
     <Button onClick={DeletePost}>삭제하기</Button>
   ) : (null);
-
-
   return (
     <>
     <div className="posting">
@@ -144,5 +135,4 @@ const Details = () => {
     </>
   );
 }
-
 export default Details;

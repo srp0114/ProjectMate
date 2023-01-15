@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 .header{
     height: 100px;
     display : flex;
@@ -54,12 +55,15 @@
 }
 
 .profile-btn{
+  margin-top: 10px;
+  display: flex;
   background-color: white;
   border:none;
   font-size: 30px;
 }
 
-.home{
+.profile-nickname{
+  margin-left: 8px;
 }
 
 .btn-container{
@@ -125,17 +129,6 @@
     margin-left: 5%;
 }
 
-.post-header{
-  margin-left : 150px;
-  marginn-right : 150px;
-  text-align: left;
-  font-size: 30px;
-  color:#4ca5fd;
-  padding-bottom: 10px;
-  border-bottom: 2px solid rgb(165, 204, 229);
-  margin-bottom: 40px;
-}
-
 .post{
   overflow: hidden;
   width: 350px;
@@ -153,12 +146,13 @@
 .post-title{
   margin-top: 10px;
   padding : 5px 5px 10px 5px;
-  font-size: 50px;
+  font-size: 45px;
+  white-space: nowrap;
   border-bottom: 1px solid rgb(7, 135, 255);
-  border-width: 100%;
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
+  margin-bottom: 70px;
 }
 
 .post-content{
@@ -195,14 +189,18 @@
   color:gray;
 }
 
-.banner-container{
-  z-index: 1;
+.swiper{
   width: 100%;
   height: 500px;
   margin-bottom: 50px;
   background-color: #4ca5fd;
   text-align: center;
   font-size: 50px;
+}
+
+.banner-container{
+  position: relative;
+  transform: translate3d(0, 0, 0);
 }
 
 .etc-icon{
@@ -279,82 +277,113 @@
   justify-content: left;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.Modal{
-  background-color: #005de9;
-}
-
 .login-form{
+  position: fixed;
+  border-radius: 10px;
   text-align: center;
-  background-color: #a2c5fa;
-  width: 100%;
-  height: 80%;
+  background-color: #ddeafd;
+  left: 38%;
+  top: 10%;
+  width: 26%;
+  height: 55%;
+}
+
+.login-title{
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 50px;
+  margin-bottom: 0px;
+  padding: 0px 4px 10px 4px;
+  color: #3986fa;
+}
+
+.login-input-components{
+  justify-content: space-between;
 }
 
 .login-input-text{
-  font-size: 20px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 35px;
+  margin-left: 10px;
 }
 
 .login-input{
   width: 300px;
-  height: 30px;
+  height: 40px;
   border : none;
   border-radius: 10px;
+  float: right;
+  margin-right: 40px;
 }
 
 .login-modal-btn {
-  background: aliceblue;
+  font-family: 'Do Hyeon', sans-serif;
+  background-color: aliceblue;
   height: 70px;
-  width: 180px;
+  width: 40%;
   text-align: center;
-  cursor: pointer;
   border-radius: 4px;
   border-color: aliceblue;
 }
 
 .login-btn-text{
-  font-size: 30px;
-  color: #005de9;
+  font-size: 40px;
+  color: #3986fa;
 }
 
-.login-title{
-  font-size: 50px;
-  margin-bottom: 0px;
-  padding: 4px;
-  color: #005de9;
+.login-etc-btn{
+  border:none;
+  background-color: #ddeafd;
+  font-size: 20px;
+}
+
+.login-etc-btn:hover{
+  background-color: #cde0fd;
+}
+
+.login-line{
+  margin-bottom: 27px;
+  margin : 0px 30px 25px 30px;
+}
+
+.login-input-form{
+  margin-bottom: 30px;
+}
+
+.etc-outline{
+  border-left: 1px solid #91a7c7;
+  margin : 4px;
 }
 
 .comment{
-  border: 2px solid rgb(184, 194, 204);
-  border-radius: 10px;
+  border-bottom: 1px solid rgb(184, 194, 204);
   padding-left : 10px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.sub-comment{
+  padding-left: 20px;
 }
 
 .comment-input-container{
+  display: inline-block;
   border-bottom: 1.5px solid rgb(207, 207, 207);
   margin-bottom :10px;
+  width: 100%;
 }
 
 .comment-input{
-  width: 85%;
-  height: 30px;
+  width: 100%;
+  height: 100px;
   padding-bottom: 0px;
-  border:none;
+  border: none;
+  word-wrap: break-word;
+  resize: none;
+  font-size: 17px;
 }
 
 .comment-input:focus{
-  outline: none;
+  outline-color: #9ec1e4;
 }
 
 .comment-btn{
@@ -362,10 +391,13 @@
   background-color: white;
   width: 70px;
   height: 30px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  float: right;
 }
 
 .comment-btn:hover{
-  background-color: rgb(238, 238, 238);
+  background-color: rgb(238, 238,  238);
 }
 
 .comment-sub-btn-container{
