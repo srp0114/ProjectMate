@@ -10,8 +10,6 @@ const Home=()=>{
     const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
-
-    const [auth, setAuth]=useState('');
     const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
@@ -21,6 +19,9 @@ const Home=()=>{
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
     const [is_progress, setProgress] = useState(0);
+
+    const [ScrollY, setScrollY] = useState(0);
+    const [BtnStatus, setBtnStatus] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -63,6 +64,42 @@ const Home=()=>{
             setProgress(0);
         }
     }
+
+    //top 버튼
+    const handleFollow = () => {
+        setScrollY(window.pageYOffset);
+        if (ScrollY > 100) {
+          // 100 이상이면 버튼이 보이게
+          setBtnStatus(true);
+        } else {
+          // 100 이하면 버튼이 사라지게
+          setBtnStatus(false);
+        }
+      };
+    
+      useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+    
+      const handleTop = () => {
+        // 클릭하면 스크롤이 위로 올라가는 함수
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setScrollY(0); // ScrollY 의 값을 초기화
+        setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
+      };
+    
+      useEffect(() => {
+        const watch = () => {
+          window.addEventListener("scroll", handleFollow);
+        };
+        watch();
+        return () => {
+          window.removeEventListener("scroll", handleFollow);
+        };
+      });
 
     const setLogin = () => {
         if(localStorage.length>=2)
@@ -159,6 +196,7 @@ const Home=()=>{
             <div className='post-container'>
             {posts.map((post,i)=><PostThumbnail {...post}/>)}
             </div>
+            <div><button className='adder-btn'>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
             <div ref={ref}>옵저버</div>
             </>
     )
