@@ -5,14 +5,17 @@ import axios from 'axios';
 import Comments from './Comments';
 import Edit from "./Upload.js"
 import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
+import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import '../css/Details.css'
+
 const { Title, Text } = Typography;
 const { TextArea } = Input;
+
 const Details = () => {
   const [posting, setPosting] = useState([]);
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
-  const [writer, setWriter] = useState([]);
+  const [writerName, setWriterName] = useState([]);
   const [subject, setSubject] = useState([]);
   const [division, setDivision] = useState([]);
   const [peopleNum, setPeopleNum] = useState([]);
@@ -22,6 +25,8 @@ const Details = () => {
   const [postId, setPostId]= useState();
   const [commentList, setCommentList] = useState([]);
   const [isWriter, setIsWriter] = useState([]);
+  const [isBookmark, setIsBookmark] = useState([]);
+
   const {id} = useParams();
   const auth = localStorage.getItem("token")
   const goToHome = useNavigate();
@@ -42,6 +47,7 @@ const Details = () => {
       'Authorization': `Bearer ${auth}`
     }
   }
+  
   useEffect (() => {
     axios(getConfig)
 	  .then(function(response) {
@@ -49,7 +55,7 @@ const Details = () => {
 	    setPosting(JSON.stringify(response.data));
 	    setTitle(response.data.title);
 	    setContent(response.data.content);
-	    setWriter(response.data.writer_nickname);
+	    setWriterName(response.data.writer_nickname);
 	    setSubject(response.data.subject);
 	    setDivision(response.data.division);
 	    setPeopleNum(response.data.people_num);
@@ -59,14 +65,20 @@ const Details = () => {
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
       setIsWriter(response.data.isWriter);
+      setIsBookmark(response.data.isBookmarked)
 	  })
 	  .catch(function (error) {
 	    console.log(error);
 	  }); 
   }, [])
+
+  var userID = localStorage.getItem("id")
+  var studentID = userID.slice(2);
+
   const EditPost = () => {
     goToUpload(`/edit/${postId}`)
   }
+
   const EditButton = isWriter ? (
     <Button onClick={EditPost}>수정하기</Button>
   ) : (null);
@@ -81,9 +93,22 @@ const Details = () => {
             console.error(error);
         });
   }
+
   const DeleteButton = isWriter ? (
     <Button onClick={DeletePost}>삭제하기</Button>
   ) : (null);
+
+  const getInfo = async () => {
+    console.log(id)
+    const {data} = await axios(getConfig);
+    return data;
+  }
+
+  const handleBookmark = () => {
+    setIsBookmark(!isBookmark);
+    console.log(isBookmark)
+  };
+  
   return (
     <>
     <div className="posting">
@@ -92,9 +117,16 @@ const Details = () => {
       <br/>
       <Space align="center">
         <Avatar size={38} icon={<UserOutlined/>}/>
-        <Text fontSize={100}>{writer}</Text>
+        <Text fontSize={100}>{writerName} ({studentID})</Text>
         {EditButton}
         {DeleteButton}
+        <div onClick={handleBookmark}>
+          {isBookmark ? (
+            <BsBookmarkStar size={25}/>
+          ) : (
+            <BsFillBookmarkStarFill size={25}/>
+          )}
+        </div>
       </Space>
       <Divider/>
       <div className="postingInfo">

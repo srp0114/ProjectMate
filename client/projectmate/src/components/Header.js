@@ -28,6 +28,7 @@ const Header=(props)=>{
                 //sendAuth(JSON.stringify(response.data.token));
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('nickname',response.data.nickname)
+                localStorage.setItem('id', id)
                 window.location.reload();
             }
         ).catch(response => {
