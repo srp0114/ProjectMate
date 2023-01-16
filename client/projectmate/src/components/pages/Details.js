@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import { SecurityScanTwoTone, UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
@@ -49,6 +49,14 @@ const Details = () => {
     }
   }
   
+  var postConfig = {
+    method: 'post',
+    url: `/post/bookmark/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${auth}`
+    }
+  }
+
   useEffect (() => {
     axios(getConfig)
 	  .then(function(response) {
@@ -66,6 +74,7 @@ const Details = () => {
       setCommentList(response.data.commentList);
       setPostId(response.data.id);
       setIsWriter(response.data.isWriter);
+      setIsBookmark(response.data.isBookmarked);
 	  })
 	  .catch(function (error) {
 	    console.log(error);
@@ -78,12 +87,29 @@ const Details = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
     setIsModalOpen(false);
     goToHome('/')
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+
+  const handleBookmark = () => {
+    axios(postConfig)
+    .then((response) => {
+      console.log(isBookmark + "!!!!!!")
+      axios(getConfig)
+      .then(response => {
+        setIsBookmark(response.data.isBookmarked);
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   };
 
   const EditPost = () => {
@@ -93,7 +119,7 @@ const Details = () => {
   const EditButton = isWriter ? (
     <Button onClick={EditPost}>수정하기</Button>
   ) : (null);
-  
+
   const DeletePost = () => {
     axios(deleteConfig)
         .then(response => {
@@ -114,17 +140,10 @@ const Details = () => {
     </>
   ) : (null);
 
-  const getInfo = async () => {
-    console.log(id)
-    const {data} = await axios(getConfig);
-    return data;
-  }
+  const BookmarkButton = isBookmark ? (
+    <BsFillBookmarkStarFill size={25} onClick={handleBookmark}/>
+  ) : ( <BsBookmarkStar size={25} onClick={handleBookmark}/> ) 
 
-  const handleBookmark = () => {
-    setIsBookmark(!isBookmark);
-    console.log(isBookmark)
-  };
-  
   return (
     <>
     <div className="posting">
@@ -136,13 +155,7 @@ const Details = () => {
         <Text fontSize={100}>{writerName} ({studentID})</Text>
         {EditButton}
         {DeleteButton}
-        <div onClick={handleBookmark}>
-          {isBookmark ? (
-            <BsBookmarkStar size={25}/>
-          ) : (
-            <BsFillBookmarkStarFill size={25}/>
-          )}
-        </div>
+        {BookmarkButton}
       </Space>
       <Divider/>
       <div className="postingInfo">
