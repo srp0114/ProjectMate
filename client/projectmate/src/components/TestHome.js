@@ -1,29 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
+import { invariant } from '@remix-run/router';
+import useItems from 'antd/es/menu/hooks/useItems';
 
-const Home=()=>{
-    const [button, setButton] = useState('');
-
-    const [posts, setPosts] = useState([]);
+const TestHome=()=>{
+    //로그인용
+    const [auth, setAuth]=useState('');
     const [isLogin, setIsLogin] = useState(false);
+
+    //무한스크롤 용
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);
-    
     const [ref, inView] = useInView();
+    const [posts, setPosts] = useState([]);
+    
+    //버튼 세팅용
+    const [button, setButton] = useState('');
+    const [isTotal, setIsTotal] = useState(true);
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
     const [is_progress, setProgress] = useState(0);
-    const [isTotal, setIsTotal] = useState(true);
-
-    const [ScrollY, setScrollY] = useState(0);
-    const [BtnStatus, setBtnStatus] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -34,7 +36,6 @@ const Home=()=>{
             </>
         )
     }
-
     //학년버튼
     const handleClickButton = e => {
         const name = e.target.value;
@@ -45,7 +46,7 @@ const Home=()=>{
     //전체버튼
     const handleClickTotalButton = e =>{
         setS_btn(false);
-        setIsTotal(true);    
+        setIsTotal(true);
     }
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
@@ -69,56 +70,9 @@ const Home=()=>{
         }
     }
 
-    //top 버튼
-    const handleFollow = () => {
-        setScrollY(window.pageYOffset);
-        if (ScrollY > 100) {
-          // 100 이상이면 버튼이 보이게
-          setBtnStatus(true);
-        } else {
-          // 100 이하면 버튼이 사라지게
-          setBtnStatus(false);
-        }
-      };
-    
-      useEffect(() => {
-        window.scrollTo(0, 0);
-      }, []);
-    
-      const handleTop = () => {
-        // 클릭하면 스크롤이 위로 올라가는 함수
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        setScrollY(0); // ScrollY 의 값을 초기화
-        setBtnStatus(false); // BtnStatus의 값을 false로 바꿈 => 버튼 숨김
-      };
-
-      const goToUpload = useNavigate();
-
-      const upload = () => {
-        goToUpload('/upload')
-      }
-
-      useEffect(() => {
-        const watch = () => {
-          window.addEventListener("scroll", handleFollow);
-        };
-        watch();
-        return () => {
-          window.removeEventListener("scroll", handleFollow);
-        };
-      });
-
     const setLogin = () => {
         if(localStorage.length>=2)
             setIsLogin(true)
-    }
-
-    const logOut = e =>{
-        localStorage.clear();
-        setIsLogin(false);
     }
 
     const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
@@ -130,38 +84,28 @@ const Home=()=>{
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
-        if(isTotal){
-            setLoading(true)
-            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=4&is_progress=${is_progress}`)
-            .then((response)=>{
-                setPosts((prevState)=>prevState.concat(response.data.content))
-                console.log(posts)
-            })
-            .catch((error)=>console.log(error.response.data))
-            setLoading(false);
-        }
-        else{
-            setLoading(true);
-            await axios.get(`http://localhost:8080/post/postList/filtering?page=${page}&size=4&subject=${subject}&division=${division}&is_progress=${is_progress}`)
-            .then((response)=>{
-                setPosts(response.data.content)
-                console.log(posts)
-            })
-            .catch((error)=>console.log(error.response.data));
-            setLoading(false);
-        }
-    },[page,isTotal])
+        setLoading(true);
+        await axios.get(`http://localhost:8080/post/postList?page=${page}&size=4&is_progress=${is_progress}`)
+        .then((response)=>{
+            setPosts(prevState=>prevState.concat(response.data.content))
+            console.log("post 상태 : " + posts)
+            console.log("page : "+ page)
+        })
+        .catch((error)=>console.log(error.response.data));
+        setLoading(false);
+    },[page])
 
     useEffect(()=>{
+        console.log(posts.length)
         getPost()
     },[getPost])
-    
+
     useEffect(()=>{
+        setLoading(true);
             if(inView && !loading){
-                setLoading(true);
-                    setPage(prevState => prevState+1)
-                setLoading(false);
+                setPage(prevState => prevState+1)
             }
+        setLoading(false);
     },[inView])
 
     useEffect(()=>{
@@ -173,7 +117,7 @@ const Home=()=>{
     return(
         <>
             <div className='header'>
-                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  logOut={logOut}/> : <Header/>}
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  setIsLogin={setIsLogin}/> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
@@ -207,9 +151,8 @@ const Home=()=>{
             <div className='post-container'>
             {posts.map((post,i)=><PostThumbnail {...post}/>)}
             </div>
-            <div><button className='adder-btn' onClick={upload}>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
             <div ref={ref}>옵저버</div>
             </>
     )
 }
-export default Home;
+export default TestHome;
