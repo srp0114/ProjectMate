@@ -1,0 +1,29 @@
+.myInfoPage {
+    margin:10%;
+    margin-left:12%;
+}
+
+.myInfoMenu {
+    float:left;
+    padding-right:120px;
+    padding-left:40px;
+    padding-top:50px;
+    padding-bottom:50px;
+    border: 1.5px solid black;
+    border-radius: 20px;
+}
+
+.myInfo{
+    float:left;
+    margin-left:10px;
+    padding-left:6%;
+    padding-top:3%;
+    padding-bottom:5%;
+    border: 1.5px solid black;
+    border-radius: 20px;
+}
+
+.info {
+    margin-left:50px;
+    margin-right:300px;
+}
