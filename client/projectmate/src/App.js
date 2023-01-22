@@ -8,6 +8,7 @@ import Details from "./components/pages/Details"
 import Register from "./components/pages/Register"
 import Edit from "./components/pages/Edit"
 import Upload from "./components/pages/Upload"
+import MyPage from "./components/pages/MyPage"
 import './App.css';
 import './style.css'
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/edit/:id" element={<Edit/>}/>
         <Route path="/upload" element={<Upload/>}/>
+        <Route path="/mypage" element={<MyPage/>}/>
       </Routes>
     </Router>
   )
