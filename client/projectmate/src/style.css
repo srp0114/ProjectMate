@@ -11,7 +11,7 @@
 }
 
 .login-btn {
-    background: #79bcff;
+    background: #86c2ff;
     height: 70px;
     width: 180px;
     text-align: center;
@@ -38,7 +38,7 @@
   padding: 10px;
   display: block;
   color: white;
-  background-color:#07427e;
+  background-color:#828e9b;
   border-radius: 18px;
 }
 
@@ -72,7 +72,7 @@
   padding-bottom: 10px;
   margin-left : 150px;
   margin-right : 150px;
-  border-bottom: 2px solid rgb(165, 204, 229);
+  border-bottom: 2px solid #848f99;
 }
 
 .main-btn {
@@ -80,7 +80,7 @@
   display: inline-block;
   margin-left: 30px;
   font-size: 35px;
-  color:#4ca5fd;
+  color:#656d75;
   border: none;
   background-color: white;
 }
@@ -133,44 +133,128 @@
   overflow: hidden;
   width: 350px;
   height: 450px;
-  border : 2px solid rgb(7, 135, 255);
+  border : 2px solid rgb(180, 190, 199);
   border-radius: 30px;
   margin-bottom :30px;
   transition: 0.6s;
+}
+
+.mypage-post-container{
+  width: 800px;
+}
+
+.mypage-post{
+  overflow: hidden;
+  width: 90%;
+  height: 200px;
+  border : 2px solid rgb(180, 190, 199);  
+  border-radius: 30px;
+  margin-bottom: 20px;
+  transition: all 0.5s;
+}
+
+.mypage-post:hover{
+  background-color: rgba(230, 230, 230, 0.534);
+}
+
+.mypage-post-header{
+  display: flex;
+  font-size: 17px;
+  text-align: center;
+  justify-content: space-between;
+  padding : 10px 0px 5px 0px;
+  margin-left: 25px;
+  margin-right: 25px;
+  border-bottom: 0.5px solid rgb(180, 190, 199);
+}
+
+.mypage-post-date{
+  margin-top: 5px;
+  font-size: 15px;
+  color :rgb(172, 173, 173);
+  padding-left: 20px;
+}
+
+.mypage-post-title{
+  margin: 0px;
+}
+
+.mypage-post-content{
+  height: 27%;
+  padding-left : 20px;
+}
+
+.mypage-post-footer{
+  padding-left: 20px;
+  margin-bottom : 0px;
 }
 
 .post:hover{
   transform: scale(1.05);
 }
 
-.post-title{
-  margin-top: 10px;
-  padding : 5px 5px 10px 5px;
-  font-size: 45px;
-  white-space: nowrap;
-  border-bottom: 1px solid rgb(7, 135, 255);
+.bookmarker{
+  float: left;
+  margin-left : 15px;
+}
+
+.post-date{
+  clear : both;
+  color: rgb(92, 91, 91);
+  font-size: 17px;
+  text-align: left;
   margin-left: 20px;
-  margin-right: 20px;
+  padding-top: 8px;
+}
+
+.post-title{
+  font-size: 35px;
+  color: black;
   text-align: center;
-  margin-bottom: 70px;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin : 10px 20px 10px 20px;
 }
 
 .post-content{
-  padding-top:80px;
-  padding-bottom: 100px;
+  color: black;
+  height: 24%;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
   text-align: center;
+  padding : 30px 20px 0px 20px;
+}
+
+.tag-container{
+  margin-left: 20px;
+}
+
+.tag{
+  display: block;
+  float: left;
+  color : rgb(51, 51, 51);
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid rgb(133, 133, 133);
+  background-color: rgba(202, 202, 202, 0.384);
+  border-radius: 17px;
+  margin-right: 8px;
+  margin-bottom: 20px;
+  padding :7px;
 }
 
 .post-footer{
-  border-top:1px solid rgb(7, 135, 255);
-  text-align: left;
-  padding :20px 5px 15px 5px;
   display: flex;
+  clear: both;
+  color: black;
+  text-align: left;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px 20px 0px 20px;
+  padding :20px 5px 15px 5px;
+  border-top:1px solid rgb(180, 190, 199);
 }
 
 .profile-photo{
@@ -215,6 +299,7 @@
 .owner-name{
   font-size: 25px;
   margin-top: 0px;
+  margin-left : 5px;
 }
 
 .toggleSwitch {
@@ -238,11 +323,11 @@
   left: 4px;
   transform: translateY(-50%);
   border-radius: 50%;
-  background: #005de9;
+  background: #909eb3;
 }
 
 #toggle:checked ~ .toggleSwitch {
-  background:  #005de9;
+  background:  #909eb3;
 }
 
 #toggle:checked ~ .toggleSwitch .toggleButton {
@@ -480,8 +565,8 @@
   position: fixed;
   border: none;
   border-radius: 50px;
-  border: 1.5px solid rgb(168, 214, 255);
-  background-color: aliceblue;
+  border: 1.5px solid rgba(124, 124, 124, 0.26);
+  background-color: rgb(206, 206, 206);
   right: 7%;
   bottom: 3%;
   width: 70px;
@@ -497,8 +582,8 @@
   position: fixed;
   border: none;
   border-radius: 50px;
-  border: 1.5px solid rgb(168, 214, 255);
-  background-color: aliceblue;
+  border: 1.5px solid rgba(124, 124, 124, 0.26);
+  background-color: rgb(206, 206, 206);
   right: 2%;
   bottom: 3%;
   width: 70px;
@@ -508,7 +593,7 @@
 }
 
 .top-text{
-  color : #2586e7;
+  color : #050505;
 }
 
 .top-btn:hover{

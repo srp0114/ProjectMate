@@ -34,7 +34,13 @@ const LoginHeader=(props)=>{
             <div className='menu'>
                 <button onClick={openMyPage} className='profile-btn'><IoPerson size='30'/><span className='profile-nickname'>{props.nickname}</span></button>
                 {isOpen &&<div className='sidebar'><ul>
-                    <Link to='/mypage' style={{ textDecoration: "none" }}>
+                    <Link to={{
+                        pathname : `/mypage`,
+                        state:{
+                            islogin :true,
+                        }
+                    }}
+                        style={{ textDecoration: "none" }}>
                         <li className='list-component'>내정보</li>
                     </Link>
                     <li className='list-component'>작성한 글</li>
