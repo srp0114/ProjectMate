@@ -302,6 +302,15 @@
   margin-left : 5px;
 }
 
+.nonfound{
+  height: 800px;
+  line-height: 800px;
+  text-align: center;
+  justify-content: center;
+  font-size: 50px;
+  color : rgba(128, 128, 128, 0.582);
+}
+
 .toggleSwitch {
   width: 100px;
   height: 50px;
@@ -598,4 +607,11 @@
 
 .top-btn:hover{
   background-color: #d5e6ff;
+}
+
+.observer{
+  border-top: 1px solid rgba(133, 133, 133, 0.541);
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
