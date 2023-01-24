@@ -38,7 +38,7 @@ const PostThumbnail = (props) =>{
                 </div>
                 <div className='icons'>
                     <AiOutlineEye size="30"/><span className='etc-num'>{props.view_count}</span>
-                    <HiOutlineChatBubbleLeftRight size="30" className=''/><span className='etc-num'>{props.comment_count}</span>
+                    <HiOutlineChatBubbleLeftRight size="30"/><span className='etc-num'>{props.comment_count}</span>
                 </div>
             </div>
             </Link>
