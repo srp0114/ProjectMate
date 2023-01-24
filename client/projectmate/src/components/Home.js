@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
+import {Modal} from 'antd';
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
+import NonFound from './NonFound';
 
 const Home=()=>{
     const [button, setButton] = useState('');
@@ -20,9 +22,12 @@ const Home=()=>{
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
     const [is_progress, setProgress] = useState(0);
+    const [isTotal, setIsTotal] = useState(true);
 
     const [ScrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const div =['A','B','N','1'];
 
@@ -33,31 +38,37 @@ const Home=()=>{
             </>
         )
     }
+
     //학년버튼
     const handleClickButton = e => {
         const name = e.target.value;
-        setButton(name);
-        setS_btn(false);
+        if(name=='total'){
+            setIsTotal(true);
+            setPage(0);
+            setPosts([]);
+        }
+            setButton(name);
+            setS_btn(false);
     };
     
-    //전체버튼
-    const handleClickTotalButton = e =>{
-        setS_btn(false);
-        getTotalPost();
-    }
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
-        setSubject(e.target.value);
-        setS_btn(true);
+            setSubject(e.target.value);
+            setS_btn(true);
     }
 
     //분반 버튼
     const handleClickDivisionButton = e =>{
-        setDivision(e.target.value);
+            setDivision(e.target.value);
+            setIsTotal(false);
+            setPosts([]);
+            setPage(0);
     }
 
     //모집중 버튼 : 토글버튼 이용
     const handleClickProgressButton = e =>{
+        setPosts([]);
+        setPage(0);
         if(e.target.checked){
             setProgress(1);
         }
@@ -93,12 +104,21 @@ const Home=()=>{
       };
 
       const goToUpload = useNavigate();
+      const goToHome = useNavigate();
 
       const upload = () => {
-        goToUpload('/upload')
-      }
+        if(isLogin){
+            goToUpload('/upload')
+        }
+        else{
+            //로그인 경고 모달창 띄우기.
+            setIsModalOpen(true)
+        }
+        }
 
-
+        const handleOk = () => {
+            setIsModalOpen(false);
+        }
 
       useEffect(() => {
         const watch = () => {
@@ -115,7 +135,13 @@ const Home=()=>{
             setIsLogin(true)
     }
 
+    const logOut = e =>{
+        localStorage.clear();
+        setIsLogin(false);
+    }
+
     const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
+        'total' : [],
         'grade1': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         'grade2': ['컴퓨터구조', '자료구조', '객체지향언어1'],
         'grade3': ['웹프웤1', '가상현실'],
@@ -124,43 +150,39 @@ const Home=()=>{
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
-        setLoading(true);
-        await axios.get(`http://localhost:8080/post/postList/filtering?subject=${subject}&division=${division}&is_progress=${is_progress}`)
-        .then((response)=>{
-            setPosts(response.data.content)
-            console.log(posts)
-        })
-        .catch((error)=>console.log(error.response.data));
-        setLoading(false);
-    },[subject,division,is_progress,page])
-
-    const getTotalPost = useCallback(async ()=>{
-        setLoading(true);
-        await axios.get(`http://localhost:8080/post/postList?page=${page}&size=4&is_progress=${is_progress}`)
-        .then((response)=>{
-            setPosts(response.data.content)
-            console.log(posts)
-        })
-        .catch((error)=>console.log(error.response.data));
-        setLoading(false);
-    },[page])
+        if(isTotal){
+            setLoading(true)
+            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
+            .then((response)=>{
+                setPosts((prevState)=>[...prevState, ...response.data.content])
+                console.log(posts)
+            })
+            .catch((error)=>console.log(error.response.data))
+            setLoading(false);
+        }
+        else{
+            setLoading(true);
+            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
+            .then((response)=>{
+                setPosts((prevState)=>[...prevState, ...response.data.content])
+                console.log(posts)
+            })
+            .catch((error)=>console.log(error.response.data));
+            setLoading(false);
+        }
+    },[page,isTotal,is_progress,division,subject])
 
     useEffect(()=>{
         getPost()
     },[getPost])
-
+    
     useEffect(()=>{
-        getTotalPost()
-    },[getTotalPost])
-
-    useEffect(()=>{
-        setLoading(true);
             if(inView && !loading){
-                setPage(prevState => prevState+1)
+                setLoading(true);
+                    setPage(prevState => prevState+1)
+                setLoading(false);
             }
-        setLoading(false);
     },[inView])
-
 
     useEffect(()=>{
         if(localStorage.length>=2){
@@ -171,19 +193,18 @@ const Home=()=>{
     return(
         <>
             <div className='header'>
-                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  setIsLogin={setIsLogin}/> : <Header/>}
+                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  logOut={logOut}/> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
             </div>
             <div className='btn-container'>
-                <button className='main-btn' onClick={handleClickTotalButton}>전체</button>
+                <button className='main-btn' onClick={handleClickButton} value={'total'}>전체</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade1'}>1학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade2'}>2학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
                 <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
-
             <div className='sub-btn-container'>
                 <div>
                     {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
@@ -202,11 +223,28 @@ const Home=()=>{
                     {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
             </div>
+            {posts.length==0 && <NonFound/>}
             <div className='post-container'>
-            {posts.map((post,i)=><PostThumbnail {...post}/>)}
+            {posts.map((post,i)=>{
+                if(post){
+                    return posts.length-1 == i ? (
+                        <PostThumbnail ref={ref} {...post}/>
+                    ):(
+                        <PostThumbnail {...post}/>
+                    )
+                }
+            })}
             </div>
-            <div><button className='adder-btn' onClick={upload}>플러스</button><button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button></div>
-            <div ref={ref}>옵저버</div>
+            <div>
+            <button className='adder-btn' onClick={upload}>플러스</button>
+            {isModalOpen &&
+                <Modal open={isModalOpen} onOk={handleOk}>
+                    <p>로그인 후 사용할 수 있는 기능입니다..</p>
+                </Modal>
+            }
+            <button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button>
+            </div>
+            <div ref={ref} className='observer'/>
             </>
     )
 }

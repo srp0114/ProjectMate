@@ -1,13 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from './components/Header'
 import Home from './components/Home'
-import Banner from './components/Banner'
-import LoginHeader from './components/LoginHeader'
 import Details from "./components/pages/Details"
 import Register from "./components/pages/Register"
 import Edit from "./components/pages/Edit"
 import Upload from "./components/pages/Upload"
+import MyPage from "./components/pages/MyPage"
 import './App.css';
 import './style.css'
 
@@ -20,6 +18,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/edit/:id" element={<Edit/>}/>
         <Route path="/upload" element={<Upload/>}/>
+        <Route path="/mypage" element={<MyPage/>}/>
       </Routes>
     </Router>
   )
