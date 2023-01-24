@@ -159,7 +159,7 @@ const Details = () => {
       </Space>
       <Divider/>
       <div className="postingInfo">
-      <Space align="center" size={300}>
+      <Space align="center" size={250}>
         <Space align="center" size={100}>
           <Title level={4}>과목명</Title>
           <Title level={4}>{subject}</Title>
@@ -169,7 +169,7 @@ const Details = () => {
           <Title level={4}>{division}</Title>
         </Space>
       </Space>
-      <Space align="center" size={357}>
+      <Space align="center" size={300}>
         <Space align="center" size={85}>
           <Title level={4}>모집인원</Title>
           <Title level={4}>{peopleNum}</Title>

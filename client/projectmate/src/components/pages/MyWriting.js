@@ -1,23 +1,52 @@
-import React from 'react';
-import { Space, Typography, Divider, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import PostThumbnail2 from '../PostThumbnail2';
+import React, { useEffect, useState } from 'react';
+import { Space, Typography, Card, Divider } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+import axios from "axios";
 import "../css/MyPage.css";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
+const { Meta } = Card;
 
 const MyWriting = () => {
-    const nickname = localStorage.getItem('nickname')
-    const id = localStorage.getItem('id')
+    const auth = localStorage.getItem("token")
+    const [myWriting, setMyWriting] = useState([]);
+
+    var config = {
+        method: 'get',
+        url: `/member/posts`,
+        headers: { 
+          'Authorization': `Bearer ${auth}`
+        }
+    };
+
+    useEffect (() => {
+        axios(config)
+            .then(function(response) {
+                setMyWriting(response.data.content)
+                console.log(response.data.content)
+          })
+          .catch(function (error) {
+            console.log(error);
+          }); 
+      }, [])
+
+    const goToPost = useNavigate();
 
     return (
         <>            
             <Space direction='vertical' className="myInfo">
-                <Title level={3}>작성한 글</Title>
-                    <div className='mypage-post-container'>
-                        <PostThumbnail2/>
-                        <PostThumbnail2/>
-                    </div>
+                {myWriting.map((info, i) => {
+                    return (
+                        <Card hoverable style={{ width: 500 }} key={i}> 
+                            <Meta title={info.title} description={info.modifiedDate}/>
+                            <Divider/>                   
+                            <Text>{info.subject} [{info.division}] </Text>
+                            <Title level={5}>{info.writer_nickname}</Title>
+                            <Text>{info.view_count}</Text>                
+                        </Card>
+                    )
+                })}
             </Space>
         </>
     )
