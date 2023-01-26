@@ -5,7 +5,6 @@ import { UserOutlined } from '@ant-design/icons';
 import MyInfo from "./MyInfo"
 import MyWriting from "./MyWriting.js"
 import MyBookmark from "./MyBookmark"
-import MyComment from "./MyComment"
 import LoginHeader from '../LoginHeader';
 import Header from '../Header';
 import "../css/MyPage.css";
@@ -23,8 +22,9 @@ const MyPage = () => {
     return (
         <>
             <div className='header'>
-                {location.isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}/> : <Header/>}
+                <LoginHeader nickname={localStorage.getItem('nickname')}/>
             </div>
+            <div className='header-line'/>
             <div className="myInfoPage">
             <Space direction='vertical' className="myInfoMenu">
                 <Avatar size={55} icon={<UserOutlined />}/>
@@ -33,10 +33,10 @@ const MyPage = () => {
                 <Divider style={{height:"100%"}}/>
                 <Title level={4} onClick={() => setMyInfo(<MyInfo/>)}>내 정보</Title>
                 <Title level={4} onClick={() => setMyInfo(<MyWriting/>)}>작성한 글</Title>
-                <Title level={4} onClick={() => setMyInfo(<MyComment/>)}>댓글단 글</Title>
                 <Title level={4} onClick={() => setMyInfo(<MyBookmark/>)}>북마크한 글</Title>
             </Space>
             {myInfo}
+
             </div>
         </>
     )

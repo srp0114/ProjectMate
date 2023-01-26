@@ -10,8 +10,15 @@
     margin-right : 150px;
 }
 
+.header-line{
+  border : 3px solid rgba(134, 134, 134, 0.815);
+  margin-right: 8em;
+  margin-left: 8em;
+}
+
 .login-btn {
-    background: #86c2ff;
+  font-family: 'Do Hyeon', sans-serif;
+    background-color: rgb(236, 236, 236);
     height: 70px;
     width: 180px;
     text-align: center;
@@ -21,7 +28,7 @@
 }
 
 .btn-text{
-    color: white;
+    color: #313842;;
     font-size: 38px;    
 }
 
@@ -101,22 +108,41 @@
 }
  
 .sub-btn{
-  width: 150px;
   height: 50px;
-  color: rgb(62, 59, 243);
+  color: rgb(14, 14, 14);
   border-radius: 100px;
   font-weight: 500;
-  background-color: aliceblue;
+  background-color: rgba(240, 240, 240, 0.452);
   cursor: pointer;
   position: relative;
   display: inline-block;
     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(60, 167, 255, 0.1),
-    4px 4px 5px 0px rgba(60, 167, 255, 0.1);
+    7px 7px 20px 0px rgba(212, 212, 212, 0.575),
+    4px 4px 5px 0px rgba(212, 212, 212, 0.575);
   outline: none;
   margin-left: 10px;
   margin-top : 20px;
   font-size: 20px;
+  border: 1px solid rgb(194, 194, 194);
+}
+
+.sub-btn-selected{
+  height: 50px;
+  color: rgb(14, 14, 14);
+  border-radius: 100px;
+  font-weight: 500;
+  background-color: rgba(155, 0, 0, 0.452);
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(212, 212, 212, 0.575),
+    4px 4px 5px 0px rgba(212, 212, 212, 0.575);
+  outline: none;
+  margin-left: 10px;
+  margin-top : 20px;
+  font-size: 20px;
+  border: 1px solid rgb(194, 194, 194);
 }
 
 .post-container{
@@ -194,6 +220,7 @@
 }
 
 .bookmarker{
+  position: absolute;
   float: left;
   margin-left : 15px;
 }
@@ -203,6 +230,7 @@
   color: rgb(92, 91, 91);
   font-size: 17px;
   text-align: left;
+  margin-top: 45px;
   margin-left: 20px;
   padding-top: 8px;
 }
@@ -375,10 +403,10 @@
   position: fixed;
   border-radius: 10px;
   text-align: center;
-  background-color: #ddeafd;
+  background-color: #ebf1f8;
   left: 38%;
   top: 10%;
-  width: 26%;
+  width: 28%;
   height: 55%;
 }
 
@@ -387,7 +415,7 @@
   font-size: 50px;
   margin-bottom: 0px;
   padding: 0px 4px 10px 4px;
-  color: #3986fa;
+  color: #57616e;
 }
 
 .login-input-components{
@@ -411,7 +439,7 @@
 
 .login-modal-btn {
   font-family: 'Do Hyeon', sans-serif;
-  background-color: aliceblue;
+  background-color: rgb(236, 236, 236);
   height: 70px;
   width: 40%;
   text-align: center;
@@ -421,7 +449,7 @@
 
 .login-btn-text{
   font-size: 40px;
-  color: #3986fa;
+  color: #313842;
 }
 
 .login-etc-btn{
@@ -448,6 +476,35 @@
   margin : 4px;
 }
 
+.fail-modal{
+  position: fixed;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #ffffff;
+  left: 34.5%;
+  top: 30%;
+  width:35%;
+  height: 36%;
+}
+
+.fail-massage{
+  font-size: 20px;
+  text-align: center;
+  padding: 100px;
+}
+
+.ok-btn{
+  display: block;
+  float: right;
+  font-size: 20px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  color: #3f3f3f;
+  border : 1px solid rgb(190, 190, 190);
+  border-radius: 10px;
+  padding : 6px 10px 6px 10px;
+}
+
 .comment{
   border-bottom: 1px solid rgb(184, 194, 204);
   padding-left : 10px;
@@ -460,10 +517,11 @@
 }
 
 .comment-input-container{
-  display: inline-block;
-  border-bottom: 1.5px solid rgb(207, 207, 207);
+  display: inline-block;  
+  border-bottom: 3px solid rgb(189, 189, 189);
   margin-bottom :10px;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 .comment-input{
@@ -566,25 +624,23 @@
   font-size: 17px;
 }
 
-.url-footer{
-  
-}
-
 .adder-btn{
   position: fixed;
   border: none;
   border-radius: 50px;
   border: 1.5px solid rgba(124, 124, 124, 0.26);
-  background-color: rgb(206, 206, 206);
+  background-color: rgb(228, 228, 228);
   right: 7%;
   bottom: 3%;
   width: 70px;
   height: 70px;
   transition: all 0.5s;
+  font-size: 17px;
 }
 
 .adder-btn:hover{
-  background-color: #d5e6ff;
+  background-color: #858585;
+  color: white;
 }
 
 .top-btn{
@@ -592,7 +648,7 @@
   border: none;
   border-radius: 50px;
   border: 1.5px solid rgba(124, 124, 124, 0.26);
-  background-color: rgb(206, 206, 206);
+  background-color: rgb(228, 228, 228);
   right: 2%;
   bottom: 3%;
   width: 70px;
@@ -601,12 +657,9 @@
   transition: all 0.5s;
 }
 
-.top-text{
-  color : #050505;
-}
-
 .top-btn:hover{
-  background-color: #d5e6ff;
+  background-color: #858585;
+  color: white;
 }
 
 .observer{

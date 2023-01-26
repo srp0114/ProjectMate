@@ -21,23 +21,33 @@ const Home=()=>{
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
-    const [is_progress, setProgress] = useState(0);
+    const [is_progress, setProgress] = useState(1);
     const [isTotal, setIsTotal] = useState(true);
 
     const [ScrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
-
+    const [activeBtn, setActiveBtn] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     const div =['A','B','N','1'];
 
     const Button = (props) =>{          //props.name,  props.func
+        const [selected, setSelected] = useState(props.state);
         return(
             <>
-                <button className='sub-btn' onClick={props.func} value={props.name}>{props.name}</button>
+            {selected ? <button className='sub-btn-selected' onClick={props.func} value={props.name}>{props.name}</button>
+            : <button className='sub-btn' onClick={props.func} value={props.name}>{props.name}</button>
+            }
             </>
         )
     }
+
+    const setActive = (e) =>{
+        setActiveBtn((prevState)=>{
+            return !prevState;
+        });
+    };
 
     //학년버튼
     const handleClickButton = e => {
@@ -115,7 +125,6 @@ const Home=()=>{
             setIsModalOpen(true)
         }
         }
-
         const handleOk = () => {
             setIsModalOpen(false);
         }
@@ -131,11 +140,11 @@ const Home=()=>{
       });
 
     const setLogin = () => {
-        if(localStorage.length>=2)
+        if(localStorage.length>=4)
             setIsLogin(true)
     }
 
-    const logOut = e =>{
+    const logOut = () =>{
         localStorage.clear();
         setIsLogin(false);
     }
@@ -154,7 +163,7 @@ const Home=()=>{
             setLoading(true)
             await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
             .then((response)=>{
-                setPosts((prevState)=>[...prevState, ...response.data.content])
+                setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
             })
             .catch((error)=>console.log(error.response.data))
@@ -164,7 +173,7 @@ const Home=()=>{
             setLoading(true);
             await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
             .then((response)=>{
-                setPosts((prevState)=>[...prevState, ...response.data.content])
+                setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
             })
             .catch((error)=>console.log(error.response.data));
@@ -207,11 +216,11 @@ const Home=()=>{
             </div>
             <div className='sub-btn-container'>
                 <div>
-                    {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
+                    {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton} onClick={setActive} state={activeBtn}/>))}</>}
                 </div>
                 <div className='toggle-btn'>
                     <h3 className='toggle-btn-name'>모집중</h3>
-                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden/> 
+                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden checked={is_progress}/> 
                     <label for="toggle" class="toggleSwitch">
                     <span class="toggleButton"/>   
                     </label>
@@ -225,18 +234,12 @@ const Home=()=>{
             </div>
             {posts.length==0 && <NonFound/>}
             <div className='post-container'>
-            {posts.map((post,i)=>{
-                if(post){
-                    return posts.length-1 == i ? (
-                        <PostThumbnail ref={ref} {...post}/>
-                    ):(
-                        <PostThumbnail {...post}/>
-                    )
-                }
-            })}
+            {posts.map((post,i)=>   
+                        (<PostThumbnail {...post} isLogin={isLogin}/>)
+            )}
             </div>
             <div>
-            <button className='adder-btn' onClick={upload}>플러스</button>
+            <button className='adder-btn' onClick={upload}><strong>플러스</strong></button>
             {isModalOpen &&
                 <Modal open={isModalOpen} onOk={handleOk}>
                     <p>로그인 후 사용할 수 있는 기능입니다..</p>

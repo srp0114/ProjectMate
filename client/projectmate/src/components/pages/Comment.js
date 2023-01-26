@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import SubComment from './SubComment';
+import {AiFillLock} from 'react-icons/ai'
 
 const Comment =(props) =>{
     const [isHover, setIsHover] = useState(false);
@@ -75,7 +76,7 @@ const Comment =(props) =>{
             }
           };
           axios(config)
-          .then(response => console.log('게시글 수정 성공'))
+          .then(response => console.log('댓글수정 완료!'))
           .catch(error => {
               console.error(error);
           });
@@ -110,17 +111,20 @@ const Comment =(props) =>{
                     <button onClick={sendModComment}>수정하기</button>
                 </div>
             </> 
-            : <div className='comment' onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
-                <p className='writer-content'><span className='writer'>{props.writer_nickname}</span>
-                {isHover && <div className='comment-sub-btn-container'>
-                    <button onClick={clickHandler} className='comment-btns'>답글</button>
-                    {props.isWriter && <>
-                        <button className='comment-btns' onClick={ModifyComment}>수정</button>
-                        <button className='comment-btns' onClick={DeleteComment} >삭제</button>
-                    </>
-                    }
-                    </div>}</p>
-                <p className='comment-content'><span>{props.content}</span></p>
+            :
+            <div className='comment'>
+                <div onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
+                    <p className='writer-content'><span className='writer'>{props.writer_nickname}</span>
+                    {isHover && <div className='comment-sub-btn-container'>
+                        <button onClick={clickHandler} className='comment-btns'>답글</button>
+                        {props.isWriter && <>
+                            <button className='comment-btns' onClick={ModifyComment}>수정</button>
+                            <button className='comment-btns' onClick={DeleteComment} >삭제</button>
+                        </>
+                        }
+                        </div>}</p>
+                    <p className='comment-content'>{props.secret ? <AiFillLock size="14"/> : <></>}<span>{props.content}</span></p>
+                </div>
                 {input && <div className='sub-comment-input-container'>
                     <input className='sub-comment-input' type="text" placeholder='답글을 쓰세요...' value={subComment} onChange={(e)=>setSubComment(e.target.value)}/><button className='sub-comment-btn' onClick={postSubComment}>답글달기</button>
                     </div>}
@@ -129,7 +133,7 @@ const Comment =(props) =>{
                         <SubComment {...subcomment} auth={props.auth} getComments={props.getComments}/>
                     ))}
                 </div>
-            </div> }
+            </div>}
            
         </>
     )

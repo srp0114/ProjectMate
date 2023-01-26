@@ -1,5 +1,6 @@
 .myInfoPage {
-    margin:10% 15%;
+    margin:10%;
+    margin-left:12%;
 }
 
 .myInfoMenu {
@@ -8,7 +9,7 @@
     padding-left:40px;
     padding-top:50px;
     padding-bottom:50px;
-    border: 1.5px solid #a0c9f3;
+    border: 1.5px solid black;
     border-radius: 20px;
 }
 
@@ -16,16 +17,15 @@
     float:left;
     margin-left:10px;
     padding-left:6%;
-    padding-right:6%;
     padding-top:3%;
     padding-bottom:5%;
-    border: 1.5px solid #a0c9f3;
+    border: 1.5px solid black;
     border-radius: 20px;
 }
 
 .info {
     margin-left:50px;
-    margin-right:200px;
+    margin-right:300px;
 }
 
 .change-profile{

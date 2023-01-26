@@ -1,48 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Space, Typography, Divider, Card } from 'antd';
-import axios from 'axios';
+import React from 'react';
+import { Space, Typography, Divider, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import "../css/MyPage.css";
 
-const { Title, Text } = Typography;
-const { Meta } = Card;
+const { Title } = Typography;
 
 const MyBookmark = () => {
-    const auth = localStorage.getItem("token")
-    const [myBookmark, setMyBookmark] = useState([]);
-
-    var config = {
-        method: 'get',
-        url: `/member/bookmark-posts`,
-        headers: { 
-          'Authorization': `Bearer ${auth}`
-        }
-    };
-
-    useEffect (() => {
-        axios(config)
-            .then(function(response) {
-                setMyBookmark(response.data.content)
-                console.log(response.data.content)
-          })
-          .catch(function (error) {
-                console.log(error);
-          }); 
-      }, [])
+    const nickname = localStorage.getItem('nickname')
+    const id = localStorage.getItem('id')
 
     return (
         <>            
             <Space direction='vertical' className="myInfo">
-                {myBookmark.map((info, i) => {
-                    return (
-                        <Card hoverable style={{ width: 500 }} key={i}>  
-                            <Meta title={info.title} description={info.modifiedDate}/>
-                            <Divider/>                   
-                            <Text>{info.subject} [{info.division}] </Text>
-                            <Title level={5}>{info.writer_nickname}</Title>
-                            <Text>{info.view_count}</Text>                
-                        </Card>
-                    )
-                })}
+                <Title level={3}>북마크한 글</Title>
+                <Space direction='vertical' className="info">
+                <Title level={5}>{nickname}</Title>
+                <Title level={5}>{id}</Title>
+                <Title level={5}>200@hansung.ac.kr</Title>
+                <Title level={5}>변경하기</Title>
+                </Space>
             </Space>
         </>
     )

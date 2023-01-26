@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Comment from './Comment'
 import axios from 'axios';
+import {AiFillLock} from 'react-icons/ai'
 
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
