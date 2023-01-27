@@ -92,57 +92,99 @@
   background-color: white;
 }
 
-.main-btn:hover{
-  border-bottom:3px solid #4ca5fd;
-}
-
 .sub-btn-container{   
+  display: flex;
+  justify-content: space-between;
   text-align: left;
   padding-left :5%;
   padding-bottom: 10px;
-  margin-left : 80px;
-  margin-right : 10px;
-  margin-bottom: 100px;
-  display: flex;
-  justify-content: space-between;
+  margin : 0px 10px 100px 80px;
 }
  
 .sub-btn{
-  height: 50px;
   color: rgb(14, 14, 14);
-  border-radius: 100px;
+  font-size: 20px;
+  height: 50px;
   font-weight: 500;
   background-color: rgba(240, 240, 240, 0.452);
   cursor: pointer;
   position: relative;
   display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(212, 212, 212, 0.575),
-    4px 4px 5px 0px rgba(212, 212, 212, 0.575);
+    box-shadow:inset
+    2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 50px 0px rgba(212, 212, 212, 0.575),
+    2px 2px 5px 0px rgba(212, 212, 212, 0.575);
   outline: none;
-  margin-left: 10px;
+  margin-left: 15px;
   margin-top : 20px;
-  font-size: 20px;
+  padding : 10px;
   border: 1px solid rgb(194, 194, 194);
+  border-radius: 7px;
 }
 
 .sub-btn-selected{
-  height: 50px;
   color: rgb(14, 14, 14);
-  border-radius: 100px;
+  font-size: 20px;
+  height: 50px;
   font-weight: 500;
-  background-color: rgba(155, 0, 0, 0.452);
+  background-color: rgba(175, 175, 175, 0.514);
   cursor: pointer;
   position: relative;
   display: inline-block;
-    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-    7px 7px 20px 0px rgba(212, 212, 212, 0.575),
-    4px 4px 5px 0px rgba(212, 212, 212, 0.575);
+    box-shadow:inset
+    2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 50px 0px rgba(212, 212, 212, 0.575),
+    2px 2px 5px 0px rgba(212, 212, 212, 0.575);
   outline: none;
-  margin-left: 10px;
+  margin-left: 15px;
   margin-top : 20px;
-  font-size: 20px;
+  padding : 10px;
   border: 1px solid rgb(194, 194, 194);
+  border-radius: 7px;
+}
+
+.div-btn{
+  color: rgb(14, 14, 14);
+  font-size: 20px;
+  width : 80px;
+  height: 50px;
+  font-weight: 500;
+  background-color: rgba(240, 240, 240, 0.452);
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+    box-shadow:inset
+    2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 50px 0px rgba(212, 212, 212, 0.575),
+    2px 2px 5px 0px rgba(212, 212, 212, 0.575);
+  outline: none;
+  margin-left: 15px;
+  margin-top : 20px;
+  padding : 10px;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 7px; 
+}
+
+.div-btn-selected{
+  color: rgb(14, 14, 14);
+  font-size: 20px;
+  width : 80px;
+  height: 50px;
+  font-weight: 500;
+  background-color: rgba(175, 175, 175, 0.514);
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+    box-shadow:inset
+    2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 50px 0px rgba(212, 212, 212, 0.575),
+    2px 2px 5px 0px rgba(212, 212, 212, 0.575);
+  outline: none;
+  margin-left: 15px;
+  margin-top : 20px;
+  padding : 10px;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 7px;
 }
 
 .post-container{
@@ -384,19 +426,19 @@
 
 .toggle-btn-name{
   text-align: center;
-  margin-top: 5px;
   font-size: 30px;
   margin-right: 5px;
+  margin-top: 5px;
 }
 
-.division-btn{
+.division-btn-container{
+  display: flex;
   text-align: left;
-  padding-left :4.5%;
-  padding-bottom: 10px;
+  justify-content: left;
   margin-right : 10px;
   margin-bottom: 10px;
-  display: flex;
-  justify-content: left;
+  padding-left : 9%;
+  padding-bottom: 10px;
 }
 
 .login-form{

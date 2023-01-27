@@ -29,6 +29,7 @@ const Header=(props)=>{
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('nickname',response.data.nickname)
                 localStorage.setItem('id', id)
+                localStorage.setItem('email', response.data.email)
                 localStorage.setItem('login-time', Date.now());
                 window.location.reload();
             }

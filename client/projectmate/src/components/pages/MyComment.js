@@ -1,15 +1,13 @@
+
 import React, { useEffect, useState } from 'react';
 import { Space, Typography, Divider, Card } from 'antd';
 import axios from "axios";
 import "../css/MyPage.css";
-
 const { Title, Text } = Typography;
 const { Meta } = Card;
-
 const MyComment = () => {
     const auth = localStorage.getItem("token")
     const [myComment, setMyComment] = useState([]);
-
     var config = {
         method: 'get',
         url: `/member/commented-posts`,
@@ -17,7 +15,6 @@ const MyComment = () => {
           'Authorization': `Bearer ${auth}`
         }
     };
-
     useEffect (() => {
         axios(config)
             .then(function(response) {
@@ -28,7 +25,6 @@ const MyComment = () => {
             console.log(error);
           }); 
       }, [])
-
     return (
         <>            
             <Space direction='vertical' className="myInfo">
@@ -47,5 +43,4 @@ const MyComment = () => {
         </>
     )
 }
-
 export default MyComment
