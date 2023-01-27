@@ -18,7 +18,7 @@ const MyPage = () => {
     return (
         <>
             <div className='header'>
-                {location.isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}/> : <Header/>}
+                <LoginHeader nickname={localStorage.getItem('nickname')}/>
             </div>
             <div className="myInfoPage">
             <Space direction='vertical' className="myInfoMenu">

@@ -10,14 +10,15 @@ import Banner from './Banner'
 import NonFound from './NonFound';
 
 const Home=()=>{
-    const [button, setButton] = useState('');
+    const [grade, setGrade] = useState('전체');
+    const [isLogin, setIsLogin] = useState(false);
 
     const [posts, setPosts] = useState([]);
-    const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
-    const [loading, setLoading] = useState(false);
-    
+    const [loading, setLoading] = useState(false);    
     const [ref, inView] = useInView();
+
+
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);      //과목 버튼이 눌렸는지에 대한 상태 정보 저장 값
     const [division, setDivision] = useState('');
@@ -36,8 +37,8 @@ const Home=()=>{
         '전체' : [],
         '1학년': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
-        '3학년': ['웹프웤1', '가상현실'],
-        '4학년': ['웹프웤2', '캡스톤디자인']
+        '3학년': ['웹프레임워크1', '가상현실'],
+        '4학년': ['웹프레임워크2', '캡스톤디자인']
     };
 
     //분반
@@ -67,14 +68,16 @@ const Home=()=>{
             setPage(0);
             setPosts([]);
         }
-            setButton(name);
+            setGrade(name);
             setS_btn(false);
+            setDivision('');
     };
     
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
             setSubject(e.target.value);
             setS_btn(true);
+            setDivision('');
     }
 
     //분반 버튼
@@ -210,14 +213,14 @@ const Home=()=>{
             </div>
             <div className='btn-container'>
                 {
-                    gradeComponent.map((grade,i)=>(<button className='main-btn' onClick={handleClickButton} value={grade}>{grade}</button>))
+                    gradeComponent.map((grd,i)=>(<button className={grd == grade ? 'main-btn-selected' : 'main-btn'} onClick={handleClickButton} value={grd}>{grd}</button>))
                 }
             </div>
             <div className='sub-btn-container'>
                 <div>
-                    {button &&
+                    {grade &&
                     <>
-                    {subjectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton} style={subject == btn ? 'sub-btn-selected' : 'sub-btn'}/>))}
+                    {subjectComponent[grade].map((grd)=>(<Button name={grd} func={handleClickSubjectButton} style={subject == grd ? 'sub-btn-selected' : 'sub-btn'}/>))}
                     </>}
                 </div>
                 <div className='toggle-btn'>
