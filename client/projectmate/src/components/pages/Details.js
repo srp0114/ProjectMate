@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SecurityScanTwoTone, UserOutlined } from '@ant-design/icons';
+import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
 import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
-import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
-import '../css/Details.css'
+import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
+import '../css/Details.css';
 
 const { Title, Text } = Typography;
 
@@ -24,6 +24,7 @@ const Details = () => {
   const [commentList, setCommentList] = useState([]);
   const [isWriter, setIsWriter] = useState([]);
   const [isBookmark, setIsBookmark] = useState(false);
+  const [bookmarkCount, setBookmarkCount] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {id} = useParams();
@@ -39,14 +40,6 @@ const Details = () => {
       'Authorization': `Bearer ${auth}`
     }
   };
-
-  var deleteConfig = {
-    method: 'delete',
-    url: `/post/${id}`,
-    headers: { 
-      'Authorization': `Bearer ${auth}`
-    }
-  }
   
   var postConfig = {
     method: 'post',
@@ -74,6 +67,7 @@ const Details = () => {
       setPostId(response.data.id);
       setIsWriter(response.data.isWriter);
       setIsBookmark(response.data.isBookmarked);
+      setBookmarkCount(response.data.bookmark_count);
 	  })
 	  .catch(function (error) {
 	    console.log(error);
@@ -95,7 +89,6 @@ const Details = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
 
   const handleBookmark = () => {
     axios(postConfig)
@@ -119,6 +112,14 @@ const Details = () => {
     <Button onClick={UpdatePost}>수정하기</Button>
   ) : (null);
 
+  var deleteConfig = {
+    method: 'delete',
+    url: `/post/${id}`,
+    headers: { 
+      'Authorization': `Bearer ${auth}`
+    }
+  }
+
   const DeletePost = () => {
     axios(deleteConfig)
         .then(response => {
@@ -126,10 +127,10 @@ const Details = () => {
           showModal()
         })
         .catch(error => {
-            console.error(error);
+          console.error(error);
         });
   }
-  
+
   const DeleteButton = isWriter ? (
     <>
     <Button onClick={DeletePost}>삭제하기</Button>
@@ -146,15 +147,19 @@ const Details = () => {
   return (
     <>
     <div className="posting">
+      <Space>
+      <HomeOutlined style={{ fontSize: '22px'}}/>
       <p className="postingDay">{date}</p>
+      </Space>
       <Title level={1} className="postingTitle">{title}</Title>
       <br/>
       <Space align="center">
         <Avatar size={38} icon={<UserOutlined/>}/>
-        <Text fontSize={100}>{writerName} ({studentID})</Text>
+        <Text>{writerName} ({studentID})</Text>
         {UpdateButton}
         {DeleteButton}
         {BookmarkButton}
+        <Text>{bookmarkCount}</Text>
       </Space>
       <Divider/>
       <div className="postingInfo">
