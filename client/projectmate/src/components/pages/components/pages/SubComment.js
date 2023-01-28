@@ -32,7 +32,7 @@ const SubComment =(props) =>{
           data : {
           "content" : `${modComment}`,
           "parentId" : null,
-          "secret" : `${secret}`
+          "secret" : `1`
           }
         };
         axios(config)

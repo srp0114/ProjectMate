@@ -1,12 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoPerson}  from 'react-icons/io5'
 import '../style.css';
 
 const LoginHeader=(props)=>{
-    const [isExpire, setExpire] = useState(false)
-    
-    const EXPIRY_TIME = 1 * 3600 * 1000;                //로그인 세션 유지 시간.
+    const EXPIRY_TIME = 3 * 3600 * 1000;        //로그인 세션 만료 시간.
     let loginTime = localStorage.getItem('login-time'); 
     let nowTime = Date.now();
     
@@ -24,16 +22,9 @@ const LoginHeader=(props)=>{
        // console.log(nowTime);
     }
 
-    const expiryLogin = useCallback(() =>{
-        if(nowTime-loginTime > EXPIRY_TIME)         //1시간이 지나면 클리어
-        {
-            props.logOut();
-        }
-    });
-
-    useEffect(()=>{
-        expiryLogin()
-    },[expiryLogin])
+    const expiryLogin = () =>{
+        //if(loginTime)
+    }
 
     return(
         <>

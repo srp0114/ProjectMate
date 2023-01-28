@@ -8,9 +8,9 @@ import {IoPerson} from 'react-icons/io5'
 const PostThumbnail = (props) =>{
     const [BookMarkState, setBookMarkState]= useState(false);
 
-    const handleBookmark = () => {
+    const bookMarkHandler = e =>{
         setBookMarkState(!BookMarkState);
-    };
+    }
 
     const Tag = () =>{
         return(
@@ -24,7 +24,7 @@ const PostThumbnail = (props) =>{
     return(
         <>
         <div className='post'>
-            {props.isLogin && <div className='bookmarker'>{BookMarkState || props.isBookmarked ? <BsFillBookmarkStarFill size='50' onClick={handleBookmark}/>: <BsBookmarkStar size='50' onClick={handleBookmark}/>}</div>}
+            <div className='bookmarker'>{BookMarkState || props.isBookmarked ? <BsFillBookmarkStarFill size='50' onClick={bookMarkHandler}/>: <BsBookmarkStar size='50' onClick={bookMarkHandler}/>}</div>
             <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
             <h1 className='post-date'><span>{props.createdDate}</span></h1>
             <p className='post-title'>{props.title}</p>

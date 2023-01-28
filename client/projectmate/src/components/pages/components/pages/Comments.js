@@ -21,7 +21,7 @@ const Comments = (props) =>{
     const postComment =async()=>{
         var config = {
             method: `post`,
-            url: `/comment/${props.id}`,
+            url: `/comment/1`,
             headers: { 
               'Authorization': `${auth}`,
               'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ const Comments = (props) =>{
     const getComments=async()=>{
         var config = {
             method: `get`,
-            url: `/post/${props.id}`,
+            url: '/post/1',
             headers: { 
               'Authorization': `${auth}`,
               'Content-Type': 'application/json'

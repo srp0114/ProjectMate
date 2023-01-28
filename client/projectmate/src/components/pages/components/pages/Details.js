@@ -3,11 +3,13 @@ import { SecurityScanTwoTone, UserOutlined } from '@ant-design/icons';
 import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
+import Edit from "./Upload.js"
 import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import '../css/Details.css'
 
 const { Title, Text } = Typography;
+const { TextArea } = Input;
 
 const Details = () => {
   const [posting, setPosting] = useState([]);
@@ -28,9 +30,8 @@ const Details = () => {
 
   const {id} = useParams();
   const auth = localStorage.getItem("token")
-
   const goToHome = useNavigate();
-  const goToUpdate = useNavigate();
+  const goToUpload = useNavigate();
 
   var getConfig = {
     method: 'get',
@@ -111,12 +112,12 @@ const Details = () => {
     })
   };
 
-  const UpdatePost = () => {
-    goToUpdate(`/update/${postId}`)
+  const EditPost = () => {
+    goToUpload(`/edit/${postId}`)
   }
 
-  const UpdateButton = isWriter ? (
-    <Button onClick={UpdatePost}>수정하기</Button>
+  const EditButton = isWriter ? (
+    <Button onClick={EditPost}>수정하기</Button>
   ) : (null);
 
   const DeletePost = () => {
@@ -129,7 +130,7 @@ const Details = () => {
             console.error(error);
         });
   }
-  
+
   const DeleteButton = isWriter ? (
     <>
     <Button onClick={DeletePost}>삭제하기</Button>
@@ -152,26 +153,26 @@ const Details = () => {
       <Space align="center">
         <Avatar size={38} icon={<UserOutlined/>}/>
         <Text fontSize={100}>{writerName} ({studentID})</Text>
-        {UpdateButton}
+        {EditButton}
         {DeleteButton}
         {BookmarkButton}
       </Space>
       <Divider/>
       <div className="postingInfo">
-      <Space align="center" size={220}>
-        <Space align="center" size={70}>
+      <Space align="center" size={250}>
+        <Space align="center" size={100}>
           <Title level={4}>과목명</Title>
           <Title level={4}>{subject}</Title>
         </Space>
-        <Space align="center" size={150}>
+        <Space align="center" size={135}>
           <Title level={4}>분반</Title>
           <Title level={4}>{division}</Title>
         </Space>
       </Space>
-      <Space align="center" size={247}>
-        <Space align="center" size={100}>
+      <Space align="center" size={300}>
+        <Space align="center" size={85}>
           <Title level={4}>모집인원</Title>
-          <Title level={4}>{peopleNum}명</Title>
+          <Title level={4}>{peopleNum}</Title>
         </Space>
         <Space align="center" size={100}>
           <Title level={4}>진행방식</Title>

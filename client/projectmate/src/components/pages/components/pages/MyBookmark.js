@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Space, Typography, Divider, Card } from 'antd';
 import axios from 'axios';
 import "../css/MyPage.css";
+
 const { Title, Text } = Typography;
 const { Meta } = Card;
+
 const MyBookmark = () => {
     const auth = localStorage.getItem("token")
     const [myBookmark, setMyBookmark] = useState([]);
+
     var config = {
         method: 'get',
         url: `/member/bookmark-posts`,
@@ -14,6 +17,7 @@ const MyBookmark = () => {
           'Authorization': `Bearer ${auth}`
         }
     };
+
     useEffect (() => {
         axios(config)
             .then(function(response) {
@@ -24,6 +28,7 @@ const MyBookmark = () => {
                 console.log(error);
           }); 
       }, [])
+
     return (
         <>            
             <Space direction='vertical' className="myInfo">
@@ -42,4 +47,5 @@ const MyBookmark = () => {
         </>
     )
 }
+
 export default MyBookmark

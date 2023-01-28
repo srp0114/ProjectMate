@@ -2,7 +2,9 @@ import React from 'react';
 import { Space, Typography, Divider, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import "../css/MyPage.css";
+
 const { Title, Text } = Typography;
+
 const MyInfo = () => {
     const nickname = localStorage.getItem('nickname')
     const id = localStorage.getItem('id')
@@ -29,4 +31,5 @@ const MyInfo = () => {
         </>
     )
 }
+
 export default MyInfo

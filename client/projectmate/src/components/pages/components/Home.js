@@ -10,56 +10,35 @@ import Banner from './Banner'
 import NonFound from './NonFound';
 
 const Home=()=>{
-    const [grade, setGrade] = useState('전체');
-    const [isLogin, setIsLogin] = useState(false);
+    const [button, setButton] = useState('');
 
     const [posts, setPosts] = useState([]);
+    const [isLogin, setIsLogin] = useState(false);
     const [page, setPage]= useState(0);
-    const [loading, setLoading] = useState(false);    
+    const [loading, setLoading] = useState(false);
+    
     const [ref, inView] = useInView();
-
-
     const [subject, setSubject] = useState('');
-    const [s_btn, setS_btn] = useState(false);      //과목 버튼이 눌렸는지에 대한 상태 정보 저장 값
+    const [s_btn, setS_btn] = useState(false);
     const [division, setDivision] = useState('');
-    const [is_progress, setProgress] = useState(1);
+    const [is_progress, setProgress] = useState(0);
     const [isTotal, setIsTotal] = useState(true);
 
     const [ScrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    //학년
-    const gradeComponent = ['전체','1학년','2학년','3학년','4학년']
-
-    //과목
-    const subjectComponent = {
-        '전체' : [],
-        '1학년': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
-        '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
-        '3학년': ['웹프레임워크1', '가상현실'],
-        '4학년': ['웹프레임워크2', '캡스톤디자인']
-    };
-
-    //분반
-    const divComponent =['A','B','N','1'];
+    const div =['A','B','N','1'];
 
     const Button = (props) =>{          //props.name,  props.func
         return(
             <>
-                <button className={props.style} onClick={props.func} value={props.name}>{props.name}</button>
+                <button className='sub-btn' onClick={props.func} value={props.name}>{props.name}</button>
             </>
         )
     }
 
-    const DivButton = (props) =>{          //props.name,  props.func
-        return(
-            <>
-                <button className={props.style} onClick={props.func} value={props.name}>{props.name}</button>
-            </>
-        )
-    }
-    
     //학년버튼
     const handleClickButton = e => {
         const name = e.target.value;
@@ -68,16 +47,14 @@ const Home=()=>{
             setPage(0);
             setPosts([]);
         }
-            setGrade(name);
+            setButton(name);
             setS_btn(false);
-            setDivision('');
     };
     
     //서브젝트 버튼
     const handleClickSubjectButton = e =>{
             setSubject(e.target.value);
             setS_btn(true);
-            setDivision('');
     }
 
     //분반 버튼
@@ -127,6 +104,7 @@ const Home=()=>{
       };
 
       const goToUpload = useNavigate();
+      const goToHome = useNavigate();
 
       const upload = () => {
         if(isLogin){
@@ -137,6 +115,7 @@ const Home=()=>{
             setIsModalOpen(true)
         }
         }
+
         const handleOk = () => {
             setIsModalOpen(false);
         }
@@ -150,16 +129,24 @@ const Home=()=>{
           window.removeEventListener("scroll", handleFollow);
         };
       });
-/*
+
     const setLogin = () => {
-        if(localStorage.length>=4)
+        if(localStorage.length>=2)
             setIsLogin(true)
     }
-*/
-    const logOut = () =>{
+
+    const logOut = e =>{
         localStorage.clear();
         setIsLogin(false);
     }
+
+    const selectComponent = {               //배열에 버튼별 컴포넌트를 저장해둔다.
+        'total' : [],
+        'grade1': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
+        'grade2': ['컴퓨터구조', '자료구조', '객체지향언어1'],
+        'grade3': ['웹프웤1', '가상현실'],
+        'grade4': ['웹프웤2', '캡스톤디자인']
+    };
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
@@ -167,7 +154,7 @@ const Home=()=>{
             setLoading(true)
             await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
             .then((response)=>{
-                setPosts((prevState)=>prevState.concat(response.data.content))
+                setPosts((prevState)=>[...prevState, ...response.data.content])
                 console.log(posts)
             })
             .catch((error)=>console.log(error.response.data))
@@ -177,7 +164,7 @@ const Home=()=>{
             setLoading(true);
             await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
             .then((response)=>{
-                setPosts((prevState)=>prevState.concat(response.data.content))
+                setPosts((prevState)=>[...prevState, ...response.data.content])
                 console.log(posts)
             })
             .catch((error)=>console.log(error.response.data));
@@ -212,37 +199,44 @@ const Home=()=>{
                 <Banner/>
             </div>
             <div className='btn-container'>
-                {
-                    gradeComponent.map((grd,i)=>(<button className={grd == grade ? 'main-btn-selected' : 'main-btn'} onClick={handleClickButton} value={grd}>{grd}</button>))
-                }
+                <button className='main-btn' onClick={handleClickButton} value={'total'}>전체</button>
+                <button className='main-btn' onClick={handleClickButton} value={'grade1'}>1학년</button>
+                <button className='main-btn' onClick={handleClickButton} value={'grade2'}>2학년</button>
+                <button className='main-btn' onClick={handleClickButton} value={'grade3'}>3학년</button>
+                <button className='main-btn' onClick={handleClickButton} value={'grade4'}>4학년</button>
             </div>
             <div className='sub-btn-container'>
                 <div>
-                    {grade &&
-                    <>
-                    {subjectComponent[grade].map((grd)=>(<Button name={grd} func={handleClickSubjectButton} style={subject == grd ? 'sub-btn-selected' : 'sub-btn'}/>))}
-                    </>}
+                    {button &&<>{selectComponent[button].map((btn)=>(<Button name={btn} func={handleClickSubjectButton}/>))}</>}
                 </div>
                 <div className='toggle-btn'>
                     <h3 className='toggle-btn-name'>모집중</h3>
-                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden checked={is_progress}/> 
+                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden/> 
                     <label for="toggle" class="toggleSwitch">
                     <span class="toggleButton"/>   
                     </label>
                 </div>
             </div>
-                {s_btn &&
-                <div className='division-btn-container'>
-                    {divComponent.map((div)=>(<DivButton name={div} func={handleClickDivisionButton}  style={division == div ? 'div-btn-selected' : 'div-btn'}/>))}
+            <div className='division-btn'>
+                {s_btn&&
+                <div className='division-btn'>
+                    {div.map((div)=>(<Button name={div} func={handleClickDivisionButton}/>))}
                 </div>}
+            </div>
             {posts.length==0 && <NonFound/>}
             <div className='post-container'>
-            {posts.map((post,i)=>   
-                        (<PostThumbnail {...post} isLogin={isLogin}/>)
-            )}
+            {posts.map((post,i)=>{
+                if(post){
+                    return posts.length-1 == i ? (
+                        <PostThumbnail ref={ref} {...post}/>
+                    ):(
+                        <PostThumbnail {...post}/>
+                    )
+                }
+            })}
             </div>
             <div>
-            <button className='adder-btn' onClick={upload}><strong>플러스</strong></button>
+            <button className='adder-btn' onClick={upload}>플러스</button>
             {isModalOpen &&
                 <Modal open={isModalOpen} onOk={handleOk}>
                     <p>로그인 후 사용할 수 있는 기능입니다..</p>

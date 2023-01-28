@@ -1,0 +1,10 @@
+{
+    "title": "test 제목입니다.",
+    "content" : "글 내용입니다...",
+    "writer" : "글쓰니",
+    "subject" : "과목명",
+    "division" : "A",
+    "people_num" : "4",
+    "proceed_way" : 0,
+    "is_progress" : 1
+}
