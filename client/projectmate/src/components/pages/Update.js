@@ -24,7 +24,7 @@ for (let i = 1; i < 11; i++) {
   });
 }
 
-const App = () =>  {
+const Update = () =>  {
 
   const [title, setTitle] = useState("");
   const [content ,setContent] = useState("");
@@ -89,6 +89,10 @@ const App = () =>  {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const updateTitle = (e) => {
+    setTitle(e.target.value)
+  }
 
   var config = {
     method: 'put',
@@ -211,7 +215,7 @@ const App = () =>  {
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
       <Title level={5}>제목</Title>
-      <Input size="large" name="title" value={title} onChange={(value) => setTitle(value)}/> 
+      <Input size="large" name="title" value={title} onChange={updateTitle}/> 
       <br/>
       <br/>
       <CKEditor
@@ -234,4 +238,4 @@ const App = () =>  {
   );
 }
 
-export default App;
+export default Update;

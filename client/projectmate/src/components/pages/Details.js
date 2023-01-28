@@ -8,7 +8,6 @@ import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import '../css/Details.css'
 
 const { Title, Text } = Typography;
-const { TextArea } = Input;
 
 const Details = () => {
   const [posting, setPosting] = useState([]);
@@ -29,8 +28,9 @@ const Details = () => {
 
   const {id} = useParams();
   const auth = localStorage.getItem("token")
+
   const goToHome = useNavigate();
-  const goToUpload = useNavigate();
+  const goToUpdate = useNavigate();
 
   var getConfig = {
     method: 'get',
@@ -111,12 +111,12 @@ const Details = () => {
     })
   };
 
-  const EditPost = () => {
-    goToUpload(`/edit/${postId}`)
+  const UpdatePost = () => {
+    goToUpdate(`/update/${postId}`)
   }
 
-  const EditButton = isWriter ? (
-    <Button onClick={EditPost}>수정하기</Button>
+  const UpdateButton = isWriter ? (
+    <Button onClick={UpdatePost}>수정하기</Button>
   ) : (null);
 
   const DeletePost = () => {
@@ -152,7 +152,7 @@ const Details = () => {
       <Space align="center">
         <Avatar size={38} icon={<UserOutlined/>}/>
         <Text fontSize={100}>{writerName} ({studentID})</Text>
-        {EditButton}
+        {UpdateButton}
         {DeleteButton}
         {BookmarkButton}
       </Space>
