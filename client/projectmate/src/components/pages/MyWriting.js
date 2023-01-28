@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Typography, Card, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
-
 import axios from "axios";
 import "../css/MyPage.css";
-
 const { Title, Text } = Typography;
 const { Meta } = Card;
-
 const MyWriting = () => {
     const auth = localStorage.getItem("token")
     const [myWriting, setMyWriting] = useState([]);
-
     var config = {
         method: 'get',
         url: `/member/posts`,
@@ -19,7 +15,6 @@ const MyWriting = () => {
           'Authorization': `Bearer ${auth}`
         }
     };
-
     useEffect (() => {
         axios(config)
             .then(function(response) {
@@ -30,9 +25,7 @@ const MyWriting = () => {
             console.log(error);
           }); 
       }, [])
-
     const goToPost = useNavigate();
-
     return (
         <>            
             <Space direction='vertical' className="myInfo">
@@ -51,5 +44,4 @@ const MyWriting = () => {
         </>
     )
 }
-
 export default MyWriting

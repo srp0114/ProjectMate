@@ -9,16 +9,11 @@ import MyComment from "./MyComment"
 import LoginHeader from '../LoginHeader';
 import Header from '../Header';
 import "../css/MyPage.css";
-
 const { Title } = Typography;
-
 const MyPage = () => {
     const nickname = localStorage.getItem('nickname')
-
     const [myInfo, setMyInfo] = useState()
-
     const location = useLocation();
-
     console.log(location);
     return (
         <>
@@ -41,5 +36,4 @@ const MyPage = () => {
         </>
     )
 }
-
 export default MyPage
