@@ -163,12 +163,12 @@ const Details = () => {
           <Title level={4}>과목명</Title>
           <Title level={4}>{subject}</Title>
         </Space>
-        <Space align="center" size={100}>
+        <Space align="center" size={150}>
           <Title level={4}>분반</Title>
           <Title level={4}>{division}</Title>
         </Space>
       </Space>
-      <Space align="center" size={250}>
+      <Space align="center" size={247}>
         <Space align="center" size={100}>
           <Title level={4}>모집인원</Title>
           <Title level={4}>{peopleNum}명</Title>
