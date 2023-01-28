@@ -39,6 +39,7 @@ const Home=()=>{
         '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
         '3학년': ['웹프레임워크1', '가상현실'],
         '4학년': ['웹프레임워크2', '캡스톤디자인']
+
     };
 
     //분반
@@ -216,7 +217,7 @@ const Home=()=>{
                     gradeComponent.map((grd,i)=>(<button className={grd == grade ? 'main-btn-selected' : 'main-btn'} onClick={handleClickButton} value={grd}>{grd}</button>))
                 }
             </div>
-            <div className='sub-btn-container'>
+              <div className='sub-btn-container'>
                 <div>
                     {grade &&
                     <>
