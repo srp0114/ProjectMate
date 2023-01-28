@@ -5,7 +5,7 @@ import '../style.css';
 
 const LoginHeader=(props)=>{
     const [isExpire, setExpire] = useState(false)
-
+    
     const EXPIRY_TIME = 1 * 3600 * 1000;                //로그인 세션 유지 시간.
     let loginTime = localStorage.getItem('login-time'); 
     let nowTime = Date.now();
