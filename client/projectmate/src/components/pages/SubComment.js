@@ -9,6 +9,15 @@ const SubComment =(props) =>{
 
     const auth=props.auth;
 
+    //비밀글 설정
+    const secretHandler = e =>{
+        if(e.target.checked){
+            setSecret(1);
+        }
+        else{
+            setSecret(0);
+        }
+    }
 
     //수정하기
     const ModifyComment = (e) => {
@@ -24,7 +33,7 @@ const SubComment =(props) =>{
   const sendModComment=(e)=>{
       var config = {
           method: `put`,
-          url: `/comment/${props.id}`,
+          url: `/comment/${props.postId}`,
           headers: { 
             'Authorization': `${auth}`,
             'Content-Type': 'application/json'
