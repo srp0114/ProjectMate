@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import Comment from './Comment'
 import axios from 'axios';
 
@@ -21,7 +21,7 @@ const Comments = (props) =>{
     const postComment =async()=>{
         var config = {
             method: `post`,
-            url: `/comment/${props.id}`,
+            url: `/comment/${props.postId}`,
             headers: { 
               'Authorization': `${auth}`,
               'Content-Type': 'application/json'
@@ -37,10 +37,10 @@ const Comments = (props) =>{
         setComment('');
     }
 
-    const getComments=async()=>{
+    const getComments=useCallback( async()=>{
         var config = {
             method: `get`,
-            url: `/post/${props.id}`,
+            url: `/post/${props.postId}`,           //게시글 id
             headers: { 
               'Authorization': `${auth}`,
               'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const Comments = (props) =>{
         await axios(config).then((response)=>{
             setCommentList(response.data.commentList)
         })
-    }
+    },[])
 
     useEffect(()=>{
         getComments();
@@ -58,7 +58,6 @@ const Comments = (props) =>{
 
     const commentHandler = (e) =>{
         setComment(e.target.value);
-        console.log(e.target.value)
     }
     return(
         <>
@@ -72,8 +71,7 @@ const Comments = (props) =>{
             </div>
             <div className='comments-container'>
                 {commentList.map((comment)=>(
-                    <Comment {...comment} auth={props.auth} getComments={getComments}/>
-
+                    <Comment {...comment} auth={props.auth} getComments={getComments} postId={props.postId}/>
                 ))}
             </div>
         </>
