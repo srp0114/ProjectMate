@@ -4,12 +4,25 @@ import { AiOutlineEye } from 'react-icons/ai';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
 import {IoPerson} from 'react-icons/io5'
+import axios from 'axios';
 
 const PostThumbnail = (props) =>{
     const [BookMarkState, setBookMarkState]= useState(false);
 
-    const handleBookmark = () => {
+    const auth = localStorage.getItem("token");
+
+    const handleBookmark = async() => {
         setBookMarkState(!BookMarkState);
+        var config={
+            method: `post`,
+            url: `/post/bookmark/${props.id}`,
+            headers: { 
+              'Authorization': `${auth}`,
+              'Content-Type': 'application/json'
+            },
+        }
+        axios(config).then((response)=>console.log("set Bookmark"))
+        .catch(console.log("bookmark error"))
     };
 
     const Tag = () =>{
