@@ -24,18 +24,7 @@ for (let i = 1; i < 11; i++) {
   });
 }
 
-function App() {
-
-  const [post, setPost] = useState({
-    "title":'',
-    "content":'',
-    "writer_name":localStorage.getItem("token"),
-    "subject":'',
-    "division":'',
-    "people_num":0,
-    "proceed_way":'',
-    "is_progress":1
-  })
+const Update = () =>  {
 
   const [title, setTitle] = useState("");
   const [content ,setContent] = useState("");
@@ -60,13 +49,11 @@ function App() {
 
   useEffect(() => {
       const getInfo = async () => {
-        console.log(id)
         const {data} = await axios(getConfig);
         return data;
       }
       
       getInfo().then((response) => {
-          setPost(response);
           setTitle(response.title);
           setContent(response.content);
           setSub(response.subject);
@@ -77,17 +64,36 @@ function App() {
       });
   }, [])
    
+  const post = {
+    "title":title,
+    "content":content,
+    "writer_name":localStorage.getItem("token"),
+    "subject":sub,
+    "division":div,
+    "people_num":peopleNum,
+    "proceed_way":proceedWay,
+    "is_progress":isProgress
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+  
   const handleOk = () => {
     setIsModalOpen(false);
     goToPost(`/post/${id}`)
   };
+  
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const updateTitle = (e) => {
+    setTitle(e.target.value)
+  }
+
   var config = {
     method: 'put',
     url: `/post/${id}`,
@@ -101,21 +107,11 @@ function App() {
   const submit = () => {
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
       showModal()
     })
     .catch(function (error) {
       console.log(error);
     });
-  };
-
-  const getValue = e => {
-    const { name, value } = e.target;
-    setPost({
-      ...post,
-      [name]: value
-    })
-    setTitle(value);
   };
 
   const [subject, setSubject] = useState(divisionData[subjectData[0]]);
@@ -124,19 +120,11 @@ function App() {
   const subjectChange = (value) => {
     setSubject(divisionData[value]);
     setDivision(divisionData[value][0]);
-    setPost({
-      ...post,
-      ["subject"]: value
-    })  
     setSub(value)
   };
 
   const divisionChange = (value) => {
     setDivision(value);
-    setPost({
-      ...post,
-      ["division"]: value
-    })
     setDiv(value); 
   };
   
@@ -177,13 +165,9 @@ function App() {
           style={{
             width: 350,
           }}
-          onChange={(value) => {
-            setPost({
-              ...post,
-             ["people_num"]: value
-            })
-            setPeopleNum(value);
-          }}
+          onChange={(value) => 
+            setPeopleNum(value)
+          }
           options={peopleNumData}
         />
         <Title level={5}>진행방식</Title>
@@ -193,13 +177,9 @@ function App() {
           style={{
             width: 350,
           }}
-          onChange={(value) => {setPost({
-            ...post,
-            ["proceed_way"]: value
-          })
-          setProceedWay(value)
-        }
-        }
+          onChange={(value) => 
+            setProceedWay(value)
+          }
           options={[
             {
               value: '오프라인',
@@ -218,13 +198,9 @@ function App() {
           style={{
             width: 350,
           }}
-          onChange={(value) => {setPost({
-            ...post,
-            ["is_progress"]: value
-          })
-          setIsProgress(value)
-        }
-        }
+          onChange={(value) => 
+            setIsProgress(value)
+          }
           options={[
             {
               value: 1,
@@ -239,28 +215,15 @@ function App() {
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
       <Title level={5}>제목</Title>
-      <Input size="large" name="title" value={title} onChange={getValue}/> 
+      <Input size="large" name="title" value={title} onChange={updateTitle}/> 
       <br/>
       <br/>
       <CKEditor
           editor={ ClassicEditor }
           data={content}
-          onReady={ editor => {
-              console.log( 'Editor is ready to use!', editor );
-          } }
           onChange={ ( event, editor ) => {
               const data = editor.getData();
-              console.log( { event, editor, data } );
-              setPost({
-                ...post,
-                content: data
-              })
-          } }
-          onBlur={ ( event, editor ) => {
-              console.log( 'Blur.', editor );
-          } }
-          onFocus={ ( event, editor ) => {
-              console.log( 'Focus.', editor );
+              setContent(data)
           } }
       />
       <br/>
@@ -275,4 +238,4 @@ function App() {
   );
 }
 
-export default App;
+export default Update;

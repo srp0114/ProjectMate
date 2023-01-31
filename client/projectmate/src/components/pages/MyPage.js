@@ -9,21 +9,16 @@ import MyComment from "./MyComment"
 import LoginHeader from '../LoginHeader';
 import Header from '../Header';
 import "../css/MyPage.css";
-
 const { Title } = Typography;
-
 const MyPage = () => {
     const nickname = localStorage.getItem('nickname')
-
     const [myInfo, setMyInfo] = useState()
-
     const location = useLocation();
-
     console.log(location);
     return (
         <>
             <div className='header'>
-                {location.isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}/> : <Header/>}
+                <LoginHeader nickname={localStorage.getItem('nickname')}/>
             </div>
             <div className="myInfoPage">
             <Space direction='vertical' className="myInfoMenu">
@@ -41,5 +36,4 @@ const MyPage = () => {
         </>
     )
 }
-
 export default MyPage
