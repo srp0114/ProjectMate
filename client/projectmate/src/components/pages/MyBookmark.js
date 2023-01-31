@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Typography, Divider, Card } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../css/MyPage.css";
+
 const { Title, Text } = Typography;
 const { Meta } = Card;
+
 const MyBookmark = () => {
     const auth = localStorage.getItem("token")
     const [myBookmark, setMyBookmark] = useState([]);
@@ -24,12 +27,19 @@ const MyBookmark = () => {
                 console.log(error);
           }); 
       }, [])
+    
+    const navigate = useNavigate();
+
+    const goToPost = (id) => {
+        navigate(`/post/${id}`)
+    }
+
     return (
         <>            
             <Space direction='vertical' className="myInfo">
                 {myBookmark.map((info, i) => {
                     return (
-                        <Card hoverable style={{ width: 500 }} key={i}>  
+                        <Card hoverable style={{ width: 500 }} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
                             <Meta title={info.title} description={info.modifiedDate}/>
                             <Divider/>                   
                             <Text>{info.subject} [{info.division}] </Text>
