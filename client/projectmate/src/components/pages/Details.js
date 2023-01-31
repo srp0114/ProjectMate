@@ -3,8 +3,9 @@ import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@an
 import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
-import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
+import { useLinkClickHandler, useParams, useNavigate, useHistory } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import '../css/Details.css';
 
 const { Title, Text } = Typography;
@@ -30,9 +31,8 @@ const Details = () => {
   const {id} = useParams();
   const auth = localStorage.getItem("token")
 
-  const goToHome = useNavigate();
-  const goToUpdate = useNavigate();
-
+  const navigate = useNavigate();
+  
   var getConfig = {
     method: 'get',
     url: `/post/${id}`,
@@ -83,7 +83,7 @@ const Details = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    goToHome('/')
+    navigate('/')
   };
 
   const handleCancel = () => {
@@ -105,7 +105,7 @@ const Details = () => {
   };
 
   const UpdatePost = () => {
-    goToUpdate(`/update/${postId}`)
+    navigate(`/update/${postId}`)
   }
 
   const UpdateButton = isWriter ? (
@@ -144,23 +144,24 @@ const Details = () => {
     <BsFillBookmarkStarFill size={25} onClick={handleBookmark}/>
   ) : ( <BsBookmarkStar size={25} onClick={handleBookmark}/> ) 
 
+  const goBack = () => {
+    navigate(-1);
+  }
+
   return (
     <>
     <div className="posting">
-      <Space>
-      <HomeOutlined style={{ fontSize: '22px'}}/>
-      <p className="postingDay">{date}</p>
-      </Space>
+      <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
+      <p className='postingDay'>{date}</p> 
+
+      <Text className="deleteBtn">{DeleteButton}</Text>
+      <Text className="updateBtn">{UpdateButton}</Text>
       <Title level={1} className="postingTitle">{title}</Title>
-      <br/>
-      <Space align="center">
-        <Avatar size={38} icon={<UserOutlined/>}/>
-        <Text>{writerName} ({studentID})</Text>
-        {UpdateButton}
-        {DeleteButton}
-        {BookmarkButton}
-        <Text>{bookmarkCount}</Text>
-      </Space>
+      <Avatar size={38} icon={<UserOutlined/>} className="userProfile"/>
+      <Text>{writerName} ({studentID})</Text>
+      <Text className="bookmarkCnt">{bookmarkCount}</Text>
+      <Text className="bookmarkBtn">{BookmarkButton}</Text>
+
       <Divider/>
       <div className="postingInfo">
       <Space align="center" size={220}>

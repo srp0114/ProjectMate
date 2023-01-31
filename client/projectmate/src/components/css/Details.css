@@ -13,6 +13,28 @@
   text-align: left;
 }
 
+.updateBtn {
+  float:right;
+  margin-right:2%;
+}
+
+.deleteBtn {
+  float:right;
+}
+
+.bookmarkBtn {
+  float:right;
+  margin-right:1%;
+}
+
+.bookmarkCnt {
+  float:right;
+}
+
+.userProfile {
+  margin-right:1%;
+}
+
 .postingInfo {
   margin-bottom:5%;
   margin-right:5%;
