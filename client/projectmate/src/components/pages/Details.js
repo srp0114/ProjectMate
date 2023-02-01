@@ -49,6 +49,9 @@ const Details = () => {
     }
   }
 
+  var userID = localStorage.getItem("id")
+  var studentID = userID.slice(0,2);
+
   useEffect (() => {
     axios(getConfig)
 	  .then(function(response) {
@@ -73,9 +76,6 @@ const Details = () => {
 	    console.log(error);
 	  }); 
   }, [])
-
-  var userID = localStorage.getItem("id")
-  var studentID = userID.slice(0,2);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -165,7 +165,7 @@ const Details = () => {
       <Divider/>
       <div className="postingInfo">
       <Space align="center" size={220}>
-        <Space align="center" size={70}>
+        <Space align="center" size={110}>
           <Title level={4}>과목명</Title>
           <Title level={4}>{subject}</Title>
         </Space>
