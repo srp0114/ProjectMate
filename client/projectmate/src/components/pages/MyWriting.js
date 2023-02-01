@@ -42,6 +42,7 @@ const MyWriting = () => {
             <Space direction='vertical' className="myInfo">
                 {myWriting.map((info, i) => {
                     return (
+                        <>
                         <Card hoverable style={{ width: 500 }} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
                             <Meta title={info.title} description={info.modifiedDate}/>
                             <Divider/>                   
@@ -49,6 +50,7 @@ const MyWriting = () => {
                             <Title level={5}>{info.writer_nickname}</Title>
                             <Text>{info.view_count}</Text>                
                         </Card>
+                        </>
                     )
                 })}
             </Space>

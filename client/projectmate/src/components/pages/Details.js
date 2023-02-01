@@ -15,6 +15,7 @@ const Details = () => {
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
   const [writerName, setWriterName] = useState([]);
+  const [writerID, setWriterID] = useState([]);
   const [subject, setSubject] = useState([]);
   const [division, setDivision] = useState([]);
   const [peopleNum, setPeopleNum] = useState([]);
@@ -49,6 +50,7 @@ const Details = () => {
     }
   }
 
+
   useEffect (() => {
     axios(getConfig)
 	  .then(function(response) {
@@ -57,6 +59,7 @@ const Details = () => {
 	    setTitle(response.data.title);
 	    setContent(response.data.content);
 	    setWriterName(response.data.writer_nickname);
+      setWriterID(response.data.writer_id);
 	    setSubject(response.data.subject);
 	    setDivision(response.data.division);
 	    setPeopleNum(response.data.people_num);
@@ -74,8 +77,7 @@ const Details = () => {
 	  }); 
   }, [])
 
-  var userID = localStorage.getItem("id")
-  var studentID = userID.slice(0,2);
+  var ID = writerID.slice(0,2);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -153,19 +155,17 @@ const Details = () => {
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <p className='postingDay'>{date}</p> 
-
       <Text className="deleteBtn">{DeleteButton}</Text>
       <Text className="updateBtn">{UpdateButton}</Text>
       <Title level={1} className="postingTitle">{title}</Title>
       <Avatar size={38} icon={<UserOutlined/>} className="userProfile"/>
-      <Text>{writerName} ({studentID})</Text>
+      <Text>{writerName} ({ID})</Text>
       <Text className="bookmarkCnt">{bookmarkCount}</Text>
       <Text className="bookmarkBtn">{BookmarkButton}</Text>
-
       <Divider/>
       <div className="postingInfo">
       <Space align="center" size={220}>
-        <Space align="center" size={70}>
+        <Space align="center" size={110}>
           <Title level={4}>과목명</Title>
           <Title level={4}>{subject}</Title>
         </Space>
@@ -193,7 +193,7 @@ const Details = () => {
       <div dangerouslySetInnerHTML = { {  __html : content } }></div>
       <br/>
       <Divider/>
-      <Title level={2} className="postingTitle">댓글</Title>
+      <Title level={3} className="postingTitle">댓글</Title>
       <div>
       <Comments commentList={commentList} auth = {auth} postId = {postId}/>
       </div>
