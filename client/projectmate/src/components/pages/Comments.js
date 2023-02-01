@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import Comment from './Comment'
 import axios from 'axios';
-
+import '../css/Details.css';
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
     const [secret, setSecret] = useState(0);
@@ -33,6 +33,7 @@ const Comments = (props) =>{
         await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
         setComment('');
         props.getComments();
+        setSecret(0);
     }
 
     const commentHandler = (e) =>{
