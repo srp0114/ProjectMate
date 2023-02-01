@@ -210,6 +210,7 @@ const Details = () => {
       <Title level={3} className="postingTitle">댓글</Title>
       <div>
       <Comments commentList={commentList} auth = {auth} postId = {postId}/>
+      <Comments commentList={commentList} auth = {auth} postId = {postId} getComments={getComments}/>
       </div>
     </div>
     </>
