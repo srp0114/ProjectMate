@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import '../style.css';
 import Modal from 'react-modal'
 import axios from 'axios';
+import "./css/Home.css"
 
 const Header=(props)=>{
-
     const [modalOpen, setModalOpen] = useState(false);
     const [failModal, setFailModal]= useState(false);
     const [id, setId]= useState('');

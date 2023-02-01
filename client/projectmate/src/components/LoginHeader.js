@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoPerson}  from 'react-icons/io5'
-import '../style.css';
+import "./css/Home.css"
 
 const LoginHeader=(props)=>{
     const [isExpire, setExpire] = useState(false)

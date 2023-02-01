@@ -8,6 +8,7 @@ import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
+import "./css/Home.css"
 
 const Home=()=>{
     const [grade, setGrade] = useState('전체');
@@ -166,7 +167,7 @@ const Home=()=>{
     const getPost = useCallback(async ()=>{
         if(isTotal){
             setLoading(true)
-            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
+            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=6&is_progress=${is_progress}`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -176,7 +177,7 @@ const Home=()=>{
         }
         else{
             setLoading(true);
-            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
+            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=6`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)

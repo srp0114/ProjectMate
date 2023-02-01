@@ -5,6 +5,7 @@ import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
 import {IoPerson} from 'react-icons/io5'
 import axios from 'axios';
+import "./css/Home.css"
 
 const PostThumbnail = (props) =>{
     const [BookMarkState, setBookMarkState]= useState(false);
