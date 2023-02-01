@@ -1,15 +1,21 @@
 .myInfoPage {
-    margin:10% 15%;
+    margin:3% 15%;
 }
+
 .myInfoMenu {
     float:left;
     padding-right:120px;
     padding-left:40px;
     padding-top:50px;
     padding-bottom:50px;
-    border: 1.5px solid #a0c9f3;
-    border-radius: 20px;
+    border: 2.3px solid #1677FF;
+    border-radius: 15px;
 }
+
+.userInfo {
+    margin-bottom:20px;
+}
+
 .myInfo{
     float:left;
     margin-left:10px;
@@ -17,17 +23,23 @@
     padding-right:6%;
     padding-top:3%;
     padding-bottom:5%;
-    border: 1.5px solid #a0c9f3;
-    border-radius: 20px;
+    border: 2.3px solid #1677FF;
+    border-radius: 15px;
 }
+
 .info {
     margin-left:50px;
-    margin-right:200px;
+    margin-right:300px;
 }
-.change-profile{
+
+.change-profile {
     background-color: rgba(236, 236, 236, 0.842);
     border: 0.8px solid rgb(182, 182, 182);
     border-radius: 5px;
     padding: 5px;
     margin-top: 0px;
+}
+
+.goBack {
+    margin-bottom:1%;
 }

@@ -694,3 +694,12 @@
   margin-left: 100px;
   margin-right: 100px;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color:#1677FF;
+}
