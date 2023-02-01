@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Divider, Typography, Select, Space, Modal, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import axios from 'axios';
 import "../css/Details.css"
 
@@ -45,7 +46,7 @@ const Update = () =>  {
   const {id} = useParams();
   const auth = localStorage.getItem("token");
 
-  const goToPost = useNavigate();
+  const navigate = useNavigate();
 
   var getConfig = {
     method: 'get',
@@ -91,8 +92,12 @@ const Update = () =>  {
   
   const handleOk = () => {
     setIsModalOpen(false);
-    goToPost(`/post/${id}`)
+    navigate(`/post/${id}`)
   };
+
+  const goBack = () => {
+    navigate(-1);
+  }
   
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -138,6 +143,7 @@ const Update = () =>  {
   
   return (
     <div className="posting">
+      <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
         <Title level={5}>과목명</Title>
         <Select

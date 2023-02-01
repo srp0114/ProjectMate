@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Divider, Typography, Select, Modal, Space, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import axios from 'axios';
 import "../css/Details.css"
 
@@ -46,7 +47,7 @@ const Upload = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const auth = localStorage.getItem("token")
-  const goToHome = useNavigate();
+  const navigate = useNavigate();
 
   var config = {
     method: 'post',
@@ -63,11 +64,16 @@ const Upload = () => {
   };
   const handleOk = () => {
     setIsModalOpen(false);
-    goToHome('/');
+    navigate('/');
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const goBack = () => {
+    navigate(-1);
+  }
 
   const submit = () => {
     axios(config)
@@ -110,6 +116,7 @@ const Upload = () => {
 
   return (
     <div className="posting">
+      <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
         <Title level={5}>과목명</Title>
         <Select
