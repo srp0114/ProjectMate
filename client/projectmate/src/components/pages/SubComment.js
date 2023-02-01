@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import {AiFillLock} from 'react-icons/ai'
+import '../css/Details.css';
 
 const SubComment =(props) =>{
     const [isHover, setIsHover] = useState(false);
@@ -51,6 +52,7 @@ const SubComment =(props) =>{
                 console.error(error);
             });
             setModState(false);
+            setSecret(0);
             props.getComments();
     }
 
@@ -76,9 +78,11 @@ const SubComment =(props) =>{
         <>
             {modState ? 
             <>
-                <div>
-                    <textarea className='comment-input' onChange={ModCommentText} value={modComment} />
-                    <button onClick={sendModComment} className='comment-mod-btn'>수정하기</button>
+                <div className='mod-state'>
+                    <textarea className='comment-mod-input' onChange={ModCommentText} value={modComment} />
+                    <label for='secret-mod-comment2'>비밀글</label>
+                    <input type='checkbox' className='secret-comment' id='secret-mod-comment2' onClick={secretHandler} checked={secret}/>
+                    <button onClick={sendModComment} className='comment-btn'>수정하기</button>
                 </div>
             </> 
             :
