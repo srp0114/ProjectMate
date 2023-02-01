@@ -51,7 +51,6 @@ const Comment =(props) =>{
         props.getComments();
     }
 
-
     //수정하기
     const ModifyComment = (e) => {
           setModState(true);
@@ -110,7 +109,7 @@ const Comment =(props) =>{
             <>
                 <div>
                     <textarea className='comment-input' onChange={ModCommentText} value={modComment} />
-                    <button onClick={sendModComment}>수정하기</button>
+                    <button onClick={sendModComment} className='comment-mod-btn'>수정하기</button>
                 </div>
             </> 
             :
@@ -132,7 +131,7 @@ const Comment =(props) =>{
                     </div>}
                 <div>
                     {props.commentList.map((subcomment)=>(
-                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments} postId={props.postId}/>
+                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments} postId={props.postId} parentId={props.id}/>
                     ))}
                 </div>
             </div>}
