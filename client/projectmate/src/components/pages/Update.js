@@ -3,14 +3,24 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Divider, Typography, Select, Space, Modal, Input, Button } from 'antd';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import axios from 'axios';
 import "../css/Details.css"
 
 const { Title, Text } = Typography;
 
-const subjectData = ['웹프레임워크1', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
+const subjectData = ['웹프로그래밍기초', '컴퓨터프로그래밍', '컴퓨터구조', '자료구조', '객체지향언어1', '웹프레임워크1', 
+                              '가상현실', '웹프레임워크2', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
+
 const divisionData = {
+  웹프로그래밍기초: ['A', 'B', 'C', 'N'],
+  컴퓨터프로그래밍: ['A', 'B', 'N', '7'],
+  컴퓨터구조: ['7', '8', 'A', 'B', 'N'],
+  자료구조: ['A', 'B', 'C'],
+  객체지향언어1: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
   웹프레임워크1: ['A', 'B', 'N'],
+  가상현실: ['A', 'B', 'N'],
+  웹프레임워크2: ['A', 'B', 'N', '1'],
   캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
   고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
   데이터베이스설계: ['A', 'B', 'N'],
@@ -24,8 +34,7 @@ for (let i = 1; i < 11; i++) {
   });
 }
 
-const App = () =>  {
-
+const Update = () =>  {
   const [title, setTitle] = useState("");
   const [content ,setContent] = useState("");
   const [sub, setSub] = useState("");
@@ -37,7 +46,7 @@ const App = () =>  {
   const {id} = useParams();
   const auth = localStorage.getItem("token");
 
-  const goToPost = useNavigate();
+  const navigate = useNavigate();
 
   var getConfig = {
     method: 'get',
@@ -83,12 +92,20 @@ const App = () =>  {
   
   const handleOk = () => {
     setIsModalOpen(false);
-    goToPost(`/post/${id}`)
+    navigate(`/post/${id}`)
   };
+
+  const goBack = () => {
+    navigate(-1);
+  }
   
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const updateTitle = (e) => {
+    setTitle(e.target.value)
+  }
 
   var config = {
     method: 'put',
@@ -126,6 +143,7 @@ const App = () =>  {
   
   return (
     <div className="posting">
+      <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
         <Title level={5}>과목명</Title>
         <Select
@@ -211,7 +229,7 @@ const App = () =>  {
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
       <Title level={5}>제목</Title>
-      <Input size="large" name="title" value={title} onChange={(value) => setTitle(value)}/> 
+      <Input size="large" name="title" value={title} onChange={updateTitle}/> 
       <br/>
       <br/>
       <CKEditor
@@ -234,4 +252,4 @@ const App = () =>  {
   );
 }
 
-export default App;
+export default Update;
