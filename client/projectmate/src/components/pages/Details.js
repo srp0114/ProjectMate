@@ -193,7 +193,7 @@ const Details = () => {
       <div dangerouslySetInnerHTML = { {  __html : content } }></div>
       <br/>
       <Divider/>
-      <Title level={2} className="postingTitle">댓글</Title>
+      <Title level={3} className="postingTitle">댓글</Title>
       <div>
       <Comments commentList={commentList} auth = {auth} postId = {postId}/>
       </div>
