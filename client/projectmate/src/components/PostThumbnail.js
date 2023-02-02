@@ -1,11 +1,14 @@
 import { React, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { AiOutlineEye } from 'react-icons/ai';
+import { Typography } from 'antd';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
-import {IoPerson} from 'react-icons/io5'
+import { IoPerson } from 'react-icons/io5'
 import axios from 'axios';
 import "./css/Home.css"
+
+const { Title, Text } = Typography;
 
 const PostThumbnail = (props) =>{
     const [BookMarkState, setBookMarkState]= useState(false);
@@ -29,8 +32,8 @@ const PostThumbnail = (props) =>{
     const Tag = () =>{
         return(
             <>
-            <span className='tag'># {props.subject}</span>
-            <span className='tag'># {props.division}</span>
+                <Title><span className='tag'># {props.subject} </span></Title>
+                <Title><span className='tag'># {props.division} </span></Title>
             </>
         )
     }
@@ -41,14 +44,14 @@ const PostThumbnail = (props) =>{
             {props.isLogin && <div className='bookmarker'>{BookMarkState || props.isBookmarked ? <BsFillBookmarkStarFill size='50' onClick={handleBookmark}/>: <BsBookmarkStar size='50' onClick={handleBookmark}/>}</div>}
             <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
             <h1 className='post-date'><span>{props.createdDate}</span></h1>
-            <p className='post-title'>{props.title}</p>
-            <p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p>
+            <Title><p className='post-title'>{props.title}</p></Title>
+            <Title level={5}><p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p></Title>
             <div className='tag-container'>
                 <Tag/>
             </div>
             <div className='post-footer'>
                 <div className='owner'>
-                    <IoPerson size="30"/><span className='owner-name'>{props.writer_nickname}</span>
+                <IoPerson size="30"/><Text><span className='owner-name'>{props.writer_nickname}</span></Text>
                 </div>
                 <div className='icons'>
                     <AiOutlineEye size="30"/><span className='etc-num'>{props.view_count}</span>
