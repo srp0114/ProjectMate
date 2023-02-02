@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import SubComment from './SubComment';
 import {AiFillLock} from 'react-icons/ai'
-
+import '../css/Details.css';
 const Comment =(props) =>{
     const [isHover, setIsHover] = useState(false);
     const [input, setInput] = useState(false);
@@ -23,15 +23,17 @@ const Comment =(props) =>{
             setSecret(0);
         }
     }
+
     const clickHandler = (e) =>{
         setInput(!input);
         setSubComment('');
     }
 
+    //답글 보내기
     const postSubComment =async()=>{
         var config = {
             method: `post`,
-            url: `/comment/1`,
+            url: `/comment/${props.postId}`,
             headers: { 
               'Authorization': `${auth}`,
               'Content-Type': 'application/json'
@@ -39,7 +41,7 @@ const Comment =(props) =>{
             data : {
             "content" : `${subComment}`,
             "parentId" : `${props.id}`,
-            "secret" : `1`
+            "secret" : `${secret}`
                     }
           };
 
@@ -47,8 +49,8 @@ const Comment =(props) =>{
         setComment('');
         setInput(false);
         props.getComments();
+        setSecret(0);
     }
-
 
     //수정하기
     const ModifyComment = (e) => {
@@ -72,7 +74,7 @@ const Comment =(props) =>{
             data : {
             "content" : `${modComment}`,
             "parentId" : null,
-            "secret" : `1`
+            "secret" : `${secret}`
             }
           };
           axios(config)
@@ -82,10 +84,11 @@ const Comment =(props) =>{
           });
           setModState(false);
           props.getComments();
+          setSecret(0);
     }
 
-    //삭제
-    const DeleteComment = e =>{
+    //삭제하기
+    const DeleteComment = e =>{ 
         var config={
             method: `delete`,
             url: `/comment/${props.id}`,
@@ -95,7 +98,7 @@ const Comment =(props) =>{
             },
         }
         axios(config)
-        .then(response => console.log('게시글 삭제 성공'))
+        .then(response => console.log('댓글 삭제 성공'))
         .catch(error => {
             console.error(error);
         });
@@ -106,9 +109,11 @@ const Comment =(props) =>{
         <>
             {modState ? 
             <>
-                <div>
-                    <textarea className='comment-input' onChange={ModCommentText} value={modComment} />
-                    <button onClick={sendModComment}>수정하기</button>
+                <div className='mod-state'>
+                    <textarea className='comment-mod-input' onChange={ModCommentText} value={modComment} />
+                    <label for='secret-mod-comment'>비밀글</label>
+                    <input type='checkbox' className='secret-comment' id='secret-mod-comment' onClick={secretHandler} checked={secret}/>
+                    <button onClick={sendModComment} className='comment-btn'>수정하기</button>
                 </div>
             </> 
             :
@@ -130,7 +135,7 @@ const Comment =(props) =>{
                     </div>}
                 <div>
                     {props.commentList.map((subcomment)=>(
-                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments}/>
+                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments} postId={props.postId} parentId={props.id}/>
                     ))}
                 </div>
             </div>}

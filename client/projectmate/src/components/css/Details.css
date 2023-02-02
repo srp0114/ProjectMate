@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700');
+
 .posting {
   margin-top: 5%;
   margin-left:20%;
@@ -13,6 +16,28 @@
   text-align: left;
 }
 
+.updateBtn {
+  float:right;
+  margin-right:2%;
+}
+
+.deleteBtn {
+  float:right;
+}
+
+.bookmarkBtn {
+  float:right;
+  margin-right:1%;
+}
+
+.bookmarkCnt {
+  float:right;
+}
+
+.userProfile {
+  margin-right:1%;
+}
+
 .postingInfo {
   margin-bottom:5%;
   margin-right:5%;
@@ -22,4 +47,124 @@
 .ck-editor__editable { 
   height: 400px; 
   color: black;
+}
+
+/* 댓글용 */
+.comment{
+  border-bottom: 1px solid rgb(184, 194, 204);
+  padding-left : 10px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+}
+
+.sub-comment{
+  padding-left: 20px;
+}
+
+.comment-input-container{
+  display: inline-block;  
+  border-bottom: 3px solid rgb(189, 189, 189);
+  margin-bottom :10px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.comment-input{
+  width: 100%;
+  height: 100px;
+  padding-bottom: 0px;
+  border: none;
+  word-wrap: break-word;
+  resize: none;
+  font-size: 17px;
+}
+
+.subcomment-input{
+  width: 100%;
+  height: 30px;
+  padding-bottom: 0px;
+  border: none;
+  word-wrap: break-word;
+  resize: none;
+  font-size: 17px;
+}
+
+.comment-input:focus{
+  outline-color: #9ec1e4;
+}
+
+.comment-btn{
+  border : none;
+  background-color: white;
+  width: 70px;
+  height: 30px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.comment-btn:hover{
+  background-color: rgb(238, 238,  238);
+}
+
+.comment-sub-btn-container{
+  padding-right: 3px;
+}
+
+.comment-btns{
+  border: none;
+  background-color: #fff;
+}
+
+.comment-sub-btn:hover{
+  border-bottom: 1px solid rgb(207, 207, 207);
+}
+
+.sub-comment-input-container{
+  width: 97%;
+  display: inline-block;
+  border-bottom : 1.5px solid rgb(207, 207, 207);
+  margin-right : 14px; 
+  margin-bottom : 7px;
+  margin-top : 20px;
+  margin-left: 17px;
+}
+
+.sub-comment-input{
+  width: 85%;
+  height: 20px;
+  padding-bottom: 0px;
+  border:none;
+}
+
+.sub-comment-input:focus{
+  outline: none;
+}
+
+.sub-comment-btn{
+  border : none;
+  background-color: white;
+  width: 70px;
+  height: 30px;
+  float: right;
+}
+
+.sub-comment-btn:hover{
+  background-color: rgb(238, 238, 238);
+}
+
+.writer-content{
+  margin : 0px;
+  display:flex;
+  justify-content: space-between;
+}
+
+.writer{
+  font-size: 30px;
+}
+
+.comment-content{
+  margin-top : 5px;
+  margin-bottom: 5px;
+  font-size: 17px;
 }
