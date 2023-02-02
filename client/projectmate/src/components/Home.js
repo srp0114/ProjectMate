@@ -8,6 +8,7 @@ import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
+import "./css/Home.css"
 
 const Home=()=>{
     const [grade, setGrade] = useState('전체');
@@ -17,6 +18,8 @@ const Home=()=>{
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);    
     const [ref, inView] = useInView();
+
+
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);      //과목 버튼이 눌렸는지에 대한 상태 정보 저장 값
     const [division, setDivision] = useState('');
@@ -35,8 +38,9 @@ const Home=()=>{
         '전체' : [],
         '1학년': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
-        '3학년': ['웹프웤1', '가상현실'],
-        '4학년': ['웹프웤2', '캡스톤디자인']
+        '3학년': ['웹프레임워크1', '가상현실'],
+        '4학년': ['웹프레임워크2', '캡스톤디자인']
+
     };
 
     //분반
@@ -163,7 +167,7 @@ const Home=()=>{
     const getPost = useCallback(async ()=>{
         if(isTotal){
             setLoading(true)
-            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
+            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=6&is_progress=${is_progress}`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -173,7 +177,7 @@ const Home=()=>{
         }
         else{
             setLoading(true);
-            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
+            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=6`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -221,14 +225,6 @@ const Home=()=>{
                     {subjectComponent[grade].map((grd)=>(<Button name={grd} func={handleClickSubjectButton} style={subject == grd ? 'sub-btn-selected' : 'sub-btn'}/>))}
                     </>}
                 </div>
-                <div className='toggle-btn'>
-                    <h3 className='toggle-btn-name'>모집중</h3>
-                    <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden checked={is_progress}/> 
-                    <label for="toggle" class="toggleSwitch">
-                    <span class="toggleButton"/>   
-                    </label>
-                </div>
-            </div>
                 <div className='toggle-btn'>
                     <h3 className='toggle-btn-name'>모집중</h3>
                     <input type="checkbox" id="toggle" onClick={handleClickProgressButton} hidden checked={is_progress}/> 
