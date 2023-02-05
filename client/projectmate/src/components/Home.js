@@ -8,6 +8,8 @@ import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
+import { AiOutlineArrowUp} from "react-icons/ai";
+import { BsPlusLg } from "react-icons/bs";
 import "./css/Home.css"
 
 const Home=()=>{
@@ -244,13 +246,13 @@ const Home=()=>{
             )}
             </div>
             <div>
-            <button className='adder-btn' onClick={upload}><strong>플러스</strong></button>
+            <button className='adder-btn' onClick={upload}><BsPlusLg size="33"/></button>
             {isModalOpen &&
                 <Modal open={isModalOpen} onOk={handleOk}>
                     <p>로그인 후 사용할 수 있는 기능입니다..</p>
                 </Modal>
             }
-            <button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button>
+            <button className='top-btn' onClick={handleTop}><AiOutlineArrowUp size="40"/></button>
             </div>
             <div ref={ref} className='observer'/>
             </>

@@ -168,3 +168,27 @@
   margin-bottom: 5px;
   font-size: 17px;
 }
+
+.mod-state{
+  margin-bottom: 50px;
+}
+
+.comment-mod-input{
+  width: 100%;
+  height: 50px;
+  padding-bottom: 0px;
+  border: none;
+  word-wrap: break-word;
+  resize: none;
+  font-size: 17px;
+}
+
+.comment-mod-btn{
+  display: block;
+  border : none;
+  background-color: white;
+  width: 70px;
+  height: 30px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
