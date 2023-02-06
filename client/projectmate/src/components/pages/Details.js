@@ -149,6 +149,20 @@ const Details = () => {
   const goBack = () => {
     navigate(-1);
   }
+  const getComments=async ()=>{
+    var config = {
+        method: `get`,
+        url: `/post/${postId}`,           //게시글 id
+        headers: { 
+          'Authorization': `${auth}`,
+          'Content-Type': 'application/json'
+        },
+    };
+    //답글
+    await axios(config).then((response)=>{
+        setCommentList(response.data.commentList);
+    })
+};
 
   return (
     <>
@@ -195,7 +209,7 @@ const Details = () => {
       <Divider/>
       <Title level={3} className="postingTitle">댓글</Title>
       <div>
-      <Comments commentList={commentList} auth = {auth} postId = {postId}/>
+      <Comments commentList={commentList} auth = {auth} postId = {postId} getComments={getComments}/>
       </div>
     </div>
     </>

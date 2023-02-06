@@ -3,7 +3,7 @@ import SwiperCore, { Pagination, Mousewheel,Autoplay,Navigation } from 'swiper';
 import "swiper/css"; //basic
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../style.css"
+import "./css/Home.css"
 
 SwiperCore.use([Navigation, Pagination,Autoplay]);
 
