@@ -187,7 +187,6 @@ const Upload = () => {
         />
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
-      <Title level={5}>제목</Title>
       <Input size="large" name="title" onChange={getValue} placeholder="제목을 입력해주세요." /> 
       <br/>
       <br/>
