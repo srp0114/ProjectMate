@@ -44,6 +44,9 @@
   margin-left: 5%;
 }
 
+.postingContent {
+  margin:0 5%;
+}
 .ck-editor__editable { 
   height: 400px; 
   color: black;
@@ -62,6 +65,8 @@
   padding:7px;
   text-align: center;
 }
+
+
 /* 댓글용 */
 .comment{
   border-bottom: 1px solid rgb(184, 194, 204);

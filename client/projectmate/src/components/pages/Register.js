@@ -3,7 +3,7 @@ import { Typography, Button, Modal, Form, Input } from 'antd';
 import axios from 'axios';
 import "../css/Details.css"
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const Register = () => {
   const [StudentID, setStudentID] = useState("");
@@ -112,7 +112,7 @@ const Register = () => {
       setCheckedPasswordMessage('')
       setCheckedPasswordValid(true)
     } else {
-      setCheckedPasswordMessage('비밀번호를 다시 확인해주세요.')
+      setCheckedPasswordMessage('비밀번호가 일치하지 않습니다.')
       setCheckedPasswordValid(false)
     }
   }  
@@ -164,7 +164,7 @@ const Register = () => {
         name="StudentID"
       >
         <Input onChange={onStudentIDHandler}/>
-        {StudentIdMessage}
+        <Text type="danger">{StudentIdMessage}</Text>
       </Form.Item>
 
       <Form.Item className="form"
@@ -172,7 +172,7 @@ const Register = () => {
         name="Password"
       >
         <Input onChange={onPasswordHandler}/>
-        {PasswordMessage}
+        <Text type="danger">{PasswordMessage}</Text>
       </Form.Item>
 
       <Form.Item className="form"
@@ -180,7 +180,7 @@ const Register = () => {
         name="CheckedPassword"
       >
         <Input onChange={onCheckedPasswordHandler}/>
-        {CheckedPasswordMessage}
+        <Text type="danger">{CheckedPasswordMessage}</Text>
       </Form.Item>
 
       <Form.Item className="form"
@@ -188,7 +188,7 @@ const Register = () => {
         name="Email"
       >
         <Input onChange={onEmailHandler}/>
-        {EmailMessage}
+        <Text type="danger">{EmailMessage}</Text>
       </Form.Item>
 
       <Form.Item className="form"rff
@@ -196,7 +196,7 @@ const Register = () => {
         name="Nickname"
       >
         <Input onChange={onNicknameHandler}/>
-        {NicknameMessage}
+        <Text type="danger">{NicknameMessage}</Text>
       </Form.Item>
 
       <Form.Item
