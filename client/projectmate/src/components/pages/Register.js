@@ -1,17 +1,39 @@
-import {React, useState} from 'react';
-import { Typography, Button, Modal, Checkbox, Form, Input } from 'antd';
+import React, {useEffect, useState} from 'react';
+import { Typography, Button, Modal, Form, Input } from 'antd';
 import axios from 'axios';
 import "../css/Details.css"
 
 const { Title, Text } = Typography;
 
-function App() {
-  const [studentID, setStudentID] = useState("");
+const Register = () => {
+  const [StudentID, setStudentID] = useState("");
   const [Password, setPassword] = useState("");
   const [CheckedPassword, setCheckedPassword] = useState("");
   const [Email, setEmail] = useState("");
   const [Nickname, setNickname] = useState("");
     
+  const [StudentIdValid, setStudentIdValid] = useState(false);
+  const [PasswordValid, setPasswordValid] = useState(false);
+  const [CheckedPasswordValid, setCheckedPasswordValid] = useState(false);
+  const [EmailValid, setEmailValid] = useState(false);
+  const [NicknameValid, setNicknameValid] = useState(false);
+
+  const [StudentIdMessage, setNameMessage] = useState('')
+  const [PasswordMessage, setPasswordMessage] = useState('')
+  const [CheckedPasswordMessage, setCheckedPasswordMessage] = useState('')
+  const [EmailMessage, setEmailMessage] = useState('')
+  const [NicknameMessage, setNicknameMessage] = useState('')
+
+  const [NotAllow, setNotAllow] = useState(true);
+
+  useEffect(() => {
+    if (StudentIdValid && PasswordValid && CheckedPasswordValid && EmailValid && NicknameValid) {
+      setNotAllow(false);
+      return;
+    }
+    setNotAllow(true);
+  }, [StudentIdValid, PasswordValid, CheckedPasswordValid, EmailValid, NicknameValid]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -25,7 +47,7 @@ function App() {
   };
 
   var data = JSON.stringify({
-      studentId: studentID,
+      studentId: StudentID,
       email: Email, 
       nickname: Nickname,
       password: Password,
@@ -63,24 +85,65 @@ function App() {
 
   const onStudentIDHandler = (event) => {
     setStudentID(event.currentTarget.value);
+    if (event.target.value.length < 2) {
+      setNameMessage('2자 이상 입력하세요.')
+      setStudentIdValid(false)
+    } else {
+      setNameMessage('')
+      setStudentIdValid(true)
+    }
   }
+  
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value)
+    const regax = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+    if (regax.test(event.target.value)) {
+      setPasswordMessage('')
+      setPasswordValid(true);
+    } else {
+      setPasswordMessage('영문자, 숫자, 특수문자 조합 8자 이상 입력하세요.')
+      setPasswordValid(false)
+    }
   }
+
   const onCheckedPasswordHandler = (event) => {
     setCheckedPassword(event.currentTarget.value);
+    if (event.target.value === Password) {
+      setCheckedPasswordMessage('')
+      setCheckedPasswordValid(true)
+    } else {
+      setCheckedPasswordMessage('비밀번호가 일치하지 않습니다.')
+      setCheckedPasswordValid(false)
+    }
   }  
+
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
+    const regex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+    if (regex.test(event.target.value)) {
+      setEmailMessage('');
+      setEmailValid(true);
+    } else {
+      setEmailMessage('이메일 형식을 맞춰주세요.');
+      setEmailValid(false);
+    }
   }
+
   const onNicknameHandler = (event) => {
     setNickname(event.currentTarget.value);
+    if (event.target.value.length < 2) {
+      setNicknameMessage('2자 이상 입력하세요.')
+      setNicknameValid(false)
+    } else {
+      setNicknameMessage('')
+      setNicknameValid(true)
+    } 
   }
 
   return (
     <>   
     <div className="posting">
-    <Title level={2}>회원가입</Title>
+    <Title level={2} className="register">회원가입</Title>
     <Form
       name="large"
       labelCol={{
@@ -94,80 +157,55 @@ function App() {
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
+      autoComplete="on"
     >
-      <Form.Item
+      <Form.Item className="form"
         label="학번"
-        name="studentID"
-        rules={[
-          {
-            required: true,
-            message: '학번을 입력해주세요.',
-          },
-        ]}
+        name="StudentID"
       >
         <Input onChange={onStudentIDHandler}/>
+        <Text type="danger">{StudentIdMessage}</Text>
       </Form.Item>
 
-      <Form.Item
+      <Form.Item className="form"
         label="비밀번호"
         name="Password"
-        rules={[
-          {
-            required: true,
-            message: '비밀번호를 입력해주세요.',
-          },
-        ]}
       >
         <Input onChange={onPasswordHandler}/>
+        <Text type="danger">{PasswordMessage}</Text>
       </Form.Item>
 
-      <Form.Item
+      <Form.Item className="form"
         label="비밀번호 확인"
         name="CheckedPassword"
-        rules={[
-          {
-            required: true,
-            message: '비밀번호를 다시 입력해주세요.',
-          },
-        ]}
       >
         <Input onChange={onCheckedPasswordHandler}/>
+        <Text type="danger">{CheckedPasswordMessage}</Text>
       </Form.Item>
 
-      <Form.Item
+      <Form.Item className="form"
         label="한성대학교 이메일"
         name="Email"
-        rules={[
-          {
-            required: true,
-            message: '한성대학교 이메일을 입력해주세요.',
-          },
-        ]}
       >
         <Input onChange={onEmailHandler}/>
+        <Text type="danger">{EmailMessage}</Text>
       </Form.Item>
 
-      <Form.Item
+      <Form.Item className="form"rff
         label="닉네임"
         name="Nickname"
-        rules={[
-          {
-            required: true,
-            message: '닉네임을 입력해주세요.',
-          },
-        ]}
       >
         <Input onChange={onNicknameHandler}/>
+        <Text type="danger">{NicknameMessage}</Text>
       </Form.Item>
 
       <Form.Item
         wrapperCol={{
           offset: 8,
-          span: 16,
-        }}
+          span: 8,
+        }} className="submitBtn"
       >
-      <Button type="primary" htmlType="submit" onClick={submit}>
+      <Button type="primary" htmlType="submit" onClick={submit} disabled={NotAllow}>
         가입하기
       </Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
@@ -181,4 +219,4 @@ function App() {
   );
 }
 
-export default App;
+export default Register;

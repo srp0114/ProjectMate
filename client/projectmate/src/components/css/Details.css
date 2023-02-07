@@ -44,10 +44,28 @@
   margin-left: 5%;
 }
 
+.postingContent {
+  margin:0 5%;
+}
 .ck-editor__editable { 
   height: 400px; 
   color: black;
 }
+
+.register {
+  text-align: center;
+  padding:15px;
+}
+
+.form {
+  padding:7px;
+}
+
+.submitBtn {
+  padding:7px;
+  text-align: center;
+}
+
 
 /* 댓글용 */
 .comment{
