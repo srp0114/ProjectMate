@@ -1,12 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import Comment from './Comment'
 import axios from 'axios';
-
+import '../css/Details.css';
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
     const [secret, setSecret] = useState(0);
-    const [commentList, setCommentList] = useState([]);
-    
     const auth = props.auth;
 
     const secretHandler = e =>{
@@ -32,33 +30,16 @@ const Comments = (props) =>{
             "secret" : `${secret}`
             }
           };
-
         await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
         setComment('');
+        props.getComments();
+        setSecret(0);
     }
-
-    const getComments=useCallback( async()=>{
-        var config = {
-            method: `get`,
-            url: `/post/${props.postId}`,           //게시글 id
-            headers: { 
-              'Authorization': `${auth}`,
-              'Content-Type': 'application/json'
-            },
-        };
-        //답글
-        await axios(config).then((response)=>{
-            setCommentList(response.data.commentList)
-        })
-    },[])
-
-    useEffect(()=>{
-        getComments();
-    },[getComments])
 
     const commentHandler = (e) =>{
         setComment(e.target.value);
     }
+
     return(
         <>
             <div className='comment-input-container'>
@@ -70,8 +51,8 @@ const Comments = (props) =>{
                 <button className='comment-btn' onClick={postComment}>댓글 등록</button>
             </div>
             <div className='comments-container'>
-                {commentList.map((comment)=>(
-                    <Comment {...comment} auth={props.auth} getComments={getComments} postId={props.postId}/>
+                {props.commentList.map((comment)=>(
+                    <Comment {...comment} auth={props.auth} getComments={props.getComments} postId={props.postId}/>
                 ))}
             </div>
         </>

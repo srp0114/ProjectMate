@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../style.css';
-import Modal from 'react-modal'
+import { Modal } from 'antd';
+import { AiFillLock } from "react-icons/ai";
+import { BsPersonCircle } from "react-icons/bs";
+import WarnModal from './WarnModal';
 import axios from 'axios';
+import "./css/Home.css"
 
 const Header=(props)=>{
-
     const [modalOpen, setModalOpen] = useState(false);
     const [failModal, setFailModal]= useState(false);
     const [id, setId]= useState('');
@@ -42,30 +45,30 @@ const Header=(props)=>{
         setModalOpen(true);
     };
 
+    const handleCancel=()=>{
+        setModalOpen(false);
+    }
+
     return(
         <>
             <div>
                 로고
             </div>
             <div><button className='login-btn' onClick={showModal}><span className="btn-text">로그인</span></button></div>
-                <Modal
-                className='login-modal' isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
+                <Modal className='login-modal' open={modalOpen} onCancel={handleCancel} footer={null} width={450}>
                     <div className='login-form'>
                         <p className='login-title'>로그인</p>
                         <hr className='login-line'/>
                         <div className='login-input-form'>
-                            <p className='login-input-components'><span className='login-input-text'>아이디</span><input type='text' className='login-input' onChange={idHandler}/></p>
-                            <p className='login-input-components'><span className='login-input-text'>비밀번호</span><input type='password' className='login-input' onChange={pwHandler}/></p>
+                            <p className='login-input-components'><span className='login-input-text'><BsPersonCircle className='login-icons' size="20"/></span><input type='text' className='login-input' onChange={idHandler} placeholder="UserName"/></p>
+                            <p className='login-input-components'><span className='login-input-text'><AiFillLock className='login-icons' size="20"/></span><input type='password' className='login-input' onChange={pwHandler} placeholder="Password"/></p>
                         </div>
-                        <p><button className='login-modal-btn' onClick={submit}><span className='login-btn-text'>로그인</span></button></p>
+                        <p><button className='login-modal-btn' onClick={submit}>로그인</button></p>
                         <p>아이디가 없으신가요? <Link to="/register">회원가입</Link></p>
                         <p><button className='login-etc-btn'>ID 찾기</button><a className='etc-outline'/><button className='login-etc-btn'>비밀번호 찾기</button></p>
                     </div>
                 </Modal>
-                <Modal className='fail-modal' isOpen={failModal} onRequestClose={() => setFailModal(false)}>
-                    <p className='fail-massage'>아이디 혹은 비밀번호가 올바르지 않습니다</p>
-                    <button className='ok-btn' onClick={()=>setFailModal(false)}>OK</button>
-                </Modal>
+                <WarnModal isModalOpen={failModal} setFailModal={setFailModal}/>
             </>
     );
 }

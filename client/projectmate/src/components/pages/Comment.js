@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import SubComment from './SubComment';
 import {AiFillLock} from 'react-icons/ai'
-
+import '../css/Details.css';
 const Comment =(props) =>{
     const [isHover, setIsHover] = useState(false);
     const [input, setInput] = useState(false);
@@ -49,8 +49,8 @@ const Comment =(props) =>{
         setComment('');
         setInput(false);
         props.getComments();
+        setSecret(0);
     }
-
 
     //수정하기
     const ModifyComment = (e) => {
@@ -84,9 +84,10 @@ const Comment =(props) =>{
           });
           setModState(false);
           props.getComments();
+          setSecret(0);
     }
 
-    //삭제
+    //삭제하기
     const DeleteComment = e =>{ 
         var config={
             method: `delete`,
@@ -108,9 +109,11 @@ const Comment =(props) =>{
         <>
             {modState ? 
             <>
-                <div>
-                    <textarea className='comment-input' onChange={ModCommentText} value={modComment} />
-                    <button onClick={sendModComment}>수정하기</button>
+                <div className='mod-state'>
+                    <textarea className='comment-mod-input' onChange={ModCommentText} value={modComment} />
+                    <label for='secret-mod-comment'>비밀글</label>
+                    <input type='checkbox' className='secret-comment' id='secret-mod-comment' onClick={secretHandler} checked={secret}/>
+                    <button onClick={sendModComment} className='comment-btn'>수정하기</button>
                 </div>
             </> 
             :
@@ -132,7 +135,7 @@ const Comment =(props) =>{
                     </div>}
                 <div>
                     {props.commentList.map((subcomment)=>(
-                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments} postId={props.postId}/>
+                        <SubComment {...subcomment} auth={props.auth} getComments={props.getComments} postId={props.postId} parentId={props.id}/>
                     ))}
                 </div>
             </div>}

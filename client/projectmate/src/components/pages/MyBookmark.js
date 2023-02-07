@@ -37,6 +37,7 @@ const MyBookmark = () => {
     return (
         <>            
             <Space direction='vertical' className="myInfo">
+                <Title level={4}>북마크한 글</Title>
                 {myBookmark.map((info, i) => {
                     return (
                         <Card hoverable style={{ width: 500 }} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
