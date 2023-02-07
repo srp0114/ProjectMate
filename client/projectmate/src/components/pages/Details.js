@@ -3,6 +3,7 @@ import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@an
 import { Avatar, Divider, Space, Typography, Input, Button, Modal, Row, Col } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
+import LoginHeader from '../LoginHeader'
 import { useLinkClickHandler, useParams, useNavigate, useHistory } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
@@ -150,6 +151,7 @@ const Details = () => {
   const goBack = () => {
     navigate(-1);
   }
+
   const getComments=async ()=>{
     var config = {
         method: `get`,
@@ -163,10 +165,13 @@ const Details = () => {
     await axios(config).then((response)=>{
         setCommentList(response.data.commentList);
     })
-};
+  };
 
   return (
     <>
+    <div className='header'>
+      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+    </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <p className='postingDay'>{date}</p> 
