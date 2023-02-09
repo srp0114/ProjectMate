@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@ant-design/icons';
-import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
+import { Avatar, Divider, Space, Typography, Input, Button, Modal, Row, Col } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
-import { useLinkClickHandler, useParams, useNavigate } from 'react-router-dom';
+import LoginHeader from '../LoginHeader'
+import { useLinkClickHandler, useParams, useNavigate, useHistory } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
+import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import '../css/Details.css';
 
 const { Title, Text } = Typography;
@@ -14,6 +16,7 @@ const Details = () => {
   const [title, setTitle] = useState([]);
   const [content ,setContent] = useState([]);
   const [writerName, setWriterName] = useState([]);
+  const [writerID, setWriterID] = useState([]);
   const [subject, setSubject] = useState([]);
   const [division, setDivision] = useState([]);
   const [peopleNum, setPeopleNum] = useState([]);
@@ -30,9 +33,8 @@ const Details = () => {
   const {id} = useParams();
   const auth = localStorage.getItem("token")
 
-  const goToHome = useNavigate();
-  const goToUpdate = useNavigate();
-
+  const navigate = useNavigate();
+  
   var getConfig = {
     method: 'get',
     url: `/post/${id}`,
@@ -49,6 +51,7 @@ const Details = () => {
     }
   }
 
+
   useEffect (() => {
     axios(getConfig)
 	  .then(function(response) {
@@ -57,6 +60,7 @@ const Details = () => {
 	    setTitle(response.data.title);
 	    setContent(response.data.content);
 	    setWriterName(response.data.writer_nickname);
+      setWriterID(response.data.writer_id);
 	    setSubject(response.data.subject);
 	    setDivision(response.data.division);
 	    setPeopleNum(response.data.people_num);
@@ -74,8 +78,7 @@ const Details = () => {
 	  }); 
   }, [])
 
-  var userID = localStorage.getItem("id")
-  var studentID = userID.slice(0,2);
+  var ID = writerID.slice(0,2);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -83,7 +86,7 @@ const Details = () => {
 
   const handleOk = () => {
     setIsModalOpen(false);
-    goToHome('/')
+    navigate('/')
   };
 
   const handleCancel = () => {
@@ -97,6 +100,7 @@ const Details = () => {
       axios(getConfig)
       .then(response => {
         setIsBookmark(response.data.isBookmarked);
+        setBookmarkCount(response.data.bookmark_count)
       })
     })
     .catch((error) => {
@@ -105,7 +109,7 @@ const Details = () => {
   };
 
   const UpdatePost = () => {
-    goToUpdate(`/update/${postId}`)
+    navigate(`/update/${postId}`)
   }
 
   const UpdateButton = isWriter ? (
@@ -144,57 +148,65 @@ const Details = () => {
     <BsFillBookmarkStarFill size={25} onClick={handleBookmark}/>
   ) : ( <BsBookmarkStar size={25} onClick={handleBookmark}/> ) 
 
+  const goBack = () => {
+    navigate(-1);
+  }
+
+  const getComments=async ()=>{
+    var config = {
+        method: `get`,
+        url: `/post/${postId}`,           //게시글 id
+        headers: { 
+          'Authorization': `${auth}`,
+          'Content-Type': 'application/json'
+        },
+    };
+    //답글
+    await axios(config).then((response)=>{
+        setCommentList(response.data.commentList);
+    })
+  };
+
   return (
     <>
+    <div className='header'>
+      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+    </div>
     <div className="posting">
-      <Space>
-      <HomeOutlined style={{ fontSize: '22px'}}/>
-      <p className="postingDay">{date}</p>
-      </Space>
+      <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
+      <p className='postingDay'>{date}</p> 
+      <Text className="deleteBtn">{DeleteButton}</Text>
+      <Text className="updateBtn">{UpdateButton}</Text>
       <Title level={1} className="postingTitle">{title}</Title>
-      <br/>
-      <Space align="center">
-        <Avatar size={38} icon={<UserOutlined/>}/>
-        <Text>{writerName} ({studentID})</Text>
-        {UpdateButton}
-        {DeleteButton}
-        {BookmarkButton}
-        <Text>{bookmarkCount}</Text>
-      </Space>
+      <Avatar size={38} icon={<UserOutlined/>} className="userProfile"/>
+      <Text>{writerName} ({ID})</Text>
+      <Text className="bookmarkCnt">{bookmarkCount}</Text>
+      <Text className="bookmarkBtn">{BookmarkButton}</Text>
       <Divider/>
       <div className="postingInfo">
-      <Space align="center" size={220}>
-        <Space align="center" size={70}>
-          <Title level={4}>과목명</Title>
-          <Title level={4}>{subject}</Title>
-        </Space>
-        <Space align="center" size={150}>
-          <Title level={4}>분반</Title>
-          <Title level={4}>{division}</Title>
-        </Space>
-      </Space>
-      <Space align="center" size={247}>
-        <Space align="center" size={100}>
-          <Title level={4}>모집인원</Title>
-          <Title level={4}>{peopleNum}명</Title>
-        </Space>
-        <Space align="center" size={100}>
-          <Title level={4}>진행방식</Title>
-          <Title level={4}>{proceedWay}</Title>
-        </Space>
-      </Space>
+      <Row>
+        <Col span={3}><Title level={4} className="try">과목명</Title></Col>
+        <Col span={6}><Title level={4}>{subject}</Title></Col>
+        <Col span={3}> <Title level={4} className="try">분반</Title></Col>
+        <Col span={6}><Title level={4}>{division}</Title></Col>
+      </Row>
+      <Row>
+        <Col span={3}> <Title level={4} className="try">모집인원</Title></Col>
+        <Col span={6}> <Title level={4}>{peopleNum}명</Title></Col>
+        <Col span={3}><Title level={4} className="try">진행방식</Title></Col>
+        <Col span={6}><Title level={4}>{proceedWay}</Title></Col>
+      </Row>
       </div>
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />
       <br/>
-      <br/>
       {/* <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
                 style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/> */}
-      <div dangerouslySetInnerHTML = { {  __html : content } }></div>
+      <div dangerouslySetInnerHTML = { {  __html : content } } className="postingContent"></div>
       <br/>
       <Divider/>
-      <Title level={2} className="postingTitle">댓글</Title>
+      <Title level={3} className="postingTitle">댓글</Title>
       <div>
-      <Comments commentList={commentList} auth = {auth} postId = {postId}/>
+      <Comments commentList={commentList} auth = {auth} postId = {postId} getComments={getComments}/>
       </div>
     </div>
     </>

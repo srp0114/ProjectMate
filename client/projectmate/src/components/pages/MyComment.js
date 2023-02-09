@@ -1,10 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { Space, Typography, Divider, Card } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "../css/MyPage.css";
+
 const { Title, Text } = Typography;
 const { Meta } = Card;
+
 const MyComment = () => {
     const auth = localStorage.getItem("token")
     const [myComment, setMyComment] = useState([]);
@@ -25,12 +28,20 @@ const MyComment = () => {
             console.log(error);
           }); 
       }, [])
+
+    const navigate = useNavigate();
+
+    const goToPost = (id) => {
+        navigate(`/post/${id}`)
+    }
+
     return (
         <>            
             <Space direction='vertical' className="myInfo">
+                <Title level={4}>댓글단 글</Title>
                 {myComment.map((info, i) => {
                     return (
-                        <Card hoverable style={{ width: 500 }} key={i}>  
+                        <Card hoverable style={{ width: 500 }} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
                             <Meta title={info.title} description={info.modifiedDate}/>
                             <Divider/>                   
                             <Text>{info.subject} [{info.division}] </Text>

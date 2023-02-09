@@ -8,6 +8,9 @@ import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
+import { AiOutlineArrowUp} from "react-icons/ai";
+import { BsPlusLg } from "react-icons/bs";
+import "./css/Home.css"
 
 const Home=()=>{
     const [grade, setGrade] = useState('전체');
@@ -166,7 +169,7 @@ const Home=()=>{
     const getPost = useCallback(async ()=>{
         if(isTotal){
             setLoading(true)
-            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
+            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=6&is_progress=${is_progress}`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -176,7 +179,7 @@ const Home=()=>{
         }
         else{
             setLoading(true);
-            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
+            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=6`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -243,13 +246,13 @@ const Home=()=>{
             )}
             </div>
             <div>
-            <button className='adder-btn' onClick={upload}><strong>플러스</strong></button>
+            <button className='adder-btn' onClick={upload}><BsPlusLg size="33"/></button>
             {isModalOpen &&
                 <Modal open={isModalOpen} onOk={handleOk}>
                     <p>로그인 후 사용할 수 있는 기능입니다..</p>
                 </Modal>
             }
-            <button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button>
+            <button className='top-btn' onClick={handleTop}><AiOutlineArrowUp size="40"/></button>
             </div>
             <div ref={ref} className='observer'/>
             </>
