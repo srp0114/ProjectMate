@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import {Modal} from 'antd';
+import { Modal, Switch } from 'antd';
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
