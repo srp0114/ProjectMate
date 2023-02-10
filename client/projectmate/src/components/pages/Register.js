@@ -144,6 +144,7 @@ const Register = () => {
   return (
     <>   
     <div className='header'>
+      <LoginHeader nickname={localStorage.getItem('nickname')}/>
     </div>
     <div className="posting">
     <Title level={2} className="register">회원가입</Title>
