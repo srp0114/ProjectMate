@@ -185,15 +185,15 @@ const Details = () => {
       <Divider/>
       <div className="postingInfo">
       <Row>
-        <Col span={3}><Title level={4} className="try">과목명</Title></Col>
+        <Col span={3}><Title level={4} className="infoColor">과목명</Title></Col>
         <Col span={6}><Title level={4}>{subject}</Title></Col>
-        <Col span={3}> <Title level={4} className="try">분반</Title></Col>
+        <Col span={3}> <Title level={4} className="infoColor">분반</Title></Col>
         <Col span={6}><Title level={4}>{division}</Title></Col>
       </Row>
       <Row>
-        <Col span={3}> <Title level={4} className="try">모집인원</Title></Col>
+        <Col span={3}> <Title level={4} className="infoColor">모집인원</Title></Col>
         <Col span={6}> <Title level={4}>{peopleNum}명</Title></Col>
-        <Col span={3}><Title level={4} className="try">진행방식</Title></Col>
+        <Col span={3}><Title level={4} className="infoColor">진행방식</Title></Col>
         <Col span={6}><Title level={4}>{proceedWay}</Title></Col>
       </Row>
       </div>
