@@ -2,7 +2,12 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import SubComment from './SubComment';
 import {AiFillLock} from 'react-icons/ai'
+import { Avatar, Typography} from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import '../css/Details.css';
+
+const { Title, Text } = Typography;
+
 const Comment =(props) =>{
     const [isHover, setIsHover] = useState(false);
     const [input, setInput] = useState(false);
@@ -118,17 +123,22 @@ const Comment =(props) =>{
             </> 
             :
             <div className='comment'>
-                <div onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
-                    <p className='writer-content'><span className='writer'>{props.writer_nickname}</span>
+                <div className='comment-test' onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
+                <Avatar size={60} icon={<UserOutlined/>}/>
+                    <div>
+                    <div className='writer-content'><span className="writer">{props.writer_nickname}
+                    </span>
                     {isHover && <div className='comment-sub-btn-container'>
-                        <button onClick={clickHandler} className='comment-btns'>답글</button>
+                        <button onClick={clickHandler} className='comment-btns'>답글</button>   
                         {props.isWriter && <>
                             <button className='comment-btns' onClick={ModifyComment}>수정</button>
                             <button className='comment-btns' onClick={DeleteComment} >삭제</button>
                         </>
                         }
-                        </div>}</p>
-                    <p className='comment-content'>{props.secret ? <AiFillLock size="14"/> : <></>}<span>{props.content}</span></p>
+                        </div>}
+                    </div>
+                    <p className='comment-content'>{props.secret ? <AiFillLock size="14"/> : <></>}{props.content}</p>
+                    </div>
                 </div>
                 {input && <div className='sub-comment-input-container'>
                     <input className='sub-comment-input' type="text" placeholder='답글을 쓰세요...' value={subComment} onChange={(e)=>setSubComment(e.target.value)}/><button className='sub-comment-btn' onClick={postSubComment}>답글달기</button>

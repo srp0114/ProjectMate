@@ -1,65 +1,49 @@
-import { React, useState } from 'react';
+import { React } from 'react';
 import { Link } from 'react-router-dom'
 import { AiOutlineEye } from 'react-icons/ai';
-import { Typography } from 'antd';
-import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs'
+import { Typography, Card, Divider, Tag, Avatar } from 'antd';
 import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
-import { IoPerson } from 'react-icons/io5'
-import axios from 'axios';
+import { UserOutlined } from '@ant-design/icons';
 import "./css/Home.css"
 
 const { Title, Text } = Typography;
+const { Meta } = Card;
 
 const PostThumbnail = (props) =>{
-    const [BookMarkState, setBookMarkState]= useState(false);
-
     const auth = localStorage.getItem("token");
 
-    const handleBookmark = async() => {
-        setBookMarkState(!BookMarkState);
-        var config={
-            method: `post`,
-            url: `/post/bookmark/${props.id}`,
-            headers: { 
-              'Authorization': `${auth}`,
-              'Content-Type': 'application/json'
-            },
-        }
-        axios(config).then((response)=>console.log("set Bookmark"))
-        .catch(console.log("bookmark error"))
-    };
-
-    const Tag = () =>{
+    const TagDs = () =>{
         return(
             <>
-                <Title><span className='tag'># {props.subject} </span></Title>
-                <Title><span className='tag'># {props.division} </span></Title>
+                <Tag color="#2db7f5" style={{fontSize:16, padding: 3}}># {props.subject}</Tag>
+                <Tag color="#2db7f5" style={{fontSize:16, padding: 3}}># {props.division}</Tag>
             </>
         )
     }
 
     return(
         <>
-        <div className='post'>
-            {props.isLogin && <div className='bookmarker'>{BookMarkState || props.isBookmarked ? <BsFillBookmarkStarFill size='50' onClick={handleBookmark}/>: <BsBookmarkStar size='50' onClick={handleBookmark}/>}</div>}
-            <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
-            <h1 className='post-date'><span>{props.createdDate}</span></h1>
-            <Title><p className='post-title'>{props.title}</p></Title>
-            <Title level={5}><p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p></Title>
-            <div className='tag-container'>
-                <Tag/>
-            </div>
-            <div className='post-footer'>
-                <div className='owner'>
-                <IoPerson size="30"/><Text><span className='owner-name'>{props.writer_nickname}</span></Text>
+            <Card hoverable style={{ width: 380, height : 415, marginBottom : 30}} className="post">
+                <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
+                <Meta title={<Title level={2}>{props.title}</Title>}/>
+                <Meta description={props.createdDate}/>
+                <Divider style={{'background-color':'rgb(213, 218, 223)'}}/>
+                <Title level={5}><p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p></Title>
+                <div className='tag-container'>
+                    <TagDs/>
                 </div>
-                <div className='icons'>
-                    <AiOutlineEye size="30"/><span className='etc-num'>{props.view_count}</span>
-                    <HiOutlineChatBubbleLeftRight size="30"/><span className='etc-num'>{props.comment_count}</span>
+                <Divider style={{'background-color':'rgb(213, 218, 223)', 'margin-bottom' : '20px'}}/>
+                <div className='post-footer'>
+                    <div className='owner'>
+                    <Avatar size={32} icon={<UserOutlined/>}/><Text style={{ fontSize: 20, marginLeft : 5 }}>{props.writer_nickname}</Text>
+                    </div>
+                    <div className='icons'>
+                        <AiOutlineEye size="30" color='gray'/><span className='etc-num'>{props.view_count}</span>
+                        <HiOutlineChatBubbleLeftRight size="30" color='gray'/><span className='etc-num'>{props.comment_count}</span>
+                    </div>
                 </div>
-            </div>
-            </Link>
-        </div>
+                </Link>
+            </Card>
         </>
     );
 }

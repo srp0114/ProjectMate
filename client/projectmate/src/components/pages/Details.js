@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@ant-design/icons';
-import { Avatar, Divider, Space, Typography, Input, Button, Modal } from 'antd';
+import { Avatar, Divider, Space, Typography, Input, Button, Modal, Row, Col } from 'antd';
 import axios from 'axios';
 import Comments from './Comments';
+import LoginHeader from '../LoginHeader'
 import { useLinkClickHandler, useParams, useNavigate, useHistory } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
@@ -99,6 +100,7 @@ const Details = () => {
       axios(getConfig)
       .then(response => {
         setIsBookmark(response.data.isBookmarked);
+        setBookmarkCount(response.data.bookmark_count)
       })
     })
     .catch((error) => {
@@ -149,6 +151,7 @@ const Details = () => {
   const goBack = () => {
     navigate(-1);
   }
+
   const getComments=async ()=>{
     var config = {
         method: `get`,
@@ -162,10 +165,13 @@ const Details = () => {
     await axios(config).then((response)=>{
         setCommentList(response.data.commentList);
     })
-};
+  };
 
   return (
     <>
+    <div className='header'>
+      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+    </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <p className='postingDay'>{date}</p> 
@@ -178,33 +184,24 @@ const Details = () => {
       <Text className="bookmarkBtn">{BookmarkButton}</Text>
       <Divider/>
       <div className="postingInfo">
-      <Space align="center" size={220}>
-        <Space align="center" size={110}>
-          <Title level={4}>과목명</Title>
-          <Title level={4}>{subject}</Title>
-        </Space>
-        <Space align="center" size={150}>
-          <Title level={4}>분반</Title>
-          <Title level={4}>{division}</Title>
-        </Space>
-      </Space>
-      <Space align="center" size={247}>
-        <Space align="center" size={100}>
-          <Title level={4}>모집인원</Title>
-          <Title level={4}>{peopleNum}명</Title>
-        </Space>
-        <Space align="center" size={100}>
-          <Title level={4}>진행방식</Title>
-          <Title level={4}>{proceedWay}</Title>
-        </Space>
-      </Space>
+      <Row>
+        <Col span={3}><Title level={4} className="try">과목명</Title></Col>
+        <Col span={6}><Title level={4}>{subject}</Title></Col>
+        <Col span={3}> <Title level={4} className="try">분반</Title></Col>
+        <Col span={6}><Title level={4}>{division}</Title></Col>
+      </Row>
+      <Row>
+        <Col span={3}> <Title level={4} className="try">모집인원</Title></Col>
+        <Col span={6}> <Title level={4}>{peopleNum}명</Title></Col>
+        <Col span={3}><Title level={4} className="try">진행방식</Title></Col>
+        <Col span={6}><Title level={4}>{proceedWay}</Title></Col>
+      </Row>
       </div>
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />
       <br/>
-      <br/>
       {/* <TextArea readOnly={true} autoSize={{ minRows: 2, maxRows: 6 }} 
                 style={{resize: 'none', border:'none', fontSize:'18px'}} value={content}/> */}
-      <div dangerouslySetInnerHTML = { {  __html : content } }></div>
+      <div dangerouslySetInnerHTML = { {  __html : content } } className="postingContent"></div>
       <br/>
       <Divider/>
       <Title level={3} className="postingTitle">댓글</Title>
