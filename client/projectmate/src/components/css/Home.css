@@ -73,7 +73,9 @@
 }
 
 .profile-nickname{
+  float: left;
   margin-left: 8px;
+  font-size: 25px;
 }
 
 .btn-container{
@@ -175,7 +177,7 @@
   justify-content: left;
   margin-right : 10px;
   margin-bottom: 10px;
-  padding-left : 10%;
+  padding-left : 14%;
   padding-bottom: 10px;
 }
 
@@ -231,27 +233,18 @@
   width: 60%;
   text-align: center;
   align-items: center;
-  margin-left: 17%;
+  margin-left: 17.5%;
 }
 
 .post{
   overflow: hidden;
   width: 350px;
   height: 450px;
-  border : 2px solid rgb(180, 190, 199);
+  border : 2px solid rgb(213, 218, 223);
   border-radius: 8px;
   margin-bottom :30px;
   margin-right: 50px;
   transition: 0.6s;
-}
-
-.post:hover{
-  transform: scale(1.05);
-  box-shadow:inset
-  2px 2px 2px 0px rgba(255,255,255,.5),
-  7px 7px 50px 0px rgba(138, 136, 136, 0.575),
-  2px 2px 5px 0px rgba(212, 212, 212, 0.575);
-  
 }
 
 .bookmarker{
@@ -271,13 +264,7 @@
 }
 
 .post-title{
-  font-size: 35px;
-  color: black;
-  text-align: center;
-  white-space: nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  margin : 10px 20px 10px 20px;
+  font-size: 100px;
 }
 
 .post-content{
@@ -316,9 +303,7 @@
   text-align: left;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 20px 0px 20px;
-  padding :20px 5px 15px 5px;
-  border-top:1px solid rgb(180, 190, 199);
+  padding :0px 5px 15px 5px;
 }
 
 .profile-photo{

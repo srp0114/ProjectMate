@@ -1,7 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import Comment from './Comment'
 import axios from 'axios';
+import {Button} from 'antd';
 import '../css/Details.css';
+
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
     const [secret, setSecret] = useState(0);
@@ -30,10 +32,13 @@ const Comments = (props) =>{
             "secret" : `${secret}`
             }
           };
-        await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
-        setComment('');
-        props.getComments();
-        setSecret(0);
+
+        if(comment !== ''){
+            await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
+            setComment('');
+            props.getComments();
+            setSecret(0);
+        }
     }
 
     const commentHandler = (e) =>{
@@ -46,9 +51,13 @@ const Comments = (props) =>{
                 <div>
                     <textarea className='comment-input' placeholder='댓글을 입력하세요...' onChange={commentHandler} value={comment}></textarea>
                 </div>
-                <label for='secret-comment'>비밀글</label>
-                <input type='checkbox' className='secret-comment' id='secret-comment' onClick={secretHandler}/>
-                <button className='comment-btn' onClick={postComment}>댓글 등록</button>
+                <div className='comment-btn-container'>
+                    <div>
+                        <label for='secret-comment'>비밀글</label>
+                        <input type='checkbox' className='secret-comment' id='secret-comment' onClick={secretHandler} checked={secret}/>
+                    </div>
+                    <Button className='comment-btn' onClick={postComment}>댓글 등록</Button>
+                </div>
             </div>
             <div className='comments-container'>
                 {props.commentList.map((comment)=>(
