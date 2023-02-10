@@ -1,56 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700');
-
 .posting {
   margin-left:20%;
   margin-right:20%;
 }
-
 .postingDay {
   text-align: right;
   color: gray;
 }
-
 .postingTitle {
   text-align: left;
 }
-
 .updateBtn {
   float:right;
   margin-right:2%;
 }
-
 .deleteBtn {
   float:right;
 }
-
 .bookmarkBtn {
   float:right;
   margin-right:1%;
 }
-
 .bookmarkCnt {
-  float:right;
+   float:right;
+ }
+
+ .infoColor {
+   color: #096dd9 !important;
+ }
+
+ .userProfile {
+   margin-right:1%;
+ }
+
+ .postingInfo {
+   margin-top:0;
+   margin-bottom:5%;
+   margin-left:5%;
+ }
+
+ .postingContent {
+   margin:0 5%;
+   font-size: 1.4em;
+ }
+
+ .ck-editor__editable { 
+   height: 400px; 
+   color: black;  
 }
 
-.userProfile {
-  margin-right:1%;
+/* 회원가입 */
+.register {
+  text-align: center;
+  padding:15px;
 }
 
-.postingInfo {
-  margin-top:0;
-  margin-bottom:5%;
-  margin-left:5%;
+.form {
+  padding:7px;
 }
 
-.postingContent {
-  margin:0 5%;
-  font-size: 1.4em;
-}
-
-.ck-editor__editable { 
-  height: 400px; 
-  color: black;
+.submitBtn {
+  padding:7px;
+  text-align: center;
 }
 
 /* 댓글용 */
@@ -73,20 +85,7 @@
 .profile-nickname{
   float: left;
   font-size: 28px;
-.register {
-  text-align: center;
-  padding:15px;
 }
-
-.form {
-  padding:7px;
-}
-
-.submitBtn {
-  padding:7px;
-  text-align: center;
-}
-
 
 .sub-comment{
   padding-left: 20px;
@@ -233,4 +232,4 @@
   height: 30px;
   margin-right: 20px;
   margin-bottom: 10px;
- }
+}
