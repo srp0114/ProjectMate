@@ -2,27 +2,25 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { Modal } from 'antd';
-import { useCookies } from 'react-cookie'
 import axios from 'axios';
 import Header from './Header'
-import LoginHeader from './LoginHeader'
+import LoginHeader_Home from './LoginHeader_Home'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
 import { AiOutlineArrowUp} from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
+import { useCookies } from 'react-cookie'
 import "./css/Home.css"
 
 const Home=()=>{
     const [grade, setGrade] = useState('전체');
     const [isLogin, setIsLogin] = useState(false);
     const [cookies, removeCookie] = useCookies();
-
     const [posts, setPosts] = useState([]);
     const [page, setPage]= useState(0);
     const [loading, setLoading] = useState(false);    
     const [ref, inView] = useInView();
-
 
     const [subject, setSubject] = useState('');
     const [s_btn, setS_btn] = useState(false);      //과목 버튼이 눌렸는지에 대한 상태 정보 저장 값
@@ -33,7 +31,7 @@ const Home=()=>{
     const [ScrollY, setScrollY] = useState(0);
     const [BtnStatus, setBtnStatus] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    
     //학년
     const gradeComponent = ['전체','1학년','2학년','3학년','4학년']
 
@@ -147,6 +145,12 @@ const Home=()=>{
             setIsModalOpen(false);
         }
 
+    const logOut = ()=>{
+        localStorage.clear();
+        removeCookie('postView');
+        setIsLogin(false);
+    }
+
       useEffect(() => {
         const watch = () => {
           window.addEventListener("scroll", handleFollow);
@@ -156,17 +160,6 @@ const Home=()=>{
           window.removeEventListener("scroll", handleFollow);
         };
       });
-/*
-    const setLogin = () => {
-        if(localStorage.length>=4)
-            setIsLogin(true)
-    }
-*/
-    const logOut = () =>{
-        localStorage.clear();
-        setIsLogin(false);
-        removeCookie('postView');
-    }
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
@@ -195,7 +188,7 @@ const Home=()=>{
     useEffect(()=>{
         getPost()
     },[getPost])
-    
+
     useEffect(()=>{
             if(inView && !loading){
                 setLoading(true);
@@ -203,6 +196,8 @@ const Home=()=>{
                 setLoading(false);
             }
     },[inView])
+
+    
 
     useEffect(()=>{
         if(localStorage.length>=2){
@@ -213,7 +208,7 @@ const Home=()=>{
     return(
         <>
             <div className='header'>
-                {isLogin ? <LoginHeader nickname={localStorage.getItem('nickname')}  logOut={logOut}/> : <Header/>}
+                {isLogin ? <LoginHeader_Home nickname={localStorage.getItem('nickname')} logOut={logOut}/> : <Header/>}
             </div>
             <div className='banner'>
                 <Banner/>
