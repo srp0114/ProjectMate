@@ -4,7 +4,7 @@ import { IoPerson}  from 'react-icons/io5'
 import { AiOutlineEdit } from "react-icons/ai";
 import { HiOutlineLogout } from "react-icons/hi";
 import { BsPerson, BsBookmarkStar} from "react-icons/bs"
-import { Typography, Menu } from 'antd';
+import { Typography, Menu, Button } from 'antd';
 import "./css/Home.css"
 
 const { Title } = Typography;
@@ -38,11 +38,18 @@ const LoginHeader_Home=(props)=>{
         expiryLogin()
     },[expiryLogin])
 
+   
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/')
+    }
+
     return(
         <>
-            <div>
+            <Button onClick={goToHome}>
                 로고
-            </div>
+            </Button>
             <div className='menu'>
                 <button onClick={openMyPage} className='profile-btn'><IoPerson size='30'/><span className='profile-nickname'>{props.nickname}</span></button>
                 {isOpen &&<Menu mode="vertical">

@@ -172,7 +172,7 @@ const MyInfo = () => {
                     
                     <Row>
                     <Col span={6}><Title level={5}>이메일</Title></Col>
-                    <Col span={6}><Title level={5}>{email}</Title></Col>
+                    <Col span={18}><Title level={5}>{email}</Title></Col>
                     </Row>
 
                     <Row>

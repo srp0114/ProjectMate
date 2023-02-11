@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../style.css';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import { AiFillLock } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import WarnModal from './WarnModal';
@@ -49,11 +49,17 @@ const Header=(props)=>{
         setModalOpen(false);
     }
 
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/')
+    }
+
     return(
         <>
-            <div>
+            <Button onClick={goToHome}>
                 로고
-            </div>
+            </Button>
             <div><button className='login-btn' onClick={showModal}><span className="btn-text">로그인</span></button></div>
                 <Modal className='login-modal' open={modalOpen} onCancel={handleCancel} footer={null} width={450}>
                     <div className='login-form'>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../style.css';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import { AiFillLock } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import WarnModal from './WarnModal';
@@ -49,11 +49,17 @@ const LogoHeader=(props)=>{
         setModalOpen(false);
     }
 
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/')
+    }
+
     return(
         <>
-            <div>
+            <Button onClick={goToHome}>
                 로고
-            </div>
+            </Button>
             </>
     );
 }
