@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Space, Typography, Divider, Avatar, Modal, Button, Input, Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -22,8 +23,8 @@ const MyInfo = () => {
     const [confirmLoading, setConfirmLoading] = useState(false);
 
     const [nicknameText, setNicknameText] = useState('변경할 닉네임을 입력하세요.');
-    const [passwordText, setPasswordText] = useState('변경할 비밀버호를 입력하세요.');
-    const [checkedPasswordText, setCheckedPasswordText] = useState('변경할 비밀버호를 다시 입력하세요.');
+    const [passwordText, setPasswordText] = useState('변경할 비밀번호를 입력하세요.');
+    const [checkedPasswordText, setCheckedPasswordText] = useState('변경할 비밀번호를 다시 입력하세요.');
 
     const ChangedNickname = {
         "nickname" : ChangeNickname
@@ -98,17 +99,29 @@ const MyInfo = () => {
         }
     };
 
+    const navigate = useNavigate();
+
+    const goToHome = () => {
+        navigate('/')
+    }
+
+    const LogOut = () =>{
+        localStorage.clear();
+        goToHome('/');
+    }
+
     const handlePasswordOk = () => {
         if(ChangeCheckedPassword === ChangePassword) {
             setPasswordText('비밀번호 변경이 완료되었습니다.')
             setCheckedPasswordText('');
             submitChangePassword();
-            setConfirmLoading(true);
+            setConfirmLoading(true)
             setTimeout(() => {
                 setPasswordOpen(false);
                 setConfirmLoading(false);
-                setPasswordText('변경할 비밀버호를 입력하세요.')
-                setCheckedPasswordText('변경할 비밀버호를 다시 입력하세요.');
+                setPasswordText('변경할 비밀번호를 입력하세요.')
+                setCheckedPasswordText('변경할 비밀번호를 다시 입력하세요.');
+                LogOut();
             }, 2000);
         } else {
             setPasswordText('변경할 비밀버호를 다시 확인해주세요.')
