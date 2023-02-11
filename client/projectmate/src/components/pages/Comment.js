@@ -13,18 +13,29 @@ const Comment =(props) =>{
     const [comment, setComment] = useState('');
     const [modComment, setModComment]= useState([props.content]);
 
-    const [secret, setSecret] = useState(props.isc);
     const [modSecret, setModSecret] = useState(0);
+    const [subSecret, setSubSecret] = useState(0);
     const [modState, setModState] = useState(false);
 
     const auth = props.auth;
 
-    const secretHandler = e =>{
+    //수정 비밀용
+    const modSecretHandler = e =>{
         if(e.target.checked){
-            setSecret(1);
+            setModSecret(1);
         }
         else{
-            setSecret(0);
+            setModSecret(0);
+        }
+    }
+
+    //답글 비밀용
+    const subSecretHandler = e =>{
+        if(e.target.checked){
+            setSubSecret(1);
+        }
+        else{
+            setSubSecret(0);
         }
     }
 
@@ -45,15 +56,15 @@ const Comment =(props) =>{
             data : {
             "content" : `${subComment}`,
             "parentId" : `${props.id}`,
-            "secret" : `${secret}`
-                    }
+            "secret" : `${subSecret}`
+            }
           };
 
         await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
         setComment('');
         setInput(false);
         props.getComments();
-        setSecret(0);
+        setSubSecret(0);
     }
 
     //수정하기
@@ -77,7 +88,7 @@ const Comment =(props) =>{
             data : {
             "content" : `${modComment}`,
             "parentId" : null,
-            "secret" : `${secret}`
+            "secret" : `${modSecret}`
             }
           };
           axios(config)
@@ -87,7 +98,7 @@ const Comment =(props) =>{
           });
           setModState(false);
           props.getComments();
-          setSecret(0);
+          setModSecret(0);
     }
 
     //삭제하기
@@ -119,7 +130,7 @@ const Comment =(props) =>{
                     <div className='mod-input-footer'>
                         <div>
                             <label for='secret-mod-comment'>비밀글</label>
-                            <input type='checkbox' className='secret-comment' id='secret-mod-comment' onClick={secretHandler} checked={secret}/>
+                            <input type='checkbox' className='secret-comment' id='secret-mod-comment' onClick={modSecretHandler} checked={modSecret}/>
                         </div> 
                         <Button onClick={sendModComment} className='comment-btn'>수정하기</Button>
                     </div>
@@ -146,7 +157,13 @@ const Comment =(props) =>{
                 </div>
                 {input && <div className='sub-comment-input-container'>
                     <input className='sub-comment-input' type="text" placeholder='답글을 쓰세요...' value={subComment} onChange={(e)=>setSubComment(e.target.value)}/>
-                    <button className='sub-comment-btn' onClick={postSubComment}>답글달기</button>
+                    <div className='sub-input-btn-container'>
+                    <div>
+                        <label for='secret-sub-comment'>비밀글</label>
+                        <input type='checkbox' className='secret-comment' id='secret-sub-comment' onClick={subSecretHandler} checked={subSecret}/>
+                    </div> 
+                    <Button onClick={postSubComment}>답글달기</Button>
+                    </div>
                     </div>}
                 <div>
                     {props.commentList.map((subcomment)=>(
