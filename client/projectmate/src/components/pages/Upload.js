@@ -5,6 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import axios from 'axios';
+import LoginHeader from '../LoginHeader'
 import "../css/Details.css"
 
 const { Title, Text } = Typography;
@@ -115,6 +116,10 @@ const Upload = () => {
   };
 
   return (
+    <>
+    <div className='header'>
+      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+    </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
       <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
@@ -182,7 +187,6 @@ const Upload = () => {
         />
       <Divider/>
       <Title level={2}>프로젝트를 소개해주세요</Title>
-      <Title level={5}>제목</Title>
       <Input size="large" name="title" onChange={getValue} placeholder="제목을 입력해주세요." /> 
       <br/>
       <br/>
@@ -217,6 +221,7 @@ const Upload = () => {
       <br/>
       <br/>
     </div>
+    </>
   );
 }
 

@@ -1,12 +1,12 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import Comment from './Comment'
 import axios from 'axios';
+import {Button} from 'antd';
+import '../css/Details.css';
 
 const Comments = (props) =>{
     const [comment, setComment] = useState('');
     const [secret, setSecret] = useState(0);
-    const [commentList, setCommentList] = useState([]);
-    
     const auth = props.auth;
 
     const secretHandler = e =>{
@@ -33,45 +33,35 @@ const Comments = (props) =>{
             }
           };
 
-        await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
-        setComment('');
+        if(comment !== ''){
+            await axios(config).then((response)=>console.log(response.data)).catch((e) => console.log('something went wrong :(', e));
+            setComment('');
+            props.getComments();
+            setSecret(0);
+        }
     }
-
-    const getComments=useCallback( async()=>{
-        var config = {
-            method: `get`,
-            url: `/post/${props.postId}`,           //게시글 id
-            headers: { 
-              'Authorization': `${auth}`,
-              'Content-Type': 'application/json'
-            },
-        };
-        //답글
-        await axios(config).then((response)=>{
-            setCommentList(response.data.commentList)
-        })
-    },[])
-
-    useEffect(()=>{
-        getComments();
-    },[getComments])
 
     const commentHandler = (e) =>{
         setComment(e.target.value);
     }
+
     return(
         <>
             <div className='comment-input-container'>
                 <div>
                     <textarea className='comment-input' placeholder='댓글을 입력하세요...' onChange={commentHandler} value={comment}></textarea>
                 </div>
-                <label for='secret-comment'>비밀글</label>
-                <input type='checkbox' className='secret-comment' id='secret-comment' onClick={secretHandler}/>
-                <button className='comment-btn' onClick={postComment}>댓글 등록</button>
+                <div className='comment-btn-container'>
+                    <div>
+                        <label for='secret-comment'>비밀글</label>
+                        <input type='checkbox' className='secret-comment' id='secret-comment' onClick={secretHandler} checked={secret}/>
+                    </div>
+                    <Button className='comment-btn' onClick={postComment}>댓글 등록</Button>
+                </div>
             </div>
             <div className='comments-container'>
-                {commentList.map((comment)=>(
-                    <Comment {...comment} auth={props.auth} getComments={getComments} postId={props.postId}/>
+                {props.commentList.map((comment)=>(
+                    <Comment {...comment} auth={props.auth} getComments={props.getComments} postId={props.postId}/>
                 ))}
             </div>
         </>

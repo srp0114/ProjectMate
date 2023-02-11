@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import {Modal} from 'antd';
+import { Modal } from 'antd';
+import { useCookies } from 'react-cookie'
 import axios from 'axios';
 import Header from './Header'
 import LoginHeader from './LoginHeader'
 import PostThumbnail from './PostThumbnail'
 import Banner from './Banner'
 import NonFound from './NonFound';
+import { AiOutlineArrowUp} from "react-icons/ai";
+import { BsPlusLg } from "react-icons/bs";
+import "./css/Home.css"
 
 const Home=()=>{
     const [grade, setGrade] = useState('전체');
     const [isLogin, setIsLogin] = useState(false);
+    const [cookies, removeCookie] = useCookies();
 
     const [posts, setPosts] = useState([]);
     const [page, setPage]= useState(0);
@@ -37,7 +42,7 @@ const Home=()=>{
         '전체' : [],
         '1학년': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
-        '3학년': ['웹프레임워크1', '가상현실'],
+        '3학년': ['웹프레임워크1', '가상현실', '고급모바일_프로그래밍', '데이터베이스_설계'],
         '4학년': ['웹프레임워크2', '캡스톤디자인']
 
     };
@@ -160,13 +165,14 @@ const Home=()=>{
     const logOut = () =>{
         localStorage.clear();
         setIsLogin(false);
+        removeCookie('postView');
     }
 
     //서버에서 아이템 가져오기
     const getPost = useCallback(async ()=>{
         if(isTotal){
             setLoading(true)
-            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=8&is_progress=${is_progress}`)
+            await axios.get(`http://localhost:8080/post/postList?page=${page}&size=6&is_progress=${is_progress}`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -176,7 +182,7 @@ const Home=()=>{
         }
         else{
             setLoading(true);
-            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=8`)
+            await axios.get(`http://localhost:8080/post/postList/filtering?is_progress=${is_progress}&subject=${subject}&division=${division}&page=${page}&size=6`)
             .then((response)=>{
                 setPosts((prevState)=>prevState.concat(response.data.content))
                 console.log(posts)
@@ -243,13 +249,13 @@ const Home=()=>{
             )}
             </div>
             <div>
-            <button className='adder-btn' onClick={upload}><strong>플러스</strong></button>
+            <button className='adder-btn' onClick={upload}><BsPlusLg size="33"/></button>
             {isModalOpen &&
                 <Modal open={isModalOpen} onOk={handleOk}>
                     <p>로그인 후 사용할 수 있는 기능입니다..</p>
                 </Modal>
             }
-            <button className='top-btn' onClick={handleTop}><span className='top-text'>TOP</span></button>
+            <button className='top-btn' onClick={handleTop}><AiOutlineArrowUp size="40"/></button>
             </div>
             <div ref={ref} className='observer'/>
             </>
