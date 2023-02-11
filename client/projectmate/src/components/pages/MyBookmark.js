@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Typography, Divider, Card } from 'antd';
+import { Space, Typography, Divider, Card, Tag, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { AiOutlineEye } from 'react-icons/ai';
+import { HiOutlineChatBubbleLeftRight } from 'react-icons/hi2'
 import axios from 'axios';
 import "../css/MyPage.css";
 
@@ -40,12 +42,17 @@ const MyBookmark = () => {
                 <Title level={4}>북마크한 글</Title>
                 {myBookmark.map((info, i) => {
                     return (
-                        <Card hoverable style={{ width: 500 }} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
-                            <Meta title={info.title} description={info.modifiedDate}/>
-                            <Divider/>                   
-                            <Text>{info.subject} [{info.division}] </Text>
-                            <Title level={5}>{info.writer_nickname}</Title>
-                            <Text>{info.view_count}</Text>                
+                        <Card className="card" hoverable style={{width:650}} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
+                            <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.subject} </Tag>
+                            <Tag color="processing"  style={{fontSize:16, padding: 3}}>#{info.division} </Tag>
+                            <Title level={4}> {info.title} </Title >
+                            <Text level={5}>{info.modifiedDate}</Text>
+                            <Divider/> 
+                            <Row>
+                                <Col span={12}><Title level={5} className="poster">{info.writer_nickname}</Title> </Col>
+                                <Col span={12}><Title level={5} className='text'>{info.comment_count}</Title> <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
+                                <Title level={5} className="text">{info.view_count}</Title> <AiOutlineEye size="30" className="icon"/></Col>
+                            </Row>
                         </Card>
                     )
                 })}

@@ -2,7 +2,6 @@
     margin-left:15%;
     margin-right:15%;
     margin-bottom:15%;
-    margin-top:3%;
 }
 
 .myInfoMenu {
@@ -10,30 +9,32 @@
     padding-left:50px;
     padding-top:50px;
     padding-bottom:50px;
+    margin-right:50px;
     border: 2.3px solid gainsboro;
     border-radius: 10px;
 }
 
 .userInfo {
-    margin-bottom:20px;
+    margin-bottom:50px;
 }
 
 .myInfo{
-    padding:3% 20% 10% 20%;
+    padding:3% 10% 10% 10%;
     border: 2.3px solid gainsboro;
     border-radius: 10px;
+    float:left;
 }
 
 .myInfoTab {
-    margin-left:10px;
+    margin-left:4px;
     padding-left:10%;
     padding-right:18%;
     padding-top:3%;
-    padding-bottom:5%;
+    padding-bottom:8%;
     border: 2.3px solid gainsboro;
     border-radius: 10px;
+    width: 80%;
 }
-
 
 .myInfoBtn {
     margin-bottom:20%;
@@ -49,7 +50,7 @@
 }
 
 .myPage {
-    margin:5%;
+    margin:2%;
 }
 
 .change-profile {
@@ -66,4 +67,38 @@
 
 .goBack {
     margin-bottom:1%;
+}
+
+.icon {
+    float:right;
+}
+
+.text {
+    margin-top:3px;
+    margin-right:2%;
+    margin-left:1%;
+    float:right;
+}
+
+.button {
+    margin-top:22px;
+}
+
+.card {
+    margin:0;
+    margin-top:2%;
+    margin-bottom:1%;
+}
+
+.poster {
+    margin:0;
+}
+
+.input{
+    margin-top:1%;
+    margin-bottom:2.5%;
+}
+
+.color {
+    color: #096dd9 !important;
 }
