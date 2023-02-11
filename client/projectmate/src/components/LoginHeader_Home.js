@@ -4,18 +4,16 @@ import { IoPerson}  from 'react-icons/io5'
 import { AiOutlineEdit } from "react-icons/ai";
 import { HiOutlineLogout } from "react-icons/hi";
 import { BsPerson, BsBookmarkStar} from "react-icons/bs"
-import { useCookies } from 'react-cookie';
 import { Typography, Menu } from 'antd';
 import "./css/Home.css"
 
 const { Title } = Typography;
 
-const LoginHeader=(props)=>{
+const LoginHeader_Home=(props)=>{
     const EXPIRY_TIME = 1 * 3600 * 1000;                //로그인 세션 유지 시간.
     let loginTime = localStorage.getItem('login-time'); 
     let nowTime = Date.now();
 
-    const [cookies, removeCookie] = useCookies();
     const [isOpen, setIsOpen]=useState(false);
 
     const goToMyPage = useNavigate();
@@ -29,16 +27,10 @@ const LoginHeader=(props)=>{
         setIsOpen(!open)
     }
 
-    const logOut = () =>{
-        localStorage.clear();
-        removeCookie('postView');
-        goToMyPage('/');
-    }
-
     const expiryLogin = useCallback(() =>{
         if(nowTime-loginTime > EXPIRY_TIME)         //1시간이 지나면 클리어
         {
-            logOut();
+            props.logOut();
         }
     });
 
@@ -65,11 +57,11 @@ const LoginHeader=(props)=>{
                     </Link>
                     <Menu.Item className='list-component' style={{ lineHeight : "10px", padding : '5px'  }}><Title level={4} style={{ margin: '0px' }}><AiOutlineEdit viewBox="0 -110 1024 1024" size="25" style={{ margin:"0px 7px 0px 0px" }}/>작성한 글</Title></Menu.Item>
                     <Menu.Item className='list-component' style={{ lineHeight : "10px", padding : '5px'  }}><Title level={4} style={{ margin: '0px' }}><BsBookmarkStar size="25" style={{ margin:"0px 7px 0px 0px" }}/>북마크한 글</Title></Menu.Item>
-                    <Menu.Item className='list-component' onClick={logOut} style={{ lineHeight : "10px", padding : '5px'  }}><Title level={4} style={{ margin: '0px', padding : "0px" }}><HiOutlineLogout size="25" viewBox='0 -3 24 24' style={{ margin:"0px 7px 0px 0px" }}/><span className='login-texts'>로그아웃</span></Title></Menu.Item>
+                    <Menu.Item className='list-component' onClick={props.logOut} style={{ lineHeight : "10px", padding : '5px'  }}><Title level={4} style={{ margin: '0px', padding : "0px" }}><HiOutlineLogout size="25" viewBox='0 -3 24 24' style={{ margin:"0px 7px 0px 0px" }}/><span className='login-texts'>로그아웃</span></Title></Menu.Item>
                 </Menu>}
             </div>
             </>
     );
 }
 
-export default LoginHeader;
+export default LoginHeader_Home;

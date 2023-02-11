@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Typography, Button, Modal, Form, Input } from 'antd';
 import axios from 'axios';
-import LoginHeader from '../LoginHeader'
+import Header from '../Header';
 import "../css/Details.css"
+import LogoHeader from '../LogoHeader';
 
 const { Title, Text } = Typography;
 
@@ -144,7 +145,7 @@ const Register = () => {
   return (
     <>   
     <div className='header'>
-      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+      <LogoHeader/>
     </div>
     <div className="posting">
     <Title level={2} className="register">회원가입</Title>
