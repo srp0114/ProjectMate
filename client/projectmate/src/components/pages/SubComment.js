@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react'
-import {AiFillLock} from 'react-icons/ai'
+import { AiFillLock } from 'react-icons/ai'
+import { Avatar, Button} from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import '../css/Details.css';
 
-const SubComment =(props) =>{
+const SubComment = (props) =>{
     const [isHover, setIsHover] = useState(false);
     const [modComment, setModComment]= useState(props.content);
     const [secret, setSecret] = useState(0);
@@ -82,21 +84,26 @@ const SubComment =(props) =>{
                     <textarea className='comment-mod-input' onChange={ModCommentText} value={modComment} />
                     <label for='secret-mod-comment2'>비밀글</label>
                     <input type='checkbox' className='secret-comment' id='secret-mod-comment2' onClick={secretHandler} checked={secret}/>
-                    <button onClick={sendModComment} className='comment-btn'>수정하기</button>
+                    <Button onClick={sendModComment} className='comment-btn'>수정하기</Button>
                 </div>
             </> 
             :
             <div className='sub-comment'>
-                <div onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
-                    <p className='writer-content'><span className='writer'>{props.writer_nickname}</span>
-                    {isHover && <div className='comment-sub-btn-container'>
-                        {props.isWriter && <>
-                            <button className='comment-btns' onClick={ModifyComment}>수정</button>
-                            <button className='comment-btns' onClick={DeleteComment}>삭제</button>
-                        </>
-                        }
-                        </div>}</p>
-                    <p className='comment-content'>{props.secret ? <AiFillLock size="14"/> : <></>}<span>{props.content}</span></p>
+                <div className='comment-hover' onMouseOver={()=>setIsHover(true)} onMouseOut={()=>setIsHover(false)}>
+                <Avatar size={60} icon={<UserOutlined/>}/>
+                    <div style={{width:'100%'}}>
+                        <div className='writer-content'><div className="writer">{props.writer_nickname}
+                        </div>
+                        {isHover && <div className='comment-sub-btn-container'>
+                            {props.isWriter && <>
+                                <button className='comment-btns' onClick={ModifyComment}>수정</button>
+                                <button className='comment-btns' onClick={DeleteComment} >삭제</button>
+                            </>
+                            }
+                        </div>}
+                        </div>
+                        <p className='comment-content'>{props.secret ? <AiFillLock size="14"/> : <></>}{props.content}</p>
+                    </div>
                 </div>
             </div>}         
         </>   
