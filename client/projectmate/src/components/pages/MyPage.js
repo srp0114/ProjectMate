@@ -8,7 +8,6 @@ import MyWriting from "./MyWriting.js"
 import MyBookmark from "./MyBookmark"
 import MyComment from "./MyComment"
 import LoginHeader from '../LoginHeader';
-import Header from '../Header';
 import "../css/MyPage.css";
 
 const { Title, Text } = Typography;
@@ -16,12 +15,7 @@ const { Title, Text } = Typography;
 const MyPage = () => {
     const nickname = localStorage.getItem('nickname')
     const [MyPage, setMyPage] = useState()
-    const navigate = useNavigate();
-
-    const goBack = () => {
-        navigate(-1);
-    }
-
+    
     return (
         <>
             <div className='header'>
@@ -29,10 +23,6 @@ const MyPage = () => {
             </div>
             
             <div className="myInfoPage">
-                <div className="goBack">
-                <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
-                </div>
-
                 <Row className="myPage">
                     <Col flex="30%">
                         <Space direction="vertical" className="myInfoMenu">
@@ -48,7 +38,7 @@ const MyPage = () => {
                             <Button className="myInfoBtn" type="text" size="large" onClick={() => setMyPage(<MyBookmark/>)}>북마크한 글</Button>
                         </Space>
                     </Col>
-                    <Col flex="auto">{MyPage}</Col>
+                    <Col flex="auto" className="choosePage">{MyPage}</Col>
                 </Row>
             </div>
         </>
