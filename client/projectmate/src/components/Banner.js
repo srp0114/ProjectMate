@@ -9,6 +9,8 @@ SwiperCore.use([Navigation, Pagination,Autoplay]);
 
 const Banner=()=> {
   const banner1 = "/banners/projectmate_banner1.png"
+  const banner2 = "/banners/banner.svg";
+
     return (
       <div className='banner-container'>
       <Swiper
@@ -22,7 +24,7 @@ const Banner=()=> {
         autoplay={{ delay: 1300 }}
         >
         <SwiperSlide className='banner-content'><div className="test-text"><img className='banner-img' src={banner1} width="100%" height="500"/></div></SwiperSlide>
-        <SwiperSlide className='banner-content'>슬라이드2</SwiperSlide>
+        <SwiperSlide className='banner-content'><div className="test-text"><img className='banner-img' src={banner2} width="100%" height="500" /></div></SwiperSlide>
         <SwiperSlide className='banner-content'>슬라이드3</SwiperSlide>
       </Swiper>
       </div>
