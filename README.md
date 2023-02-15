@@ -34,7 +34,7 @@
   - 개발 도구: Intellij
 
 - Front-End
-  - 개발 언어 및 기술: <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=F7DF1E"/>, HTML, CSS, React
+  - 개발 언어 및 기술: <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML-#34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-61DAFB?style=flat-square&logo=React&logoColor=white"/>
   - 개발 도구: Vscode
   
 - ETC : Git, GitHub, Postman, Notion  
