@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import '../style.css';
 import { Modal, Button } from 'antd';
@@ -56,6 +56,11 @@ const Header=(props)=>{
         navigate('/')
     }
 
+    useEffect(()=>{
+        setId('');
+        setPw('');
+    },[modalOpen,setModalOpen])
+
     return(
         <>
             <div className="homeBtn">
@@ -67,8 +72,8 @@ const Header=(props)=>{
                         <p className='login-title'>로그인</p>
                         <hr className='login-line'/>
                         <div className='login-input-form'>
-                            <p className='login-input-components'><span className='login-input-text'><BsPersonCircle className='login-icons' size="20"/></span><input type='text' className='login-input' onChange={idHandler} placeholder="UserName"/></p>
-                            <p className='login-input-components'><span className='login-input-text'><AiFillLock className='login-icons' size="20"/></span><input type='password' className='login-input' onChange={pwHandler} placeholder="Password"/></p>
+                            <p className='login-input-components'><span className='login-input-text'><BsPersonCircle className='login-icons' size="20"/></span><input type='text' className='login-input' onChange={idHandler} placeholder="UserName" value={id}/></p>
+                            <p className='login-input-components'><span className='login-input-text'><AiFillLock className='login-icons' size="20"/></span><input type='password' className='login-input' onChange={pwHandler} placeholder="Password" value={pw}/></p>
                         </div>
                         <p><button className='login-modal-btn' onClick={submit}>로그인</button></p>
                         <p>아이디가 없으신가요? <Link to="/register">회원가입</Link></p>
