@@ -30,19 +30,21 @@
 ## 💻개발 환경
 - Back-End<br>
   🔡 개발 언어 및 기술<br> 
-  Java11, Spring Boot, Spring Data JPA, Spring Security, Jwt
+  Java11, Spring Boot, Spring Data JPA, Spring Security, Jwt<br>
   📚 데이터베이스<br>
-  MySQL
+  MySQL<br>
   🧰 개발 도구<br>
-  Intellij
+  Intellij<br>
 
 - Front-End<br>
   🔡 개발 언어 및 기술<br>
   <img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML-34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+  <br>
   🧰 개발 도구<br>
   <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"/>
-  
-- ETC : <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white"/><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/>  
+  <br>
+- ETC<br>
+  <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white"/><img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white"/>  
 <br>
 
 
