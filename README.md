@@ -38,7 +38,7 @@
 
 - Front-End<br>
   🔡 개발 언어 및 기술<br>
-  <div style="line-height:10%;"><img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML-34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+  <div style="line-height:200%;"><img src="https://img.shields.io/badge/JavaScript-FFCA28?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML-34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-61DAFB?style=flat-square&logo=React&logoColor=white"/>
   </div>
   <br>
   🧰 개발 도구<br>
