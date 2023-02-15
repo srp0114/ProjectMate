@@ -40,13 +40,24 @@ const Home=()=>{
         '전체' : [],
         '1학년': ['웹프로그래밍기초', '컴퓨터프로그래밍'],
         '2학년': ['컴퓨터구조', '자료구조', '객체지향언어1'],
-        '3학년': ['웹프레임워크1', '가상현실', '고급모바일_프로그래밍', '데이터베이스_설계'],
+        '3학년': ['웹프레임워크1', '가상현실', '고급모바일프로그래밍', '데이터베이스설계'],
         '4학년': ['웹프레임워크2', '캡스톤디자인']
-
     };
 
     //분반
-    const divComponent =['A','B','N','1'];
+    const divComponent = {
+        웹프로그래밍기초: ['A', 'B', 'C', 'N'],
+        컴퓨터프로그래밍: ['A', 'B', 'N', '7'],
+        컴퓨터구조: ['7', '8', 'A', 'B', 'N'],
+        자료구조: ['A', 'B', 'C'],
+        객체지향언어1: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
+        웹프레임워크1: ['A', 'B', 'N'],
+        가상현실: ['A', 'B', 'N'],
+        웹프레임워크2: ['A', 'B', 'N', '1'],
+        캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
+        고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
+        데이터베이스설계: ['A', 'B', 'N']
+      };
 
     const Button = (props) =>{          //props.name,  props.func
         return(
@@ -197,8 +208,6 @@ const Home=()=>{
             }
     },[inView])
 
-    
-
     useEffect(()=>{
         if(localStorage.length>=2){
             setIsLogin(true);
@@ -235,7 +244,7 @@ const Home=()=>{
             </div>
                 {s_btn &&
                 <div className='division-btn-container'>
-                    {divComponent.map((div)=>(<DivButton name={div} func={handleClickDivisionButton}  style={division == div ? 'div-btn-selected' : 'div-btn'}/>))}
+                    {divComponent[subject].map((div)=>(<DivButton name={div} func={handleClickDivisionButton}  style={division == div ? 'div-btn-selected' : 'div-btn'}/>))}
                 </div>}
             {posts.length==0 && <NonFound/>}
             <div className='post-container'>
