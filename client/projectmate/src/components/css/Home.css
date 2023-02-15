@@ -41,6 +41,10 @@
   z-index: 2;
 }
 
+.homeBtn {
+  padding: 20px;
+}
+
 .menu ul {
   display: block;
   color: rgb(37, 37, 37);

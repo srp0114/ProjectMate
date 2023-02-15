@@ -6,6 +6,7 @@ import { HiOutlineLogout } from "react-icons/hi";
 import { BsPerson, BsBookmarkStar} from "react-icons/bs"
 import { useCookies } from 'react-cookie';
 import { Typography, Menu, Button } from 'antd';
+import { HomeOutlined } from "@ant-design/icons"
 import "./css/Home.css"
 
 const { Title } = Typography;
@@ -54,9 +55,9 @@ const LoginHeader=(props)=>{
 
     return(
         <>
-            <Button onClick={goToHome}>
-                로고
-            </Button>
+            <div className="homeBtn">
+            <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
+            </div>            
             <div className='menu'>
                 <button onClick={openMyPage} className='profile-btn'><IoPerson size='30'/><span className='profile-nickname'>{props.nickname}</span></button>
                 {isOpen &&<Menu mode="vertical">

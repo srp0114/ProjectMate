@@ -5,6 +5,7 @@ import { Modal, Button } from 'antd';
 import { AiFillLock } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import WarnModal from './WarnModal';
+import { HomeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import "./css/Home.css"
 
@@ -57,9 +58,9 @@ const LogoHeader=(props)=>{
 
     return(
         <>
-            <Button onClick={goToHome}>
-                로고
-            </Button>
+            <div className="homeBtn">
+            <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
+            </div>
             </>
     );
 }

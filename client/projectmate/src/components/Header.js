@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import '../style.css';
 import { Modal, Button } from 'antd';
+import { HomeOutlined } from "@ant-design/icons"
 import { AiFillLock } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import WarnModal from './WarnModal';
@@ -57,9 +58,9 @@ const Header=(props)=>{
 
     return(
         <>
-            <Button onClick={goToHome}>
-                로고
-            </Button>
+            <div className="homeBtn">
+                <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
+            </div>
             <div><button className='login-btn' onClick={showModal}><span className="btn-text">로그인</span></button></div>
                 <Modal className='login-modal' open={modalOpen} onCancel={handleCancel} footer={null} width={450}>
                     <div className='login-form'>
