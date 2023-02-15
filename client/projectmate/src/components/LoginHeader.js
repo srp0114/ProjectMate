@@ -59,7 +59,8 @@ const LoginHeader=(props)=>{
             <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
             </div>            
             <div className='menu'>
-                <button onClick={openMyPage} className='profile-btn'><IoPerson size='30'/><span className='profile-nickname'>{props.nickname}</span></button>
+                <button onClick={openMyPage} className='profile-btn'><IoPerson size='30'/>
+                <span className='profile-nickname'>{props.nickname}</span></button>
                 {isOpen &&<Menu mode="vertical">
                     <Link to={{
                         pathname : `/mypage`,

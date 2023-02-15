@@ -13,13 +13,14 @@ import "../css/MyPage.css";
 const { Title, Text } = Typography;
 
 const MyPage = () => {
-    const nickname = localStorage.getItem('nickname')
+    const localNickname = localStorage.getItem('nickname')
+    const [nickname, setNickname] = useState(localNickname)
     const [MyPage, setMyPage] = useState()
-    
+
     return (
         <>
             <div className='header'>
-                <LoginHeader nickname={localStorage.getItem('nickname')}/>
+                <LoginHeader nickname={nickname}/>
             </div>
             
             <div className="myInfoPage">

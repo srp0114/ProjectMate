@@ -9,10 +9,11 @@ const { Title, Text } = Typography;
 
 const MyInfo = () => {
     const auth = localStorage.getItem('token')
-    const nickname = localStorage.getItem('nickname')
+    const localNickname = localStorage.getItem('nickname');
     const id = localStorage.getItem('id')
     const email = localStorage.getItem('email')
-    
+
+    const [nickname, setNickname] = useState(localNickname);
     const [ChangePassword, setChangePassword] = useState("");
     const [ChangeCheckedPassword, setChangeCheckedPassword] = useState("");
     const [ChangeNickname, setChangeNickname] = useState("");
@@ -44,11 +45,13 @@ const MyInfo = () => {
         },
         data : ChangedNickname
     };
-
+    
     const submitChangeNickname = () => {
         axios(nicknameConfig)
         .then(function (response) {
-            console.log(nickname);
+            localStorage.setItem("nickname", response.data.nickname);
+            setNickname(response.data.nickname);
+            window.location.href = '/mypage';
         })
         .catch(function (error) {
             console.log(error);
@@ -82,7 +85,6 @@ const MyInfo = () => {
     const showPasswordModal = () => {
         setPasswordOpen(true);
     };
-   
     
     const handleNicknameOk = () => {
         if(nickname === ChangeNickname) {
@@ -149,12 +151,10 @@ const MyInfo = () => {
         }
     }
 
-
     const onChangeNickname = (event) => {
         setChangeNickname(event.target.value);
         console.log(event.target.value)
     }
-
 
     return (
         <>      
@@ -162,9 +162,9 @@ const MyInfo = () => {
                 <Title level={4} className="color">내 정보</Title>
                     <Row>
                     <Col span={6}> <Title level={5}>닉네임</Title></Col>
-                    <Col span={6}> <Title level={5}>{nickname}</Title></Col>
+                    <Col span={8}> <Title level={5}>{nickname}</Title></Col>
                     <Col span={6}>  
-                        <Button type="primary"  onClick={showNicknameModal} className="button">변경하기</Button>
+                        <Button type="primary" onClick={showNicknameModal} className="button">변경하기</Button>
                         <Modal
                         title="닉네임 변경하기"
                         open={nicknameOpen}
