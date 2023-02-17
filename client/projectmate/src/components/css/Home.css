@@ -1,15 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700');
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower:400');
 
+.logo{
+  font-size: 50px;
+}
 .header{
-    height: 100px;
-    display : flex;
-    padding-left: 120px;
-    padding-right: 120px;
-    padding-top: 30px;
-    justify-content: space-between;
-    margin-left : 150px;
-    margin-right : 150px;
+  height: 100px;
+  display : flex;
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 30px;
+  justify-content: space-between;
+  margin-left : 150px;
+  margin-right : 150px;
 }
 
 .header-line{
@@ -182,7 +186,7 @@
   margin-right : 10px;
   margin-bottom: 10px;
   padding-left : 13.3%;
-  padding-bottom: 10px;
+  padding-bottom: 40px;
 }
 
 .div-btn{
@@ -327,7 +331,7 @@
 }
 
 .swiper{
-  width: 100%;
+  width: 75%;
   height: 500px;
   margin-bottom: 50px;
   text-align: center;
