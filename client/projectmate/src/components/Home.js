@@ -77,8 +77,8 @@ const Home=()=>{
     
     //학년버튼
     const handleClickButton = e => {
-        const name = e.target.value;
-        if(name=='total'){
+        const name= e.target.value;
+        if(name =='전체'){
             setIsTotal(true);
             setPage(0);
             setPosts([]);
