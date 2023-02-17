@@ -30,7 +30,7 @@
 ## 💻 개발 환경
 - Back-End<br>
   🔡 개발 언어 및 기술<br> 
-  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>, <img src="https://img.shields.io/badge/Spring Security-#6DB33F?style=flat-square&logo=Spring Security&logoColor=white"/>, Spring Data JPA, Java11 ,Jwt<br>
+  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>, <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square&logo=Spring Security&logoColor=white"/>, Spring Data JPA, Java11 ,Jwt<br>
   📚 데이터베이스<br>
    <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/><br>
   🧰 개발 도구<br>
