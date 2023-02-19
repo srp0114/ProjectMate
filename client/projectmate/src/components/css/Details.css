@@ -1,49 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700');
+@import url('https://fonts.googleapis.com/css?family=Gamja+Flower:400');
 
 .posting {
   margin-left:20%;
   margin-right:20%;
 }
+
 .postingDay {
   text-align: right;  
   color: gray;
 }
+
 .postingTitle {
   text-align: left;
 }
+
 .updateBtn {
   float:right;
   margin-right:2%;
 }
+
 .deleteBtn {
   float:right;
 }
+
 .bookmarkBtn {
   float:right;
   margin-right:1%;
 }
+
 .bookmarkCnt {
-   float:right;
- }
- .infoColor {
-   color: #096dd9 !important;
- }
- .userProfile {
-   margin-right:1%;
- }
- .postingInfo {
-   margin-top:0;
-   margin-bottom:5%;
-   margin-left:5%;
- }
- .postingContent {
-   margin:0 5%;
-   font-size: 1.2em;
- }
- .ck-editor__editable { 
-   height: 400px; 
-   color: black;  
+  float:right;
 }
+
+.infoColor {
+  color: #096dd9 !important;
+}
+
+.userProfile {
+  margin-right:1%;
+}
+
+.postingInfo {
+  margin-top:0;
+  margin-bottom:5%;
+  margin-left:5%;
+}
+
+.postingContent {
+  margin:0 5%;
+  font-size: 1.2em;
+}
+
+.ck-editor__editable { 
+  height: 400px; 
+  color: black;  
+}
+
 /* 회원가입 */
 .register {
   text-align: center;

@@ -37,26 +37,30 @@ const MyComment = () => {
         navigate(`/post/${id}`)
     }
 
+    const haveComment = (myComment != false) ? (
+        myComment.map((info, i) => {
+            return (
+                <Card className="card" hoverable style={{width:650}} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
+                    <Tag color="processing"  style={{fontSize:16, padding: 3}}>#{info.subject} </Tag>
+                    <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.division} </Tag>
+                    <Title level={4}> {info.title} </Title >
+                    <Text level={5}>{info.modifiedDate}</Text>
+                    <Divider/> 
+                    <Row>
+                        <Col span={12}><Title level={5} className="poster">{info.writer_nickname}</Title> </Col>
+                        <Col span={12}><Title level={5} className='text'>{info.comment_count}</Title> <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
+                        <Title level={5} className="text">{info.view_count}</Title> <AiOutlineEye size="30" className="icon"/></Col>
+                    </Row>
+                </Card>
+            )
+        })
+    ) : (<Title className="noItem" level={3}>댓글단 글이 없습니다.</Title>)
+
     return (
         <>            
             <Space direction='vertical' className="myInfo">
                 <Title level={4}>댓글단 글</Title>
-                {myComment.map((info, i) => {
-                    return (
-                        <Card className="card" hoverable style={{width:650}} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
-                            <Tag color="processing"  style={{fontSize:16, padding: 3}}>#{info.subject} </Tag>
-                            <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.division} </Tag>
-                            <Title level={4}> {info.title} </Title >
-                            <Text level={5}>{info.modifiedDate}</Text>
-                            <Divider/> 
-                            <Row>
-                                <Col span={12}><Title level={5} className="poster">{info.writer_nickname}</Title> </Col>
-                                <Col span={12}><Title level={5} className='text'>{info.comment_count}</Title> <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
-                                <Title level={5} className="text">{info.view_count}</Title> <AiOutlineEye size="30" className="icon"/></Col>
-                            </Row>
-                        </Card>
-                    )
-                })}
+                {haveComment}
             </Space>
         </>
     )

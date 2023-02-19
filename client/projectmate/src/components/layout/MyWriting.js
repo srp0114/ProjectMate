@@ -39,23 +39,30 @@ const MyWriting = () => {
         navigate(`/post/${id}`)
     }
 
+    const haveWriting = (myWriting != false) ? (
+        myWriting.map((info, i) => {
+            return (
+                <Card className="card" hoverable style={{width:650}} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
+                    <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.subject} </Tag>
+                    <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.division} </Tag>
+                    <Title level={4}> {info.title} </Title >
+                    <Text level={5}>{info.modifiedDate}</Text>
+                    <Divider/>                   
+                    <Title level={5} className='text'>{info.comment_count}</Title> 
+                    <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
+                    <Title level={5} className="text">{info.view_count}</Title> 
+                    <AiOutlineEye size="30" className="icon"/>      
+                </Card>
+            )
+        })
+    ) : (<Title className="noItem" level={3}>작성한 글이 없습니다.</Title>)
+
+
     return (
         <>            
             <Space direction='vertical' className="myInfo">
             <Title level={4}>작성한 글</Title>
-                {myWriting.map((info, i) => {
-                    return (
-                        <Card className="card" hoverable style={{width:650}} key={i} id={info.id} onClick={()=>{goToPost(info.id)}}> 
-                            <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.subject} </Tag>
-                            <Tag color="processing" style={{fontSize:16, padding: 3}}>#{info.division} </Tag>
-                            <Title level={4}> {info.title} </Title >
-                            <Text level={5}>{info.modifiedDate}</Text>
-                            <Divider/>                   
-                            <Title level={5} className='text'>{info.comment_count}</Title> <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
-                            <Title level={5} className="text">{info.view_count}</Title> <AiOutlineEye size="30" className="icon"/>      
-                        </Card>
-                    )
-                })}
+            {haveWriting}
             </Space>
         </>
     )
