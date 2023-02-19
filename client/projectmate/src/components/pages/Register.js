@@ -147,6 +147,7 @@ const Register = () => {
     <div className='header'>
       <LogoHeader/>
     </div>
+
     <div className="posting">
     <Title level={2} className="register">회원가입</Title>
     <Form
@@ -214,8 +215,8 @@ const Register = () => {
         가입하기
       </Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-      <p>가입이 완료되었습니다.</p>
-      <p>{Nickname}님 환영합니다!</p>
+        <p>가입이 완료되었습니다.</p>
+        <p>{Nickname}님 환영합니다!</p>
       </Modal>
       </Form.Item>
     </Form>

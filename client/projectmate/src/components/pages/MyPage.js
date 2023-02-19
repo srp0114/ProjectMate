@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Space, Typography, Divider, Avatar, Button, Row, Col} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
-import MyInfo from "./MyInfo"
-import MyWriting from "./MyWriting.js"
-import MyBookmark from "./MyBookmark"
-import MyComment from "./MyComment"
+import MyInfo from "../layout/MyInfo"
+import MyWriting from "../layout/MyWriting.js"
+import MyBookmark from "../layout/MyBookmark"
+import MyComment from "../layout/MyComment"
 import LoginHeader from '../LoginHeader';
 import "../css/MyPage.css";
 

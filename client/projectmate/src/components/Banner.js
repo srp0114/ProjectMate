@@ -19,7 +19,7 @@ const Banner=()=> {
         scrollbar={{ draggable: true }}
         navigation
         pagination={{ clickable: true }}
-        speed={700}
+        speed={2500}
         loop={true}
         autoplay={{ delay: 1300 }}
         >
