@@ -1,6 +1,5 @@
 # Project-Mate
 
-<img src="https://img.shields.io/badge/181717?style=flat&logo=GitHub&logoColor=white"/>
 프론트 깃허브 주소: https://github.com/srp0114/ProjectMate  
 백엔드 깃허브 주소: https://github.com/Doyeon04/project-mate  
 <br>
