@@ -162,7 +162,7 @@ const Comment =(props) =>{
                         <label for='secret-sub-comment'>비밀글</label>
                         <input type='checkbox' className='secret-comment' id='secret-sub-comment' onClick={subSecretHandler} checked={subSecret}/>
                     </div> 
-                    <Button onClick={postSubComment}>답글달기</Button>
+                    <Button onClick={postSubComment} size="large">답글달기</Button>
                     </div>
                     </div>}
                 <div>
