@@ -38,15 +38,15 @@
     font-size: 38px;    
 }
 
+.homeBtn{
+  padding-top: 10px;
+}
+
 .menu {
   width: 200px;
   padding: 10px;
   box-sizing: border-box;
   z-index: 2;
-}
-
-.homeBtn {
-  padding: 20px;
 }
 
 .menu ul {

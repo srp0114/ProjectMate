@@ -63,9 +63,7 @@ const Header=(props)=>{
 
     return(
         <>
-            <div className="homeBtn">
-                <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
-            </div>
+            <img src='/projectmateLogo.png' onClick={goToHome} width={180} height={70} className='homeBtn'/>
             <div><button className='login-btn' onClick={showModal}><span className="btn-text">로그인</span></button></div>
                 <Modal className='login-modal' open={modalOpen} onCancel={handleCancel} footer={null} width={450}>
                     <div className='login-form'>

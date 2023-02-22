@@ -47,9 +47,7 @@ const LoginHeader_Home=(props)=>{
 
     return(
         <>
-            <div className="homeBtn">
-            <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
-            </div>
+            <img src='/projectmateLogo.png' onClick={goToHome} width={180} height={70} className='homeBtn'/>
             <div className='menu'>
                 <button onClick={openMyPage} className='profile-btn'><Avatar size={40} icon={<UserOutlined/>}/><span className='profile-nickname'>{props.nickname}</span></button>
                 {isOpen &&<Menu mode="vertical">

@@ -7,7 +7,6 @@ import { useCookies } from 'react-cookie';
 import { Typography, Menu, Avatar } from 'antd';
 import { HomeOutlined, UserOutlined } from "@ant-design/icons"
 import "./css/Home.css"
-
 const { Title } = Typography;
 
 const LoginHeader=(props)=>{
@@ -54,9 +53,7 @@ const LoginHeader=(props)=>{
 
     return(
         <>
-            <div className="homeBtn">
-            <HomeOutlined style={{ fontSize: '30px' }} onClick={goToHome}/>
-            </div>            
+            <img src='/projectmateLogo.png' onClick={goToHome} width={180} height={70} className='homeBtn'/>          
             <div className='menu'>
                 <button onClick={openMyPage} className='profile-btn'><Avatar size={40} icon={<UserOutlined/>}/>
                 <span className='profile-nickname'>{props.nickname}</span></button>
