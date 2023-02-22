@@ -25,17 +25,17 @@ const PostThumbnail = (props) =>{
         <>
             <Card hoverable style={{ width: 380, height : 415, marginBottom : 30}} className="post">
                 <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
-                <Meta title={<Title level={2}>{props.title}</Title>}/>
+                <Meta title={<Title level={3} className="changeTitle">{props.title}</Title>}/>
                 <Meta description={props.createdDate}/>
                 <Divider style={{'background-color':'rgb(213, 218, 223)'}}/>
-                <Title level={5}><p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p></Title>
+                <p className='post-content' dangerouslySetInnerHTML = { {  __html : props.content } }></p>
                 <div className='tag-container'>
                     <TagDs/>
                 </div>
                 <Divider style={{'background-color':'rgb(213, 218, 223)', 'margin-bottom' : '20px'}}/>
                 <div className='post-footer'>
                     <div className='owner'>
-                    <Avatar size={32} icon={<UserOutlined/>}/><Text style={{ fontSize: 20, marginLeft : 5 }}>{props.writer_nickname}</Text>
+                    <Avatar size={32} icon={<UserOutlined/>}/><Text style={{ fontSize: 20, marginLeft : 5 }} className="changeTitle">{props.writer_nickname}</Text>
                     </div>
                     <div className='icons'>
                         <AiOutlineEye size="30" color='gray'/><span className='etc-num'>{props.view_count}</span>

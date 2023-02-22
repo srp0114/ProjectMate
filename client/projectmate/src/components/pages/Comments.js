@@ -53,10 +53,10 @@ const Comments = (props) =>{
                 </div>
                 <div className='comment-btn-container'>
                     <div>
-                        <label for='secret-comment'>비밀글</label>
+                        <label for='secret-comment' className="changeFont">비밀글</label>
                         <input type='checkbox' className='secret-comment' id='secret-comment' onClick={secretHandler} checked={secret}/>
                     </div>
-                    <Button className='comment-btn' onClick={postComment}>댓글 등록</Button>
+                    <Button className='comment-btn' onClick={postComment} size="large">댓글 등록</Button>
                 </div>
             </div>
             <div className='comments-container'>

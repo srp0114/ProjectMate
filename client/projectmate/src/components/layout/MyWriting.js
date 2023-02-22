@@ -49,9 +49,9 @@ const MyWriting = () => {
                     <Text level={5}>{info.modifiedDate}</Text>
                     <Divider/>                   
                     <Title level={5} className='text'>{info.comment_count}</Title> 
-                    <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
+                    <HiOutlineChatBubbleLeftRight size="30" className="icon" style={{color: "#096dd9"}}/>
                     <Title level={5} className="text">{info.view_count}</Title> 
-                    <AiOutlineEye size="30" className="icon"/>      
+                    <AiOutlineEye size="30" className="icon" style={{color: "#096dd9"}}/>      
                 </Card>
             )
         })
@@ -61,7 +61,7 @@ const MyWriting = () => {
     return (
         <>            
             <Space direction='vertical' className="myInfo">
-            <Title level={4}>작성한 글</Title>
+            <Title level={4} className='myTitle'>작성한 글</Title>
             {haveWriting}
             </Space>
         </>

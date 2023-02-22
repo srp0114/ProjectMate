@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'antd';
+import "./css/Home.css"
 
 const WarnModal = ( props ) =>{
     const handleOk =()=>{
@@ -8,8 +9,8 @@ const WarnModal = ( props ) =>{
 
     return(
         <>
-            <Modal open={props.isModalOpen} onOk={handleOk}>
-                    <p>존재하지 않는 아이디 입니다....</p>
+            <Modal open={props.isModalOpen} onOk={handleOk} className="changeTitle">
+                    <p>존재하지 않는 아이디입니다...</p>
             </Modal>
         </>
     )

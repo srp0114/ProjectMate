@@ -145,8 +145,8 @@ const Details = () => {
   ) : (null);
 
   const BookmarkButton = isBookmark ? (
-    <BsFillBookmarkStarFill size={25} onClick={handleBookmark}/>
-  ) : ( <BsBookmarkStar size={25} onClick={handleBookmark}/> ) 
+    <BsFillBookmarkStarFill size={25} onClick={handleBookmark} style={{color: "#096dd9"}} />
+  ) : ( <BsBookmarkStar size={25} onClick={handleBookmark} style={{color: "#096dd9"}}/> ) 
 
   const goBack = () => {
     navigate(-1);
@@ -179,22 +179,22 @@ const Details = () => {
       <Text className="updateBtn">{UpdateButton}</Text>
       <Title level={1} className="postingTitle">{title}</Title>
       <Avatar size={38} icon={<UserOutlined/>} className="userProfile"/>
-      <Text>{writerName} ({ID})</Text>
+      <Text className="postingWriter">{writerName} ({ID})</Text>
       <Text className="bookmarkCnt">{bookmarkCount}</Text>
       <Text className="bookmarkBtn">{BookmarkButton}</Text>
       <Divider/>
       <div className="postingInfo">
       <Row>
         <Col span={3}><Title level={4} className="infoColor">과목명</Title></Col>
-        <Col span={6}><Title level={4}>{subject}</Title></Col>
+        <Col span={6}><Title level={4} className="infoFont">{subject}</Title></Col>
         <Col span={3}> <Title level={4} className="infoColor">분반</Title></Col>
-        <Col span={6}><Title level={4}>{division}</Title></Col>
+        <Col span={6}><Title level={4} className="infoFont">{division}</Title></Col>
       </Row>
       <Row>
         <Col span={3}> <Title level={4} className="infoColor">모집인원</Title></Col>
-        <Col span={6}> <Title level={4}>{peopleNum}명</Title></Col>
+        <Col span={6}> <Title level={4} className="infoFont">{peopleNum}명</Title></Col>
         <Col span={3}><Title level={4} className="infoColor">진행방식</Title></Col>
-        <Col span={6}><Title level={4}>{proceedWay}</Title></Col>
+        <Col span={6}><Title level={4} className="infoFont">{proceedWay}</Title></Col>
       </Row>
       </div>
       <Divider style={{ borderWidth: 5, borderColor: 'grey' }}  />

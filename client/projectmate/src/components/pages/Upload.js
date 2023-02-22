@@ -10,8 +10,11 @@ import "../css/Details.css"
 
 const { Title, Text } = Typography;
 
-const subjectData = ['웹프로그래밍기초', '컴퓨터프로그래밍', '컴퓨터구조', '자료구조', '객체지향언어1', 
-                      '웹프레임워크1', '가상현실', '웹프레임워크2', '캡스톤디자인', '고급모바일프로그래밍', '데이터베이스설계'];
+const subjectData = [ '웹프로그래밍기초', '컴퓨터프로그래밍', 
+                      '컴퓨터구조', '자료구조', '객체지향언어1', 
+                      '웹프레임워크1', '가상현실', '고급모바일프로그래밍', '데이터베이스설계',
+                      '웹프레임워크2', '캡스톤디자인' ];
+
 const divisionData = {
   웹프로그래밍기초: ['A', 'B', 'C', 'N'],
   컴퓨터프로그래밍: ['A', 'B', 'N', '7'],
@@ -122,8 +125,8 @@ const Upload = () => {
     </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
-      <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
-        <Title level={5}>과목명</Title>
+      <Title level={2} className='title'>프로젝트 기본정보를 입력해주세요</Title>
+        <Title level={5} className='changeFont'>과목명</Title>
         <Select
           key="subject"
           size='large'
@@ -137,7 +140,7 @@ const Upload = () => {
             value: subject,
           }))}
         />
-        <Title level={5}>분반</Title>
+       <Title level={5} className='changeFont'>분반</Title>
         <Select
           size='large'
           defaultValue='분반'
@@ -163,7 +166,7 @@ const Upload = () => {
           })}
           options={peopleNumData}
         />
-        <Title level={5}>진행방식</Title>
+        <Title level={5} className='changeFont'>진행방식</Title>
         <Select
           size='large'
           defaultValue='진행방식'
@@ -186,7 +189,7 @@ const Upload = () => {
           ]}
         />
       <Divider/>
-      <Title level={2}>프로젝트를 소개해주세요</Title>
+      <Title level={2} className='title'>프로젝트를 소개해주세요</Title>
       <Input size="large" name="title" onChange={getValue} placeholder="제목을 입력해주세요." /> 
       <br/>
       <br/>
@@ -213,7 +216,7 @@ const Upload = () => {
           } }
       />
       <br/>
-      <Button onClick={submit}>작성하기</Button>
+      <Button onClick={submit} size="large">작성하기</Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
       <p>게시글 작성이 완료되었습니다.</p>
       </Modal>

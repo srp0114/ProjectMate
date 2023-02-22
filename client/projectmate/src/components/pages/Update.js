@@ -149,8 +149,8 @@ const Update = () =>  {
     </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>
-      <Title level={2}>프로젝트 기본정보를 입력해주세요</Title>
-        <Title level={5}>과목명</Title>
+      <Title level={2} className='title'>프로젝트 기본정보를 입력해주세요</Title>
+        <Title level={5} className='changeFont'>과목명</Title>
         <Select
           key="subject"
           size='large'
@@ -164,7 +164,7 @@ const Update = () =>  {
             value: subject,
           }))}
         />
-        <Title level={5}>분반</Title>
+        <Title level={5} className='changeFont'>분반</Title>
         <Select
           size='large'
           value={div}
@@ -177,7 +177,7 @@ const Update = () =>  {
             value: division,
           }))}
         />
-        <Title level={5}>모집인원</Title>
+        <Title level={5} className='changeFont'>모집인원</Title>
         <Select
           size='large'
           value={peopleNum}
@@ -189,7 +189,7 @@ const Update = () =>  {
           }
           options={peopleNumData}
         />
-        <Title level={5}>진행방식</Title>
+        <Title level={5} className='changeFont'>진행방식</Title>
         <Select
           size='large'
           value={proceedWay}
@@ -210,7 +210,7 @@ const Update = () =>  {
             },
           ]}
         />
-        <Title level={5}>모집여부</Title>
+        <Title level={5} className='changeFont'>모집여부</Title>
         <Select
           size='large'
           value={isProgress}
@@ -232,7 +232,7 @@ const Update = () =>  {
           ]}
         />
       <Divider/>
-      <Title level={2}>프로젝트를 소개해주세요</Title>
+      <Title level={2} className='title'>프로젝트를 소개해주세요</Title>
       <Title level={5}>제목</Title>
       <Input size="large" name="title" value={title} onChange={updateTitle}/> 
       <br/>
@@ -246,7 +246,7 @@ const Update = () =>  {
           } }
       />
       <br/>
-      <Button onClick={submit}>수정하기</Button>
+      <Button onClick={submit} size="large">수정하기</Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
       <p>게시글 수정이 완료되었습니다.</p>
       </Modal>

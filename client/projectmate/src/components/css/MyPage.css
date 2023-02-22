@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:700');
 @import url('https://fonts.googleapis.com/css?family=Gamja+Flower:400');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
 
 .myInfoPage {
     margin-left:15%;
     margin-right:15%;
     margin-bottom:15%;
-    font-family: 'Nanum Gothic Coding', sans-serif;
-
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .myInfoMenu {
@@ -16,8 +16,13 @@
     padding-top:50px;
     padding-bottom:50px;
     margin-right:50px;
-    border: 2.3px solid gainsboro;
+    border: 2.5px solid #bae0ff;
     border-radius: 10px;
+}
+
+.myInfoMenu:hover {
+    transform: scale(1.02);
+    box-shadow:0px 0px 5px gainsboro;
 }
 
 .userInfo {
@@ -26,9 +31,14 @@
 
 .myInfo{
     padding:3% 10% 10% 10%;
-    border: 2.3px solid gainsboro;
+    border: 2.5px solid #bae0ff;
     border-radius: 10px;
     float:left;
+}
+
+.myInfo:hover {
+    transform: scale(1.02);
+    box-shadow:0px 0px 5px gainsboro;
 }
 
 .myInfoTab {
@@ -37,18 +47,20 @@
     padding-right:18%;
     padding-top:3%;
     padding-bottom:8%;
-    border: 2.3px solid gainsboro;
+    border: 2.5px solid #bae0ff;
     border-radius: 10px;
     width: 80%;
 }
 
-.myInfoBtn {
-    margin-bottom:20%;
-    font-family: 'Nanum Gothic Coding', sans-serif;
+.myInfoTab:hover {
+    transform: scale(1.02);
+    box-shadow:0px 0px 5px gainsboro;
 }
 
-.myInfoMenu:hover {
-    transform: scale(1.02);
+.myInfoBtn {
+    margin-bottom:20%;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 700;
 }
 
 .info {
@@ -66,10 +78,14 @@
     border-radius: 5px;
     padding: 5px;
     margin-top: 0px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 400;
 }
 
 .myInfoNickname {
     margin-top:5px;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 700
 }
 
 .goBack {
@@ -85,6 +101,7 @@
     margin-right:2%;
     margin-left:1%;
     float:right;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .button {
@@ -95,19 +112,28 @@
     margin:0;
     margin-top:2%;
     margin-bottom:1%;
+    border-color: rgb(184, 183, 183);
 }
 
 .poster {
     margin:0;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 700;
 }
 
 .input{
     margin-top:1%;
     margin-bottom:2.5%;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
-.color {
+.myInfoTitle {
     color: #096dd9 !important;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.myTitle{
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .noItem {
@@ -116,4 +142,8 @@
     color: rgb(124, 124, 124) !important;
     text-align:center;
     font-family: 'Nanum Gothic Coding', sans-serif;
+}
+
+.change {
+    font-family: 'Nanum Gothic', sans-serif;
 }

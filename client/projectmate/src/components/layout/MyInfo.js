@@ -159,10 +159,10 @@ const MyInfo = () => {
     return (
         <>      
             <Space direction='vertical' className="myInfoTab">
-                <Title level={4} className="color">내 정보</Title>
+                <Title level={4} className="myInfoTitle">내 정보</Title>
                     <Row>
-                    <Col span={6}> <Title level={5}>닉네임</Title></Col>
-                    <Col span={8}> <Title level={5}>{nickname}</Title></Col>
+                    <Col span={6}> <Title level={5} className="change">닉네임</Title></Col>
+                    <Col span={7}> <Title level={5} className="change">{nickname}</Title></Col>
                     <Col span={6}>  
                         <Button type="primary" onClick={showNicknameModal} className="button">변경하기</Button>
                         <Modal
@@ -170,26 +170,27 @@ const MyInfo = () => {
                         open={nicknameOpen}
                         onOk={handleNicknameOk}
                         confirmLoading={confirmLoading}
-                        onCancel={handleCancel}                       
+                        onCancel={handleCancel}    
+                        className="change"                   
                         >
-                        <Text>{nicknameText}</Text>
+                        <Text className='change'>{nicknameText}</Text>
                         <Input className="input" onChange={onChangeNickname}/>
                     </Modal>
                     </Col>
                     </Row>
 
                     <Row>
-                    <Col span={6}><Title level={5}>학번</Title></Col>
-                    <Col span={6}><Title level={5}>{id}</Title></Col>
+                    <Col span={6}><Title level={5} className='change'>학번</Title></Col>
+                    <Col span={6}><Title level={5} className='change'>{id}</Title></Col>
                     </Row>
                     
                     <Row>
-                    <Col span={6}><Title level={5}>이메일</Title></Col>
-                    <Col span={18}><Title level={5}>{email}</Title></Col>
+                    <Col span={6}><Title level={5} className='change'>이메일</Title></Col>
+                    <Col span={18}><Title level={5} className='change'>{email}</Title></Col>
                     </Row>
 
                     <Row>
-                    <Col span={6}><Title level={5}>비밀번호</Title></Col>
+                    <Col span={6}><Title level={5} className='change'>비밀번호</Title></Col>
                     <Col span={6}>
                         <Button type="primary" onClick={showPasswordModal} className="button">변경하기</Button>
                         <Modal
@@ -197,11 +198,12 @@ const MyInfo = () => {
                             open={passwordOpen}
                             onOk={handlePasswordOk}
                             confirmLoading={confirmLoading}
-                            onCancel={handleCancel}                       
+                            onCancel={handleCancel}  
+                            className='change'                     
                         >
-                            <Text>{passwordText}</Text>
+                            <Text className='change'>{passwordText}</Text>
                             <Input className="input" onChange={onChangePassword}/>
-                            <Text>{checkedPasswordText}</Text>
+                            <Text className='change'>{checkedPasswordText}</Text>
                             <Input className="input" onChange={onChangeCheckedPassword}/>
                         </Modal>
                     </Col>

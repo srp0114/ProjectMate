@@ -63,7 +63,7 @@ const Header=(props)=>{
 
     return(
         <>
-            <img src='/projectmateLogo.png' onClick={goToHome} width={180} height={70} className='homeBtn'/>
+            <img src='/projectmateLogo.png' onClick={goToHome} width={210} height={60} className='homeBtn'/>
             <div><button className='login-btn' onClick={showModal}><span className="btn-text">로그인</span></button></div>
                 <Modal className='login-modal' open={modalOpen} onCancel={handleCancel} footer={null} width={450}>
                     <div className='login-form'>
@@ -74,7 +74,7 @@ const Header=(props)=>{
                             <p className='login-input-components'><span className='login-input-text'><AiFillLock className='login-icons' size="20"/></span><input type='password' className='login-input' onChange={pwHandler} placeholder="Password" value={pw}/></p>
                         </div>
                         <p><button className='login-modal-btn' onClick={submit}>로그인</button></p>
-                        <p>아이디가 없으신가요? <Link to="/register">회원가입</Link></p>
+                        <p className='register'>아이디가 없으신가요? <Link to="/register">회원가입</Link></p>
                         <p><button className='login-etc-btn'>ID 찾기</button><a className='etc-outline'/><button className='login-etc-btn'>비밀번호 찾기</button></p>
                     </div>
                 </Modal>

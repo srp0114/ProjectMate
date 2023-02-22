@@ -47,8 +47,10 @@ const MyBookmark = () => {
                     <Divider/> 
                     <Row>
                         <Col span={12}><Title level={5} className="poster">{info.writer_nickname}</Title> </Col>
-                        <Col span={12}><Title level={5} className='text'>{info.comment_count}</Title> <HiOutlineChatBubbleLeftRight size="30" className="icon"/>
-                        <Title level={5} className="text">{info.view_count}</Title> <AiOutlineEye size="30" className="icon"/></Col>
+                        <Col span={12}><Title level={5} className='text'>{info.comment_count}</Title>
+                        <HiOutlineChatBubbleLeftRight size="30" className="icon" style={{color: "#096dd9"}}/>
+                        <Title level={5} className="text">{info.view_count}</Title> 
+                        <AiOutlineEye size="30" className="icon" style={{color: "#096dd9"}}/></Col>
                     </Row>
                 </Card>
             )
@@ -58,7 +60,7 @@ const MyBookmark = () => {
     return (
         <>            
             <Space direction='vertical' className="myInfo">
-                <Title level={4}>북마크한 글</Title>
+                <Title level={4} className='myTitle'>북마크한 글</Title>
                 {haveBookmark}
             </Space>
         </>
