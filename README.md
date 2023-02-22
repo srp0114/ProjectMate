@@ -47,5 +47,32 @@
   <div>
   <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/> <img src="https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=Postman&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?style=flat&logo=Notion&logoColor=white"/>  
   </div>
+<br>
 
+## 📸 스크린샷
+- 홈화면 <br>
+<img width="600" alt="홈화면1" src="https://user-images.githubusercontent.com/92440521/220745260-cd6850f5-b9f2-4aab-94f1-b047e6cc9fa7.png">
+<img width="600" alt="홈화면2" src="https://user-images.githubusercontent.com/92440521/220745290-193ebe92-7840-4d12-83b5-e448e0ab285d.png">
 
+- 게시글 분반 필터링<br>
+<img width="600" alt="게시글 필터링" src="https://user-images.githubusercontent.com/92440521/220745268-54fc8e53-229e-494d-b8d7-c4c779ba1e52.png">
+
+- 회원가입 화면<br>
+<img width="600" alt="회원가입" src="https://user-images.githubusercontent.com/92440521/220745317-e8809ce2-f44c-4a7a-9f29-80867415aed0.png">
+
+- 로그인 화면<br>
+<img width="600" alt="로그인 모달창" src="https://user-images.githubusercontent.com/92440521/220745221-0d8865a7-02d5-4da2-ac92-f03b90ded0a4.png">
+
+- 게시글 작성화면<br>
+<img width="600" alt="게시글 등록" src="https://user-images.githubusercontent.com/92440521/220745305-80b4c01e-9798-4174-92b6-c7d03dba7222.png">
+
+- 게시글 상세보기 화면<br>
+<img width="600" alt="상세보기" src="https://user-images.githubusercontent.com/92440521/220745330-60539249-683e-45bf-96e0-1629ada07fb8.jpg">
+
+- 게시글 삭제화면<br>
+
+- 마이페이지:내 정보 화면<br>
+<img width="600" alt="내정보" src="https://user-images.githubusercontent.com/92440521/220745287-7172f3a2-4984-419e-881e-ae3f2a47d264.png">
+
+- 마이페이지:작성한 글 화면<br>
+<img width="600" alt="작성한 글" src="https://user-images.githubusercontent.com/92440521/220745250-213e3d7e-d93c-48bb-a3b8-09486d7ce89e.png">
