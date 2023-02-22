@@ -189,7 +189,7 @@ const Update = () =>  {
           }
           options={peopleNumData}
         />
-        <Title level={5} className='changeFont'>진행방식</Title>
+        <Title level={5} className='changeFont'>모집여부</Title>
         <Select
           size='large'
           value={proceedWay}
@@ -201,12 +201,12 @@ const Update = () =>  {
           }
           options={[
             {
-              value: '오프라인',
-              label: '오프라인',
+              value: '모집마감',
+              label: '모집마감',
             },
             {
-              value: '온라인',
-              label: '온라인',
+              value: '모집중',
+              label: '모집중',
             },
           ]}
         />
