@@ -7,6 +7,11 @@
   font-family: 'Nanum Gothic', sans-serif;
 }
 
+.changeTitle {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: 700;
+}
+
 .title {
   font-family: 'Nanum Gothic', sans-serif;
   padding-top:3%;

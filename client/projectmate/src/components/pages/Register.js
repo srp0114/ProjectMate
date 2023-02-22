@@ -214,7 +214,7 @@ const Register = () => {
       <Button type="primary" htmlType="submit" onClick={submit} disabled={NotAllow}>
         가입하기
       </Button>
-      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className='changeTitle'>
         <p>가입이 완료되었습니다.</p>
         <p>{Nickname}님 환영합니다!</p>
       </Modal>
