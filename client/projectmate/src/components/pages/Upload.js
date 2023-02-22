@@ -218,7 +218,7 @@ const Upload = () => {
       <br/>
       <Button onClick={submit} size="large">작성하기</Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-      <p>게시글 작성이 완료되었습니다.</p>
+      <p className='changeFont'><b>게시글 작성이 완료되었습니다.</b></p>
       </Modal>
       <br/>
       <br/>

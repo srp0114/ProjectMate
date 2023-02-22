@@ -139,7 +139,7 @@ const Details = () => {
     <>
     <Button onClick={DeletePost}>삭제하기</Button>
     <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-    <p>게시글이 삭제되었습니다</p>
+    <p className='changeFont'><b>게시글이 삭제되었습니다.</b></p>
     </Modal>
     </>
   ) : (null);

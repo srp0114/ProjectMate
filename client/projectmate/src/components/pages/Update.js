@@ -248,7 +248,7 @@ const Update = () =>  {
       <br/>
       <Button onClick={submit} size="large">수정하기</Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-      <p>게시글 수정이 완료되었습니다.</p>
+      <p className='changeFont'><b>게시글 수정이 완료되었습니다.</b></p>
       </Modal>
       <br/>
       <br/>
