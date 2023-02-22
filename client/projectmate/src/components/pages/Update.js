@@ -21,7 +21,7 @@ const divisionData = {
   객체지향언어1: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
   웹프레임워크1: ['A', 'B', 'N'],
   가상현실: ['A', 'B', 'N'],
-  웹프레임워크2: ['A', 'B', 'N', '1'],
+  웹프레임워크2: ['A', 'B', 'N', '7'],
   캡스톤디자인: ['7', '8', 'A', 'B', 'N'],
   고급모바일프로그래밍: ['7', '8', '9', 'A', 'B', 'C', 'D', 'N', 'O'],
   데이터베이스설계: ['A', 'B', 'N'],
@@ -189,27 +189,27 @@ const Update = () =>  {
           }
           options={peopleNumData}
         />
-        <Title level={5} className='changeFont'>모집여부</Title>
-        <Select
-          size='large'
-          value={proceedWay}
+        <Title level={5} className='changeFont'>진행방식</Title>
+         <Select
+           size='large'
+           value={proceedWay}
           style={{
             width: 350,
           }}
           onChange={(value) => 
             setProceedWay(value)
-          }
-          options={[
-            {
-              value: '모집마감',
-              label: '모집마감',
-            },
-            {
-              value: '모집중',
-              label: '모집중',
-            },
-          ]}
-        />
+           }
+           options={[
+             {
+               value: '오프라인',
+               label: '오프라인',
+             },
+             {
+               value: '온라인',
+               label: '온라인',
+             },
+           ]}
+         />
         <Title level={5} className='changeFont'>모집여부</Title>
         <Select
           size='large'

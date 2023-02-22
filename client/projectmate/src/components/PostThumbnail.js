@@ -23,7 +23,7 @@ const PostThumbnail = (props) =>{
 
     return(
         <>
-            <Card hoverable style={{ width: 380, height : 415, marginBottom : 30}} className="post">
+            <Card hoverable style={{ width: 380, height : 400, marginBottom : 30}} className="post">
                 <Link to={`/post/${props.id}`} style={{ textDecoration: "none" }}>
                 <Meta title={<Title level={3} className="changeTitle">{props.title}</Title>}/>
                 <Meta description={props.createdDate}/>
