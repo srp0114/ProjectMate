@@ -30,11 +30,14 @@
 ## 💻 개발 환경
 - Back-End<br>
   🔡 개발 언어 및 기술<br> 
-  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flate&logo=JSON Web Tokens&logoColor=white"/> <img src="https://img.shields.io/badge/Java11-007396?style=flat&logo=OpenJDK&logoColor=white"/><br>
+  <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=Spring Security&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flate&logo=JSON Web Tokens&logoColor=white"/> <img src="https://img.shields.io/badge/Java11-007396?style=flat&logo=OpenJDK&logoColor=white"/>
+  <br>
   📚 데이터베이스<br>
-   <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/><br>
+   <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
+   <br>
   🧰 개발 도구<br>
-  <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat&logo=IntelliJ IDEA&logoColor=white"/><br>
+  <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat&logo=IntelliJ IDEA&logoColor=white"/>
+  <br>
 
 - Front-End<br>
   🔡 개발 언어 및 기술<br>
