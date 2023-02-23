@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import axios from 'axios';
-import LoginHeader from '../LoginHeader'
+import LoginHeader from '../Headers/LoginHeader'
 import "../css/Details.css"
 
 const { Title, Text } = Typography;

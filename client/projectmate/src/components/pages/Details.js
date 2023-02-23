@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { SecurityScanTwoTone, UserOutlined, HomeOutlined, HomeFilled } from '@ant-design/icons';
-import { Avatar, Divider, Space, Typography, Input, Button, Modal, Row, Col } from 'antd';
-import axios from 'axios';
-import Comments from './Comments';
-import LoginHeader from '../LoginHeader'
-import { useLinkClickHandler, useParams, useNavigate, useHistory } from 'react-router-dom';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Divider, Typography, Button, Modal, Row, Col } from 'antd';
+import { useParams, useNavigate, useHistory } from 'react-router-dom';
 import { BsBookmarkStar, BsFillBookmarkStarFill } from 'react-icons/bs';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
+import axios from 'axios';
+import Comments from './Comments';
+import LoginHeader from '../Headers/LoginHeader'
 import '../css/Details.css';
 
 const { Title, Text } = Typography;
@@ -167,10 +167,11 @@ const Details = () => {
     })
   };
 
+
   return (
     <>
     <div className='header'>
-      <LoginHeader nickname={localStorage.getItem('nickname')}/>
+      <LoginHeader nickname={localStorage.getItem('nickname')} state="details"/>
     </div>
     <div className="posting">
       <MdOutlineKeyboardBackspace style={{ fontSize: '25px'}} onClick={goBack}/>

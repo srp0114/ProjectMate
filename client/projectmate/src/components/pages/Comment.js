@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import SubComment from './SubComment';
 import {AiFillLock} from 'react-icons/ai'
 import { Avatar, Button} from 'antd';

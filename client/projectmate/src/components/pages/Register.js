@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { Typography, Button, Modal, Form, Input } from 'antd';
 import axios from 'axios';
-import Header from '../Header';
+import Header from '../Headers/Header';
 import "../css/Details.css"
-import LogoHeader from '../LogoHeader';
 
 const { Title, Text } = Typography;
 
@@ -145,7 +144,7 @@ const Register = () => {
   return (
     <>   
     <div className='header'>
-      <LogoHeader/>
+      <Header/>
     </div>
 
     <div className="posting">

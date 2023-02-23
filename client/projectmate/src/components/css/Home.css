@@ -277,7 +277,12 @@
 }
 
 .post-title{
-  font-size: 100px;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight:700;
+  font-size:20px;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .post-content{
@@ -584,12 +589,6 @@
   padding: 10px;
   margin-left: 100px;
   margin-right: 100px;
-}
-
-.changeTitle {
-  font-family: 'Nanum Gothic', sans-serif;
-  font-weight:700;
-  font-size:20px;
 }
 
 .menuBar {
